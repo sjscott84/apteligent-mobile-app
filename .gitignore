@@ -1,6 +1,9 @@
 # OSX
 #
 .DS_Store
+.buckconfig
+.flowconfig
+.watchmanconfig
 
 # Xcode
 #
