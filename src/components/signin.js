@@ -31,6 +31,28 @@ module.exports = React.createClass({
 		)
 	},
 	onPress: function(){
+		const username = this.state.username;
+		const password =  this.state.password;
+		//console.log(username, password);
+		const clientId = window.btoa('HpS0dzMRx9oKPwBlE7TJXzvbfHuODsrO');
+		const grant_type = 'password';
+		const myHeaders = new Headers({
+			"Content-Type": "application/x-www-form-urlencoded",
+			"Authorization": 'Basic '+clientId
+		});
+
+		var request = new Request('https://developers.crittercism.com/v2/token', {
+			method: 'POST',
+			credentials: "same-origin",
+			mode: 'cors',
+			headers: myHeaders,
+			body: 'grant_type=password&username=s.j.scott84%40gmail.com&password=A228kp3jT!'
+		})
+
+		fetch(request)
+			.then((res) => {
+				console.log(res.text());
+			})
 	},
 	onTestPress: function(){
 		//navigate to new route - pushing to a new ROUTE
