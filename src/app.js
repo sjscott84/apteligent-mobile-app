@@ -25,12 +25,12 @@ export default class ApteligentMobileApp extends Component {
     return (
       <Navigator style={styles.container} initialRoute={{name: 'signin'}} renderScene={this._renderScene} configureScene={() => {return Navigator.SceneConfigs.FloatFromLeft}}/>
     );
-  }
+  };
 
   _renderScene(route, navigator){
     var Component = ROUTES[route.name];
     return <Component route={route} navigator={navigator} />
-  }
+  };
 }
 
 const styles = StyleSheet.create({
