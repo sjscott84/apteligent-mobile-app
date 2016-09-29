@@ -21,15 +21,18 @@ var styles = StyleSheet.create({
 	button: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderWidth: 1,
-		borderRadius: 5,
+		borderRadius: 2,
+		height: 36,
 		padding: 5,
-		borderColor: 'black',
-		marginTop: 10
+		marginTop: 20,
+		alignSelf: 'stretch',
+		backgroundColor: 'rgb(46,167,158)'
 	},
 	buttonText: {
-		flex: 1,
-		fontSize: 20,
-		alignItems: 'center'
+		fontSize: 14,
+		lineHeight: 19,
+		fontFamily: 'AppleSDGothicNeo-SemiBold',
+		alignSelf: 'center',
+		color: 'rgb(255,255,255)'
 	}
 })
