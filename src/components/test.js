@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 
-var api = require('./api');
+var api = require('../library/api.js');
 
 class AppList extends Component {
 

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 var SignInButton = require('.//button');
-var api = require('./api');
+var api = require('../library/api.js');
 import base64 from 'base-64';
 
 
