@@ -11,7 +11,6 @@ import {
 
 var Signin = require('./components/signin');
 var Test = require('./components/test');
-var STORAGE_KEY = 'id_token';
 
 const ROUTES = {
   signin: Signin,
@@ -25,10 +24,6 @@ export default class ApteligentMobileApp extends Component {
       <Navigator style={styles.container} initialRoute={{name: 'signin'}} renderScene={this._renderScene} configureScene={() => {return Navigator.SceneConfigs.FloatFromLeft}}/>
     );
   };
-
-  _test(){
-    console.log('Bahahaha');
-  }
 
   _renderScene(route, navigator){
     var Component = ROUTES[route.name];

@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 
+var api = require('./api');
+
 class AppList extends Component {
 
   componentWillMount(){
@@ -21,25 +23,7 @@ class AppList extends Component {
   }
 
   _fetchAppList(){
-    const accessId = this.props.id;
-    const myHeaders = new Headers({
-      "Authorization": 'Bearer '+accessId
-    });
-    var request = new Request('https://developers.crittercism.com:443/v2/apps', {
-      method: 'GET',
-      //credentials: "same-origin",
-      //mode: 'cors',
-      headers: myHeaders
-      //body: 'grant_type=password&username='+username+'&password='+password
-    })
-    fetch(request)
-      .then((res) => {
-        //console.log(res);
-        return res.json();
-      })
-      .then((json) => {
-        console.log(json);
-      })
+    getAppsList();
   }
 };
 

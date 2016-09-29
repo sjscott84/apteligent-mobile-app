@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 
 var SignInButton = require('.//button');
+var api = require('./api');
 import base64 from 'base-64';
+
 
 class Signin extends Component{
 
@@ -39,46 +41,23 @@ class Signin extends Component{
   };
 
   _onPress(){
+    const nav = this.props.navigator;
     const username = this.state.username;
     const password =  this.state.password;
     //Client ID must be Base64 encoded, cURL does this automatically but http requests need to be done manually
     //Client ID is found at apteligent app user settings
     const clientId = base64.encode('HpS0dzMRx9oKPwBlE7TJXzvbfHuODsrO');
     //Apteligent APi currently only accepts grant_type 'password'
-    const grant_type = 'password';
-    //Content type and authorization must be passed in as a header
-    const myHeaders = new Headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": 'Basic '+clientId
-    });
+    const grantType = 'password';
 
     if(!this.state.username  || !this.state.password){
       Alert.alert('Error', 'Please enter a valid username and password');
     }else{
-      var request = new Request('https://developers.crittercism.com/v2/token', {
-        method: 'POST',
-        credentials: "same-origin",
-        mode: 'cors',
-        headers: myHeaders,
-        body: 'grant_type=password&username='+username+'&password='+password
-      })
-
-      fetch(request)
-        .then((res) => {
-          //console.log(res.text());
-          console.log(this.props.title);
-          return res.json();
-        })
-        .then((json) => {
-          console.log(json);
-
-          this.props.navigator.push({
-            name: 'test',
-            passProps: {
-              id: json.access_token
-            }
-          });
-        })
+       getAccessToken(password, username, clientId, grantType, function(){
+        nav.push({
+          name: 'test'
+        });
+      });
     }
   };
 };
