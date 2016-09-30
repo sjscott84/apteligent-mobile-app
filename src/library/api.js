@@ -30,11 +30,11 @@ getAccessToken = function(password, username, clientId, grantType, callback){
 }
 
 //Get a list of available apps
-getAppsList = function(){
+getAppsList = function(callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
   });
-  var request = new Request('https://developers.crittercism.com:443/v2/apps?attributes=appName%2CappType%2CcrashPercent%2CiconURL', {
+  var request = new Request('https://developers.crittercism.com:443/v2/apps?attributes=appName%2CappType%2CappVersions%2CiconURL', {
     method: 'GET',
     headers: myHeaders
   })
@@ -45,15 +45,12 @@ getAppsList = function(){
       }else{
         console.log('Error')
       }
-      //return res.json();
     })
     .then((json) => {
-      console.log(json);
+      console.log(json.data);
+      callback(json.data);
     })
     .catch((err) => {
       console.log(err);
     })
-    //.then((json) => {
-      //console.log(json);
-    //})
 }

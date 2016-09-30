@@ -9,24 +9,33 @@ import {
 
 var api = require('../library/api.js');
 
+let appView = [];
+
 class AppList extends Component {
+  constructor(){
+    super();
+    this.state ={
+      apps: ''
+    }
+  };
 
   componentWillMount(){
-    this._fetchAppList();
-  }
+    getAppsList((data) => {
+      Object.keys(data).forEach(function(id){
+        data[id]['id'] = id;
+        appView.push(<App key={id} name={data[id]['appName']} type={data[id]['appType']} />);
+      })
+      this.setState({apps: data});
+    })
+  };
 
   render (){
     return (
       <View style={styles.container}>
-        <App />
-        <App />
+        {appView}
       </View>
     )
-  }
-
-  _fetchAppList(){
-    getAppsList();
-  }
+  };
 };
 
 class App extends Component {
@@ -35,10 +44,10 @@ class App extends Component {
       <View style={styles.app}>
         <View style={styles.head}>
           <Image style={styles.logo} source={require('../images/logoTest.png')}/>
-          <Text style={[styles.font, styles.name]}>App Name</Text>
+          <Text style={[styles.font, styles.name]}>{this.props.name}</Text>
         </View>
           <Text style={[styles.font, styles.headerInfo]}>All Versions</Text>
-          <Text style={[styles.font, styles.headerInfo]}>OS</Text>
+          <Text style={[styles.font, styles.headerInfo]}>{this.props.type}</Text>
           <View style={styles.crashInfo}>
             <AppInfo name="Crash Rate" data='0.23%'/>
             <AppInfo name="App Load" data='4.3k'/>
