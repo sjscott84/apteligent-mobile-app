@@ -24,7 +24,7 @@ getAccessToken = function(password, username, clientId, grantType, callback){
     })
     .then((json) => {
       console.log(json.access_token);
-      ACCESS_ID = json.access_token
+      ACCESS_ID = json.access_token;
       callback();
     })
 }
@@ -34,16 +34,26 @@ getAppsList = function(){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
   });
-  var request = new Request('https://developers.crittercism.com:443/v2/apps', {
+  var request = new Request('https://developers.crittercism.com:443/v2/apps?attributes=appName%2CappType%2CcrashPercent%2CiconURL', {
     method: 'GET',
     headers: myHeaders
   })
   fetch(request)
     .then((res) => {
-      //console.log(res);
-      return res.json();
+      if(res.ok){
+        return res.json();
+      }else{
+        console.log('Error')
+      }
+      //return res.json();
     })
     .then((json) => {
       console.log(json);
     })
+    .catch((err) => {
+      console.log(err);
+    })
+    //.then((json) => {
+      //console.log(json);
+    //})
 }

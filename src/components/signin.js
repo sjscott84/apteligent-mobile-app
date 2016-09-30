@@ -11,15 +11,15 @@ import {
 var SignInButton = require('.//button');
 var api = require('../library/api.js');
 import base64 from 'base-64';
-
+//Test of change
 
 class Signin extends Component{
 
   constructor(){
     super();
     this.state = {
-      username: '',
-      password: ''
+      username: 's.j.scott84@gmail.com',
+      password: 'A228kp3jT!'
     }
   };
 
