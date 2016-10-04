@@ -27,6 +27,8 @@ class AppList extends Component {
   render (){
     return (
       <View style={styles.container}>
+        <View style={styles.topLinks}>
+        </View>
         {this._getAppsInfo()}
       </View>
     )
@@ -61,10 +63,10 @@ class AppsInfo extends Component {
       <View style={[styles.app, {height: 185}]}>
         <View style={styles.head}>
           <Image style={styles.logo} source={require('../images/logoTest.png')}/>
-          <Text style={[styles.font, styles.name, {color: 'rgb(80,158,186)'}]} onPress={this._onPress.bind(this)}>{this.props.name}</Text>
+          <Text style={styles.largeLink} onPress={this._onPress.bind(this)}>{this.props.name}</Text>
         </View>
-          <Text style={[styles.font, styles.headerInfo]}>All Versions</Text>
-          <Text style={[styles.font, styles.headerInfo]}>{this.props.type}</Text>
+          <Text style={[styles.light14Text, {flexDirection: 'column'}]}>All Versions</Text>
+          <Text style={[styles.light14Text, {flexDirection: 'column'}]}>{this.props.type}</Text>
           <View style={styles.crashInfo}>
             <AppInfo name="Crash Rate" data='0.23%'/>
             <AppInfo name="App Load" data='4.3k'/>
@@ -79,9 +81,9 @@ class AppInfo extends Component {
   render (){
     return (
       <View>
-        <Text style={[styles.font, styles.crashHeaders]}>{this.props.name}</Text>
-        <Text style={[styles.font, styles.last24Hours]}>Last 24h</Text>
-        <Text style={styles.data}>{this.props.data}</Text>
+        <Text style={styles.dark13Text}>{this.props.name}</Text>
+        <Text style={styles.light11Text}>Last 24h</Text>
+        <Text style={styles.boldText}>{this.props.data}</Text>
       </View>
     )
   }
