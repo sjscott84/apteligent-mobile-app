@@ -128,6 +128,13 @@ module.exports = StyleSheet.create({
       marginRight: 6,
       marginTop: 10
     },
+    svg: {
+      marginTop: 20,
+      marginLeft: 6,
+      marginRight: 6,
+      flex: 1,
+      height: 138
+    }
 })
 
 //module.exports = StyleSheet;
