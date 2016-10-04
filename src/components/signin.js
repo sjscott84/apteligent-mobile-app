@@ -55,7 +55,7 @@ class Signin extends Component{
     }else{
        getAccessToken(password, username, clientId, grantType, function(){
         nav.push({
-          name: 'test'
+          name: 'appList'
         });
       });
     }

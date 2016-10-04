@@ -7,9 +7,10 @@ import {
   View
 } from 'react-native';
 
+
 var api = require('../library/api.js');
 
-let appView = [];
+//let appView = [];
 
 class AppList extends Component {
   constructor(){
@@ -21,10 +22,10 @@ class AppList extends Component {
 
   componentWillMount(){
     getAppsList((data) => {
-      Object.keys(data).forEach(function(id){
-        data[id]['id'] = id;
-        appView.push(<App key={id} name={data[id]['appName']} type={data[id]['appType']} />);
-      })
+      //Object.keys(data).forEach(function(id){
+        //data[id]['id'] = id;
+        //appView.push(<AppsInfo key={id} name={data[id]['appName']} type={data[id]['appType']} />);
+      //})
       this.setState({apps: data});
     })
   };
@@ -32,19 +33,37 @@ class AppList extends Component {
   render (){
     return (
       <View style={styles.container}>
-        {appView}
+        {this._getAppsInfo()}
       </View>
     )
   };
+
+  _getAppsInfo(){
+    const data=this.state.apps;
+    const appView = []
+    const nav = this.props.navigator;
+    console.log(nav);
+    Object.keys(data).forEach(function(id){
+      data[id]['id'] = id;
+      appView.push(<AppsInfo navigator={nav} key={id} name={data[id]['appName']} type={data[id]['appType']} />);
+    })
+    return appView;
+  }
 };
 
-class App extends Component {
+class AppsInfo extends Component {
+
+  _onPress(){
+    console.log(this.props.navigator);
+    this.props.navigator.push({name: 'appDetails'});
+  };
+
   render (){
     return (
       <View style={styles.app}>
         <View style={styles.head}>
           <Image style={styles.logo} source={require('../images/logoTest.png')}/>
-          <Text style={[styles.font, styles.name]}>{this.props.name}</Text>
+          <Text style={[styles.font, styles.name]} onPress={this._onPress.bind(this)}>{this.props.name}</Text>
         </View>
           <Text style={[styles.font, styles.headerInfo]}>All Versions</Text>
           <Text style={[styles.font, styles.headerInfo]}>{this.props.type}</Text>
@@ -134,4 +153,4 @@ var styles = StyleSheet.create({
   }
 })
 
-module.exports = AppList;
+module.exports = {AppList, AppsInfo, AppInfo};
