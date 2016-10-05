@@ -71,7 +71,9 @@ class AppsInfo extends Component {
       passProps: {
         id: this.props.id,
         name: this.props.name,
-        type: this.props.type
+        type: this.props.type,
+        crashPercent: this.props.crashPercent,
+        appLoads: this.props.appLoads
       }});
   };
 

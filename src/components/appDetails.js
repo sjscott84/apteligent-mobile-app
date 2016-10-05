@@ -39,10 +39,10 @@ class AppDetails extends Component {
         </View>
         <View style={[styles.app, styles.crashInfo]}>
           <Summary what={'MAU'} timeFrame={'Last 24h'} figure={'103K'} change={0.5} />
-          <Summary what={'App load'} timeFrame={'Last 24h'} figure={'103K'} change={-0.34} />
+          <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
         </View>
-        <CrashGraphs graphName={"CRASH RATE"} rate={"0.23%"} data={this.state.crashRate} change={0.72} />
-        <CrashGraphs graphName={"HTTP ERROR RATE"} rate={"1.5%"} data={this.state.httpErrorRate} change={-0.7}/>
+        <CrashGraphs graphName={"CRASH RATE"} rate={this.props.crashPercent} data={this.state.crashRate} change={0.72} />
+        <CrashGraphs graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7}/>
       </ScrollView>
     )
   };
@@ -72,7 +72,7 @@ class CrashGraphs extends Component {
           <Text style={styles.smallLink}>{this.props.graphName}</Text>
           <Text style={styles.light14Text}>Last 24h</Text>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.boldText}>{this.props.rate}</Text>
+            <Text style={styles.boldText}>{this.props.rate+'%'}</Text>
             <Triangle change={this.props.change}/>
             <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
           </View>
