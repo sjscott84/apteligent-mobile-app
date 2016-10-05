@@ -8,21 +8,26 @@ import {
 } from 'react-native';
 
 import styles from './styleSheet';
+import numeral from 'numeral'
 var api = require('../library/api.js');
+import getData from './getData';
 
 class AppList extends Component {
   constructor(){
     super();
     this.state ={
-      apps: ''
+      apps: []
     }
   };
 
   componentWillMount(){
-    getAppsList((data) => {
+    combineData((data) => {
       this.setState({apps: data});
-    })
-    getCrashSummaries();
+    });
+    //getAppsList((data) => {
+      //this.setState({apps: data});
+    //})
+    //getCrashSummaries();
   };
 
   render (){
@@ -35,7 +40,7 @@ class AppList extends Component {
     )
   };
 
-  _getAppsInfo(){
+  /*_getAppsInfo(){
     const data=this.state.apps;
     const appView = []
     const nav = this.props.navigator;
@@ -43,6 +48,17 @@ class AppList extends Component {
       data[id]['id'] = id;
       appView.push(<AppsInfo navigator={nav} key={id} id={id} name={data[id]['appName']} type={data[id]['appType']} />);
     })
+    return appView;
+  }
+};*/
+
+  _getAppsInfo(){
+    const appView = []
+    const app = this.state.apps;
+    const nav = this.props.navigator;
+    for(var i = 0; i < app.length; i ++){
+      appView.push(<AppsInfo navigator={nav} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} crashPercent={app[i]['crashPercent'].toFixed(2)} appLoads={numeral(app[i]['appLoads']).format('0.0a')} />);
+    }
     return appView;
   }
 };
@@ -69,8 +85,8 @@ class AppsInfo extends Component {
           <Text style={[styles.light14Text, {flexDirection: 'column'}]}>All Versions</Text>
           <Text style={[styles.light14Text, {flexDirection: 'column'}]}>{this.props.type}</Text>
           <View style={styles.crashInfo}>
-            <AppInfo name="Crash Rate" data='0.23%'/>
-            <AppInfo name="App Load" data='4.3k'/>
+            <AppInfo name="Crash Rate" data={this.props.crashPercent+'%'}/>
+            <AppInfo name="App Load" data={this.props.appLoads}/>
             <AppInfo name="HTTP error rate" data='3.2%'/>
           </View>
       </View>
