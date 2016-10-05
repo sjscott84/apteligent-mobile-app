@@ -134,6 +134,10 @@ module.exports = StyleSheet.create({
       marginRight: 6,
       flex: 1,
       height: 138
+    },
+    svgTriangle: {
+      marginTop: 9.5,
+      marginLeft: 20
     }
 })
 

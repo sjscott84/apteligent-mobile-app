@@ -22,6 +22,7 @@ class AppList extends Component {
     getAppsList((data) => {
       this.setState({apps: data});
     })
+    getCrashSummaries();
   };
 
   render (){
