@@ -11,6 +11,7 @@ import Svg,{
     Line,
     Rect,
     Text,
+    Path
 } from 'react-native-svg';
 
 import styles from './styleSheet';
@@ -66,14 +67,14 @@ class BarChart extends Component {
       //Create the axis labels for top and bottom as well as the top axis line (these are done seperatly to ensure they display correctly)
       text.push(<Text key={0} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={highNumberForYAxis - lineHeight}>{'0%'}</Text>);
       text.push(<Text key={max} fontSize={10} stroke={'rgb(122,143,147)'} x={1} y={lowNumberForYAxis}>{max+'%'}</Text>);
-      tickLines.push(<Line key={max} x1={lowNumberForXAxis} y1={lowNumberForYAxis + 1} x2={highNumberForXAxis} y2={lowNumberForYAxis + 1} stroke='rgb(122,143,147)' strokeWidth={0.75} />);
+      tickLines.push(<Line key={max} x1={lowNumberForXAxis} y1={lowNumberForYAxis + 1} x2={highNumberForXAxis} y2={lowNumberForYAxis + 1} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
 
       //Create the axis labels and lines for everthing in between 0 and max, numbers displayed to 2 decimal places
       for(var i = 1; i < numberofTicks; i++){
         let tickText = Math.round(((max / numberofTicks) * [i]) * 100) / 100;
         let tickY = getHeight(highNumberForYAxis, max, tickText);
         text.push(<Text key={tickText} fontSize={10} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText+'%'}</Text>);
-        tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(122,143,147)' strokeWidth={0.75} />);
+        tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
       }
     };
 

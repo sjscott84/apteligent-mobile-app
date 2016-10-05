@@ -5,7 +5,8 @@ import {
   StyleSheet
 } from 'react-native';
 import Svg,{
-    Polygon
+    Polygon,
+    Path
 } from 'react-native-svg';
 
 import styles from './styleSheet';
