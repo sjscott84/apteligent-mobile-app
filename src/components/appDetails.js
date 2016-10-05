@@ -49,7 +49,7 @@ class AppDetails extends Component {
 class Summary extends Component {
   render(){
     return(
-      <View style={styles.appDetialSummaryItem}>
+      <View style={[styles.appDetailSummaryItem, styles.border]}>
         <Text style={styles.dark15Text}>{this.props.what}</Text>
         <Text style={styles.light14Text}>{this.props.timeFrame}</Text>
         <View style={{flexDirection: 'row'}}>
@@ -66,14 +66,18 @@ class CrashGraphs extends Component {
   render(){
     return(
       <View style={[styles.app, {height: 234}]}>
-        <Text style={styles.smallLink}>{this.props.graphName}</Text>
-        <Text style={styles.light14Text}>Last 24h</Text>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.boldText}>{this.props.rate}</Text>
-          <Triangle change={this.props.change}/>
-          <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
+        <View style={styles.border}>
+          <Text style={styles.smallLink}>{this.props.graphName}</Text>
+          <Text style={styles.light14Text}>Last 24h</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.boldText}>{this.props.rate}</Text>
+            <Triangle change={this.props.change}/>
+            <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
+          </View>
         </View>
-        <BarChart data={this.props.data} />
+        <View style={styles.border}>
+          <BarChart data={this.props.data} />
+        </View>
       </View>
     )
   }

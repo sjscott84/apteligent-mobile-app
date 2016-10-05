@@ -104,9 +104,11 @@ module.exports = StyleSheet.create({
       marginBottom: 0,
       height: 74
     },
-    appDetialSummaryItem: {
+    appDetailSummaryItem: {
       flexGrow: 2,
-      justifyContent: 'flex-start',
+      justifyContent: 'flex-start'
+    },
+    border: {
       borderWidth: 1,
       borderColor: 'rgb(229,234,236)'
     },
