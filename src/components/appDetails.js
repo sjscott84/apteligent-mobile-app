@@ -3,7 +3,9 @@ import {
   AppRegistry,
   Text,
   View,
-  Image
+  Image,
+  Dimensions,
+  ScrollView
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -22,7 +24,7 @@ class AppDetails extends Component {
   }
   render(){
     return(
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.topLinks}>
         </View>
         <View style={[styles.app, {height: 90}]}>
@@ -41,7 +43,7 @@ class AppDetails extends Component {
         </View>
         <CrashGraphs graphName={"CRASH RATE"} rate={"0.23%"} data={this.state.crashRate} change={0.72} />
         <CrashGraphs graphName={"HTTP ERROR RATE"} rate={"1.5%"} data={this.state.httpErrorRate} change={-0.7}/>
-      </View>
+      </ScrollView>
     )
   };
 };
