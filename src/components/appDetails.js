@@ -8,6 +8,7 @@ import {
 
 import styles from './styleSheet';
 import BarChart from './barChart';
+import Triangle from './triangle';
 
 var api = require('../library/api.js');
 
@@ -35,8 +36,8 @@ class AppDetails extends Component {
           <Text style={styles.dark14Text}>Versions: All</Text>
         </View>
         <View style={[styles.app, styles.crashInfo]}>
-          <Summary what={'MAU'} timeFrame={''} figure={'103K'} />
-          <Summary what={'App load'} timeFrame={'Last 24h'} figure={'103K'} />
+          <Summary what={'MAU'} timeFrame={''} figure={'103K'} change={0.5} />
+          <Summary what={'App load'} timeFrame={'Last 24h'} figure={'103K'} change={-0.34} />
         </View>
         <CrashGraphs graphName={"CRASH RATE"} rate={"0.23%"} data={this.state.crashRate}/>
         <CrashGraphs graphName={"HTTP ERROR RATE"} rate={"1.5%"} data={this.state.httpErrorRate}/>
@@ -51,7 +52,11 @@ class Summary extends Component {
       <View style={styles.appDetialSummaryItem}>
         <Text style={styles.dark15Text}>{this.props.what}</Text>
         <Text style={styles.light14Text}>{this.props.timeFrame}</Text>
-        <Text style={styles.boldText}>{this.props.figure}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.boldText}>{this.props.figure}</Text>
+          <Triangle change={this.props.change}/>
+          <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
+        </View>
       </View>
     )
   }

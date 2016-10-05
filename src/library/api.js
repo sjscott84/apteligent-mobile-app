@@ -54,3 +54,22 @@ getAppsList = function(callback){
       console.log(err);
     })
 }
+
+getCrashSummaries = function(){
+  const myHeaders = new Headers({
+    "Authorization": 'Bearer '+ACCESS_ID
+  });
+  var request = new Request('https://developers.crittercism.com:443/v2/liveStats/519d53101386202089000007/P1D', {
+    method: 'GET',
+    headers: myHeaders
+  })
+  fetch(request)
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      }
+    })
+    .then((json) => {
+      console.log(json);
+    })
+}
