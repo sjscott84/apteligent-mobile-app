@@ -26,6 +26,7 @@ class AppDetails extends Component {
     return(
       <ScrollView style={styles.container}>
         <View style={styles.topLinks}>
+        <Text onPress={this._onPressBack.bind(this)}>Back</Text>
         </View>
         <View style={[styles.app, {height: 90}]}>
           <View style={styles.head}>
@@ -46,6 +47,10 @@ class AppDetails extends Component {
       </ScrollView>
     )
   };
+
+  _onPressBack(){
+    this.props.navigator.pop();
+  }
 };
 
 class Summary extends Component {
