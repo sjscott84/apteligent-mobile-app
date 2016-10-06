@@ -11,6 +11,7 @@ import {
 import styles from './styleSheet';
 import BarChart from './barChart';
 import Triangle from './triangle';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 var api = require('../library/api.js');
 
@@ -27,6 +28,7 @@ class AppDetails extends Component {
       <ScrollView style={styles.container}>
         <View style={styles.topLinks}>
         <Text onPress={this._onPressBack.bind(this)}>Back</Text>
+        <Text style={styles.dark18Text}>{this.props.name}</Text>
         </View>
         <View style={[styles.app, {height: 90}]}>
           <View style={styles.head}>
