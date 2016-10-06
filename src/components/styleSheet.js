@@ -86,7 +86,8 @@ module.exports = StyleSheet.create({
     topLinks:{
       backgroundColor: 'rgb(255,255,255)',
       margin: 0,
-      height: 44
+      height: 44,
+      padding: 20
     },
     app: {
       backgroundColor: 'rgb(255,255,255)',
