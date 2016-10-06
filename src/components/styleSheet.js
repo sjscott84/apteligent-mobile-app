@@ -67,6 +67,7 @@ module.exports = StyleSheet.create({
       fontSize: 18,
       lineHeight: 24,
       marginLeft: 6,
+      marginTop: 5,
       color: 'rgb(52,73,76)'
     },
     light11Text: {
@@ -92,7 +93,7 @@ module.exports = StyleSheet.create({
     },
     topLinks:{
       flexDirection: 'row',
-      justifyContent: 'flex-start',
+      justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: 'rgb(255,255,255)',
       margin: 0,
