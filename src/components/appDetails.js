@@ -30,6 +30,7 @@ class AppDetails extends Component {
         <View style={styles.topLinks}>
         <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         <Text style={styles.dark18Text}>{this.props.name}</Text>
+        <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
         <View style={[styles.app, {height: 90}]}>
           <View style={styles.head}>
