@@ -11,6 +11,7 @@ import styles from './styleSheet';
 import numeral from 'numeral'
 var api = require('../library/api.js');
 import getData from './getData';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class AppList extends Component {
   constructor(){
@@ -35,6 +36,8 @@ class AppList extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.topLinks}>
+          <Text style={styles.dark18Text} onPress={this._onPressJumpTo.bind(this)}>Jump to...</Text>
+          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressSettings.bind(this)} />
         </View>
         {this._getAppsInfo()}
       </View>
@@ -52,6 +55,14 @@ class AppList extends Component {
     return appView;
   }
 };*/
+
+  _onPressJumpTo(){
+    console.log("Jump To");
+  }
+
+  _onPressSettings(){
+    console.log("Settings");
+  }
 
   _getAppsInfo(){
     const appView = []
