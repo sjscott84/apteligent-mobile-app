@@ -12,6 +12,7 @@ import styles from './styleSheet';
 import BarChart from './barChart';
 import Triangle from './triangle';
 import Icon from 'react-native-vector-icons/FontAwesome';
+//const backButton = (<Icon.Button name="rocket" size={30} color="#900" />)
 
 var api = require('../library/api.js');
 
@@ -27,7 +28,7 @@ class AppDetails extends Component {
     return(
       <ScrollView style={styles.container}>
         <View style={styles.topLinks}>
-        <Text onPress={this._onPressBack.bind(this)}>Back</Text>
+        <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         <Text style={styles.dark18Text}>{this.props.name}</Text>
         </View>
         <View style={[styles.app, {height: 90}]}>
