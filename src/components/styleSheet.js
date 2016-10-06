@@ -62,6 +62,13 @@ module.exports = StyleSheet.create({
       marginLeft: 6,
       color: 'rgb(52,73,76)'
     },
+    dark18Text: {
+      fontFamily: 'AppleSDGothicNeo-Medium',
+      fontSize: 18,
+      lineHeight: 24,
+      marginLeft: 6,
+      color: 'rgb(52,73,76)'
+    },
     light11Text: {
       fontFamily: 'AppleSDGothicNeo-Medium',
       fontSize: 11,
@@ -84,10 +91,13 @@ module.exports = StyleSheet.create({
       color: 'rgb(122,143,147)'
     },
     topLinks:{
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
       backgroundColor: 'rgb(255,255,255)',
       margin: 0,
-      height: 44,
-      padding: 20
+      height: 60,
+      padding: 15
     },
     app: {
       backgroundColor: 'rgb(255,255,255)',
@@ -141,6 +151,10 @@ module.exports = StyleSheet.create({
     svgTriangle: {
       marginTop: 9.5,
       marginLeft: 20
+    },
+    backArrow: {
+      height: 20,
+      width: 20
     }
 })
 
