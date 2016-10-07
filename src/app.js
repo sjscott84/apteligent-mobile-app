@@ -12,15 +12,18 @@ import {
 //var AppDetails = require('./components/appDetails');
 
 import Signin from './components/signin';
-import {AppList, AppsInfo, AppInfo} from './components/listOfApps';
+import AppList from './components/listOfApps';
+import {AppsInfo, AppInfo} from './components/appData';
 import AppDetails from './components/appDetails';
+import AvailableApps from './components/availableApps';
 
 const ROUTES = {
   signin: Signin,
   appList: AppList,
   appsInfo: AppInfo,
   appInfo: AppsInfo,
-  appDetails: AppDetails
+  appDetails: AppDetails,
+  availableApps: AvailableApps
 }
 
 export default class ApteligentMobileApp extends Component {
