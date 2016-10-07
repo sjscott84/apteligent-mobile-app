@@ -13,6 +13,7 @@ combineData = function(callback){
       getCrashSummaries(id, (summary) => {
         obj['crashPercent'] = summary.data['crashPercentage'];
         obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
+        obj['crashCount'] = summary.data.periodicData[0]['crashes'];
         appData.push(obj);
         callback(appData);
       })

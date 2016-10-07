@@ -20,7 +20,8 @@ class AppsInfo extends Component {
         name: this.props.name,
         type: this.props.type,
         crashPercent: this.props.crashPercent,
-        appLoads: this.props.appLoads
+        appLoads: this.props.appLoads,
+        crashCount: this.props.crashCount
       }});
   };
 

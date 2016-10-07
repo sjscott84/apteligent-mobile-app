@@ -16,6 +16,7 @@ import AppList from './components/listOfApps';
 import {AppsInfo, AppInfo} from './components/appData';
 import AppDetails from './components/appDetails';
 import AvailableApps from './components/availableApps';
+import CrashInfo from './components/crashInfo';
 
 const ROUTES = {
   signin: Signin,
@@ -23,7 +24,8 @@ const ROUTES = {
   appsInfo: AppInfo,
   appInfo: AppsInfo,
   appDetails: AppDetails,
-  availableApps: AvailableApps
+  availableApps: AvailableApps,
+  crashInfo: CrashInfo
 }
 
 export default class ApteligentMobileApp extends Component {

@@ -60,7 +60,7 @@ class AppList extends Component {
     const app = this.state.apps;
     const nav = this.props.navigator;
     for(var i = 0; i < app.length; i ++){
-      appView.push(<AppsInfo navigator={nav} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} crashPercent={app[i]['crashPercent'].toFixed(2)} appLoads={numeral(app[i]['appLoads']).format('0.0a')} />);
+      appView.push(<AppsInfo navigator={nav} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} crashPercent={app[i]['crashPercent'].toFixed(2)} appLoads={numeral(app[i]['appLoads']).format('0.0a')} crashCount={app[i]['crashCount']} />);
     }
     return appView;
   }
