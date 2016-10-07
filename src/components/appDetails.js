@@ -17,9 +17,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 var api = require('../library/api.js');
 
 class AppDetails extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
+      apps: props,
       crashRate: [5, 6.7, 4.3, 8, 11, 5, 3, 2.6, 8, 10, 14, 4.3],
       httpErrorRate: [0.2, 0.3, 0.7, 0.6, 1.2, 0.75, 0.85, 1.1, 0.432, 0.3, 0.46, 1.4]
     }
@@ -46,15 +47,16 @@ class AppDetails extends Component {
           <Summary what={'MAU'} timeFrame={'Last 24h'} figure={'103K'} change={0.5} />
           <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
         </View>
-        <CrashGraphs graphName={"CRASH RATE"} rate={this.props.crashPercent} data={this.state.crashRate} change={0.72} />
-        <CrashGraphs graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7}/>
+        <CrashGraphs navigator={this.props.navigator} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} />
+        <CrashGraphs name={this.props.name} graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7}/>
       </ScrollView>
     )
   };
 
   _onPressBack(){
     this.props.navigator.replace({name: 'appList'});
-  }
+  };
+
 };
 
 class Summary extends Component {
@@ -74,11 +76,23 @@ class Summary extends Component {
 };
 
 class CrashGraphs extends Component {
+
+  _onPressNext(){
+    this.props.navigator.push({
+      name: 'crashInfo',
+      passProps: {
+        name: this.props.name,
+        crashPercent: this.props.rate,
+        crashCount: this.props.count
+      }
+    });
+  };
+
   render(){
     return(
       <View style={[styles.app, {height: 234}]}>
         <View style={styles.border}>
-          <Text style={styles.smallLink}>{this.props.graphName}</Text>
+          <Text onPress={this._onPressNext.bind(this)} style={styles.smallLink}>{this.props.graphName}</Text>
           <Text style={styles.light14Text}>Last 24h</Text>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.boldText}>{this.props.rate+'%'}</Text>
