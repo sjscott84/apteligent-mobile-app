@@ -156,6 +156,14 @@ module.exports = StyleSheet.create({
     backArrow: {
       height: 20,
       width: 20
+    },
+    availableApps: {
+      height: 60,
+      backgroundColor: 'rgb(255,255,255)',
+      margin: 0,
+      borderWidth: 1,
+      borderColor: 'rgb(12,143,147)',
+      paddingTop: 17
     }
 })
 
