@@ -53,7 +53,7 @@ class AppDetails extends Component {
   };
 
   _onPressBack(){
-    this.props.navigator.pop();
+    this.props.navigator.replace({name: 'appList'});
   }
 };
 

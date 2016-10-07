@@ -55,7 +55,7 @@ class AvailableAppsInfo extends Component {
   };
 
   _onPress(){
-    this.props.navigator.push({
+    this.props.navigator.replace({
       name: 'appDetails',
       passProps: {
         id: this.props.id,
