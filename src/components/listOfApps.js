@@ -24,10 +24,10 @@ class AppList extends Component {
   };
 
   componentWillMount(){
-    combineData((data) => {
-      console.log(data);
-      this.setState({apps: data});
-    });
+      combineData((data) => {
+        console.log(data);
+        this.setState({apps: data});
+      });
   };
 
   render (){
