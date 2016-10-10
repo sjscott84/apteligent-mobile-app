@@ -12,12 +12,28 @@ import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Triangle from './triangle';
 import numeral from 'numeral'
+import getData from './getData';
+
+var api = require('../library/api.js');
 
 
 class CrashInfo extends Component {
+  constructor(){
+    super();
+    this.state = {
+      crashes: {}
+    }
+  }
+  componentWillMount(){
+    combineCrashData(this.props.id, (data) => {
+      this.setState({crashes: data});
+      console.log(this.state.crashes);
+    });
+  };
+
   render(){
     return(
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.topLinks}>
           <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
           <Text style={styles.dark18Text}>{this.props.name}</Text>
@@ -30,31 +46,29 @@ class CrashInfo extends Component {
         <View style={styles.app}>
           <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
           <Text style={styles.light14Text}>Last 24 Hours</Text>
-          <View style={[{flexDirection: 'row'}, {justifyContent:'flex-start'}]}>
-            <Icon.Button name="user" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-              <Text style={styles.light14Text}>Users Affected</Text>
-            </Icon.Button>
-            <Icon.Button name="bar-chart" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-              <Text style={styles.light14Text}>Total Occurances</Text>
-            </Icon.Button>
-          </View>
-          <View style={[{flexDirection: 'row'}, {justifyContent:'flex-start'}]}>
-            <Icon.Button name="calendar-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-              <Text style={styles.light14Text}>First Occured</Text>
-            </Icon.Button>
-            <Icon.Button name="clock-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-              <Text style={styles.light14Text}>Last Seen</Text>
-            </Icon.Button>
-          </View>
+          <Symbols users='Users Affected' occurances='Total Occurances' firstOccured='First Occured' lastOccured='Last Seen' />
         </View>
-      </View>
+        <View>
+          {this._getCrashInfo()}
+        </View>
+      </ScrollView>
     )
   };
+
+  _getCrashInfo(){
+    const crashesArray = [];
+    const crash = this.state.crashes;
+    const nav = this.props.navigator;
+    for(var i = 0; i < crash.length; i ++){
+      crashesArray.push(<Crashes navigator={nav} key={crashesArray.length} name={crash[i]['crashName']} reason={crash[i]['crashReason']} users={crash[i]['affectedUsers']} occurances={crash[i]['affectedUsers']}  firstOccured='First Occured' lastOccured='Last Seen' />);
+    }
+    return crashesArray;
+  }
 
   _onPressBack(){
     this.props.navigator.pop();
   }
-}
+};
 
 class Summary extends Component {
   render(){
@@ -71,5 +85,42 @@ class Summary extends Component {
     )
   }
 };
+
+class Symbols extends Component {
+  render(){
+    return(
+      <View>
+        <View style={[{flex: 2}, {flexDirection: 'row'}, {justifyContent:'space-between'}]}>
+          <Icon.Button name="user" size={20} color='rgb(122,143,147)' backgroundColor='white'>
+            <Text style={styles.light14Text}>{this.props.users}</Text>
+          </Icon.Button>
+          <Icon.Button name="bar-chart" size={20} color='rgb(122,143,147)' backgroundColor='white'>
+            <Text style={styles.light14Text}>{this.props.occurances}</Text>
+          </Icon.Button>
+        </View>
+        <View style={[{flex: 2}, {flexDirection: 'row'}, {justifyContent:'space-between'}]}>
+          <Icon.Button name="calendar-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
+            <Text style={styles.light14Text}>{this.props.firstOccured}</Text>
+          </Icon.Button>
+          <Icon.Button name="clock-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
+            <Text style={styles.light14Text}>{this.props.lastOccured}</Text>
+          </Icon.Button>
+        </View>
+      </View>
+    )
+  }
+}
+
+class Crashes extends Component {
+  render(){
+    return(
+      <View style={styles.app}>
+        <Text style={styles.smallLink}>{this.props.name}</Text>
+        <Text style={styles.dark15Text}>{this.props.reason}</Text>
+        <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={this.props.firstOccured} lastOccured={this.props.lastOccured} />
+      </View>
+    )
+  }
+}
 
 module.exports = CrashInfo;

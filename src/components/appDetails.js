@@ -47,7 +47,7 @@ class AppDetails extends Component {
           <Summary what={'MAU'} timeFrame={'Last 24h'} figure={'103K'} change={0.5} />
           <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
         </View>
-        <CrashGraphs navigator={this.props.navigator} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} />
+        <CrashGraphs navigator={this.props.navigator} id={this.props.id} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} />
         <CrashGraphs name={this.props.name} graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7}/>
       </ScrollView>
     )
@@ -81,6 +81,7 @@ class CrashGraphs extends Component {
     this.props.navigator.push({
       name: 'crashInfo',
       passProps: {
+        id: this.props.id,
         name: this.props.name,
         crashPercent: this.props.rate,
         crashCount: this.props.count
