@@ -11,7 +11,8 @@ import {
 import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Triangle from './triangle';
-import numeral from 'numeral'
+import numeral from 'numeral';
+import moment from 'moment';
 import getData from './getData';
 
 var api = require('../library/api.js');
@@ -60,7 +61,7 @@ class CrashInfo extends Component {
     const crash = this.state.crashes;
     const nav = this.props.navigator;
     for(var i = 0; i < crash.length; i ++){
-      crashesArray.push(<Crashes navigator={nav} key={crashesArray.length} name={crash[i]['crashName']} reason={crash[i]['crashReason']} users={crash[i]['affectedUsers']} occurances={crash[i]['affectedUsers']}  firstOccured='First Occured' lastOccured='Last Seen' />);
+      crashesArray.push(<Crashes navigator={nav} key={crashesArray.length} name={crash[i]['crashName']} reason={crash[i]['crashReason']} users={crash[i]['affectedUsers']} occurances={crash[i]['affectedUsers']}  firstOccured={moment(crash[i]['firstOccured']).fromNow()} lastOccured='Last Seen' />);
     }
     return crashesArray;
   }
@@ -90,7 +91,7 @@ class Symbols extends Component {
   render(){
     return(
       <View>
-        <View style={[{flex: 2}, {flexDirection: 'row'}, {justifyContent:'space-between'}]}>
+        <View style={[{flex: 2}, {flexDirection: 'row'}, {justifyContent:'flex-start'}]}>
           <Icon.Button name="user" size={20} color='rgb(122,143,147)' backgroundColor='white'>
             <Text style={styles.light14Text}>{this.props.users}</Text>
           </Icon.Button>
@@ -98,7 +99,7 @@ class Symbols extends Component {
             <Text style={styles.light14Text}>{this.props.occurances}</Text>
           </Icon.Button>
         </View>
-        <View style={[{flex: 2}, {flexDirection: 'row'}, {justifyContent:'space-between'}]}>
+        <View style={[{flex: 2}, {flexDirection: 'row'}, {justifyContent:'flex-start'}]}>
           <Icon.Button name="calendar-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
             <Text style={styles.light14Text}>{this.props.firstOccured}</Text>
           </Icon.Button>
