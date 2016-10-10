@@ -20,3 +20,27 @@ combineData = function(callback){
     })
   })
 }
+
+combineCrashData = function(id, callback){
+  const crashSummaryData = [];
+  getCrashInfoGeneral(id, (data) => {
+    let crashArray = data['data']['errors'];
+    for(var i = 0; i < crashArray.length; i++){
+      let obj = {};
+      obj['crashName'] = crashArray[i]['name'];
+      obj['crashReason'] = crashArray[i]['reason'];
+      obj['hash'] = crashArray[i]['hash'];
+      obj['totalOccurances'] = crashArray[i]['total_occurrences'];
+      obj['firstOccured'] = crashArray[i]['first_occurred_time'];
+      obj['lastOccured'] = crashArray[i]['last_occurred_time'];
+
+      getCrashInfoDetail(id, crashArray[i]['hash'], (detail) => {
+        if(detail['data']['totalAffectedUsers']){
+          obj['affectedUsers'] = detail['data']['totalAffectedUsers'];
+          crashSummaryData.push(obj);
+          callback(crashSummaryData);
+        }
+      })
+    }
+  })
+}

@@ -74,3 +74,54 @@ getCrashSummaries = function(id, callback){
       callback(json);
     })
 }
+
+getCrashInfoGeneral = function(id, callback){
+  const myHeaders = new Headers({
+    "Authorization": 'Bearer '+ACCESS_ID
+  });
+  var request = new Request('https://developers.crittercism.com:443/v2/crash/paginatedtable/'+id+'?appVersion=all&period=100&sortBy=lastOccurred&sortOrder=descending', {
+    method: 'GET',
+    headers: myHeaders
+  })
+  fetch(request)
+    .then((res) => {
+      //console.log(res);
+      if(res.ok){
+        return res.json();
+      } else {
+        console.log('error');
+      }
+    })
+    .then((json) => {
+      callback(json);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+getCrashInfoDetail = function(id, hash, callback){
+  const myHeaders = new Headers({
+    "Authorization": 'Bearer '+ACCESS_ID
+  });
+  var request = new Request('https://developers.crittercism.com:443/v2/crash/'+id+'/'+hash+'?diagnostics=false', {
+    method: 'GET',
+    headers: myHeaders
+  })
+  fetch(request)
+    .then((res) => {
+      //console.log(res);
+      if(res.ok){
+        return res.json();
+      } else {
+        console.log('error');
+      }
+    })
+    .then((json) => {
+      //console.log(json);
+      callback(json);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
