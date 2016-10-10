@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Image,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -37,7 +38,9 @@ class AppList extends Component {
           <Text style={styles.dark18Text} onPress={this._onPressJumpTo.bind(this)}>Jump to...</Text>
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressSettings.bind(this)} />
         </View>
-        {this._getAppsInfo()}
+        <ScrollView>
+          {this._getAppsInfo()}
+        </ScrollView>
       </View>
     )
   };
