@@ -91,21 +91,29 @@ class Symbols extends Component {
   render(){
     return(
       <View>
-        <View style={[{flex: 2}, {flexDirection: 'row'}, {justifyContent:'flex-start'}]}>
-          <Icon.Button name="user" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-            <Text style={styles.light14Text}>{this.props.users}</Text>
-          </Icon.Button>
-          <Icon.Button name="bar-chart" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-            <Text style={styles.light14Text}>{this.props.occurances}</Text>
-          </Icon.Button>
+        <View style={styles.crashInfoSymbels}>
+          <View style={styles.crashInfoSymbels}>
+            <Icon.Button name="user" size={20} color='rgb(122,143,147)' backgroundColor='white'>
+              <Text style={styles.light14Text}>{this.props.users}</Text>
+            </Icon.Button>
+          </View>
+          <View style={styles.crashInfoSymbels}>
+            <Icon.Button name="bar-chart" size={20} color='rgb(122,143,147)' backgroundColor='white'>
+              <Text style={styles.light14Text}>{this.props.occurances}</Text>
+            </Icon.Button>
+          </View>
         </View>
-        <View style={[{flex: 2}, {flexDirection: 'row'}, {justifyContent:'flex-start'}]}>
-          <Icon.Button name="calendar-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-            <Text style={styles.light14Text}>{this.props.firstOccured}</Text>
-          </Icon.Button>
-          <Icon.Button name="clock-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-            <Text style={styles.light14Text}>{this.props.lastOccured}</Text>
-          </Icon.Button>
+        <View style={styles.crashInfoSymbels}>
+          <View style={styles.crashInfoSymbels}>
+            <Icon.Button name="calendar-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
+              <Text style={styles.light14Text}>{this.props.firstOccured}</Text>
+            </Icon.Button>
+          </View>
+          <View style={styles.crashInfoSymbels}>
+            <Icon.Button name="clock-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
+              <Text style={styles.light14Text}>{this.props.lastOccured}</Text>
+            </Icon.Button>
+          </View>
         </View>
       </View>
     )

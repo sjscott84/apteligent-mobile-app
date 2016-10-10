@@ -164,6 +164,11 @@ module.exports = StyleSheet.create({
       borderWidth: 1,
       borderColor: 'rgb(12,143,147)',
       paddingTop: 17
+    },
+    crashInfoSymbels: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent:'flex-start'
     }
 })
 
