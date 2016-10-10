@@ -61,7 +61,7 @@ class CrashInfo extends Component {
     const crash = this.state.crashes;
     const nav = this.props.navigator;
     for(var i = 0; i < crash.length; i ++){
-      crashesArray.push(<Crashes navigator={nav} key={crashesArray.length} name={crash[i]['crashName']} reason={crash[i]['crashReason']} users={crash[i]['affectedUsers']} occurances={crash[i]['affectedUsers']}  firstOccured={moment(crash[i]['firstOccured']).fromNow()} lastOccured='Last Seen' />);
+      crashesArray.push(<Crashes navigator={nav} key={crashesArray.length} name={crash[i]['crashName']} reason={crash[i]['crashReason']} users={crash[i]['affectedUsers']} occurances={crash[i]['affectedUsers']}  firstOccured={moment(crash[i]['firstOccured']).fromNow()} lastOccured={moment(crash[i]['lastOccured']).format('DD MMM YYYY h:mm')} />);
     }
     return crashesArray;
   }
