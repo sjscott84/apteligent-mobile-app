@@ -27,29 +27,31 @@ class AppDetails extends Component {
   }
   render(){
     return(
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.topLinks}>
-        <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-        <Text style={styles.dark18Text}>{this.props.name}</Text>
-        <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
+          <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
+          <Text style={styles.dark18Text}>{this.props.name}</Text>
+          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
-        <View style={[styles.app, {height: 90}]}>
-          <View style={styles.head}>
-            <Image style={styles.logo} source={require('../images/logoTest.png')}/>
-            <View style={styles.nameAndType}>
-              <Text style={styles.largeText}>{this.props.name}</Text>
-              <Text style={styles.light14Text}>{this.props.type}</Text>
+        <ScrollView>
+          <View style={[styles.app, {height: 90}]}>
+            <View style={styles.head}>
+              <Image style={styles.logo} source={require('../images/logoTest.png')}/>
+              <View style={styles.nameAndType}>
+                <Text style={styles.largeText}>{this.props.name}</Text>
+                <Text style={styles.light14Text}>{this.props.type}</Text>
+              </View>
             </View>
+            <Text style={styles.dark14Text}>Versions: All</Text>
           </View>
-          <Text style={styles.dark14Text}>Versions: All</Text>
-        </View>
-        <View style={[styles.app, styles.crashInfo]}>
-          <Summary what={'MAU'} timeFrame={'Last 24h'} figure={'103K'} change={0.5} />
-          <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
-        </View>
-        <CrashGraphs navigator={this.props.navigator} id={this.props.id} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} />
-        <CrashGraphs name={this.props.name} graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7}/>
-      </ScrollView>
+          <View style={[styles.app, styles.crashInfo]}>
+            <Summary what={'MAU'} timeFrame={'Last 24h'} figure={'103K'} change={0.5} />
+            <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
+          </View>
+          <CrashGraphs navigator={this.props.navigator} id={this.props.id} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} />
+          <CrashGraphs name={this.props.name} graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7}/>
+        </ScrollView>
+      </View>
     )
   };
 

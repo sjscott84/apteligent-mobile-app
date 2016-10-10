@@ -34,25 +34,27 @@ class CrashInfo extends Component {
 
   render(){
     return(
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.topLinks}>
           <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
           <Text style={styles.dark18Text}>{this.props.name}</Text>
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
-        <View style={[styles.app, styles.crashInfo]}>
-          <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={this.props.crashPercent} change={0.5} />
-          <Summary what={'Crash Count'} timeFrame={'Last 24h'} figure={numeral(this.props.crashCount).format('0.0a')} change={-0.34} />
-        </View>
-        <View style={styles.app}>
-          <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
-          <Text style={styles.light14Text}>Last 24 Hours</Text>
-          <Symbols users='Users Affected' occurances='Total Occurances' firstOccured='First Occured' lastOccured='Last Seen' />
-        </View>
-        <View>
-          {this._getCrashInfo()}
-        </View>
-      </ScrollView>
+        <ScrollView>
+          <View style={[styles.app, styles.crashInfo]}>
+            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={this.props.crashPercent} change={0.5} />
+            <Summary what={'Crash Count'} timeFrame={'Last 24h'} figure={numeral(this.props.crashCount).format('0.0a')} change={-0.34} />
+          </View>
+          <View style={styles.app}>
+            <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
+            <Text style={styles.light14Text}>Last 24 Hours</Text>
+            <Symbols users='Users Affected' occurances='Total Occurances' firstOccured='First Occured' lastOccured='Last Seen' />
+          </View>
+          <View>
+            {this._getCrashInfo()}
+          </View>
+        </ScrollView>
+      </View>
     )
   };
 
