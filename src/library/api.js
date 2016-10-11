@@ -1,4 +1,3 @@
-//'use strict'
 
 let ACCESS_ID = null;
 
@@ -23,7 +22,6 @@ getAccessToken = function(password, username, clientId, grantType, callback){
       return res.json();
     })
     .then((json) => {
-      console.log(json.access_token);
       ACCESS_ID = json.access_token;
       callback();
     })
@@ -47,7 +45,6 @@ getAppsList = function(callback){
       }
     })
     .then((json) => {
-      console.log(json.data);
       callback(json.data);
     })
     .catch((err) => {
@@ -55,6 +52,7 @@ getAppsList = function(callback){
     })
 }
 
+//Get some very basic crash information regarding specific ids
 getCrashSummaries = function(id, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
@@ -70,11 +68,11 @@ getCrashSummaries = function(id, callback){
       }
     })
     .then((json) => {
-      //console.log(json);
       callback(json);
     })
 }
 
+//Get a list of all crash groups for a specic app
 getCrashInfoGeneral = function(id, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
@@ -85,7 +83,6 @@ getCrashInfoGeneral = function(id, callback){
   })
   fetch(request)
     .then((res) => {
-      //console.log(res);
       if(res.ok){
         return res.json();
       } else {
@@ -100,6 +97,7 @@ getCrashInfoGeneral = function(id, callback){
     })
 }
 
+//Get more details regarding a specific crash
 getCrashInfoDetail = function(id, hash, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID

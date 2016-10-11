@@ -1,3 +1,5 @@
+'use strict'
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -12,9 +14,6 @@ import styles from './styleSheet';
 import BarChart from './barChart';
 import Triangle from './triangle';
 import Icon from 'react-native-vector-icons/FontAwesome';
-//const backButton = (<Icon.Button name="rocket" size={30} color="#900" />)
-
-var api = require('../library/api.js');
 
 class AppDetails extends Component {
   constructor(props){
@@ -55,10 +54,10 @@ class AppDetails extends Component {
     )
   };
 
+  //This rerenders the appList component (as this component can be accessed from mulitple places it was not appropriate to use the 'pop' navigator method)
   _onPressBack(){
     this.props.navigator.replace({name: 'appList'});
   };
-
 };
 
 class Summary extends Component {
@@ -78,7 +77,7 @@ class Summary extends Component {
 };
 
 class CrashGraphs extends Component {
-
+  //This renders the CrashInfo component, providing more details about all the crashes
   _onPressNext(){
     this.props.navigator.push({
       name: 'crashInfo',

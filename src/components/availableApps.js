@@ -1,8 +1,8 @@
+'use strict'
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  Image,
   Text,
   View,
   ScrollView
@@ -10,12 +10,9 @@ import {
 
 import styles from './styleSheet';
 import numeral from 'numeral'
-var api = require('../library/api.js');
-import getData from './getData';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class AvailableApps extends Component {
-
   constructor(props){
     super(props);
     this.state = {
@@ -35,6 +32,7 @@ class AvailableApps extends Component {
     )
   };
 
+  //This rerenders the appList component
   _onPressBack(){
     this.props.navigator.pop();
   }
@@ -42,7 +40,6 @@ class AvailableApps extends Component {
   _getAppsInfo(){
     const appView = [];
     const app = this.state.apps;
-    //const nav = this.props.navigator;
     for(var i = 0; i < app.length; i ++){
       appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} crashPercent={app[i]['crashPercent'].toFixed(2)} appLoads={numeral(app[i]['appLoads']).format('0.0a')} />);
     }
@@ -58,7 +55,8 @@ class AvailableAppsInfo extends Component {
       </View>
     )
   };
-
+  
+  //This renders the appDetails component, which shows more details about a specific app
   _onPress(){
     this.props.navigator.replace({
       name: 'appDetails',

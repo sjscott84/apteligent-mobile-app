@@ -1,7 +1,8 @@
+'use strict'
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
   Image,
   Text,
   View,
@@ -15,9 +16,6 @@ import numeral from 'numeral';
 import moment from 'moment';
 import getData from './getData';
 
-var api = require('../library/api.js');
-
-
 class CrashInfo extends Component {
   constructor(){
     super();
@@ -25,7 +23,9 @@ class CrashInfo extends Component {
       crashes: {}
     }
   }
+  //This makes a call to the api and retrieves a list of crash groups for a specific app
   componentWillMount(){
+    //combineCrashData function is from getData.js
     combineCrashData(this.props.id, (data) => {
       this.setState({crashes: data});
       console.log(this.state.crashes);
@@ -67,7 +67,7 @@ class CrashInfo extends Component {
     }
     return crashesArray;
   }
-
+  //Rerenders the AppDetails component
   _onPressBack(){
     this.props.navigator.pop();
   }

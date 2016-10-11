@@ -15,7 +15,6 @@ import Svg,{
 } from 'react-native-svg';
 
 import styles from './styleSheet';
-var screenWidth = Dimensions.get('window');
 
 class BarChart extends Component {
   render() {
@@ -101,4 +100,3 @@ class BarChart extends Component {
   }
 }
 module.exports = BarChart;
-//AppRegistry.registerComponent('testGraph', () => testGraph);
