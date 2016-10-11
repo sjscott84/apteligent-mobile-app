@@ -1,20 +1,22 @@
+'use strict'
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
   Text,
   View,
   TextInput,
   Alert
 } from 'react-native';
 
-var SignInButton = require('.//button');
-var api = require('../library/api.js');
 import base64 from 'base-64';
-//Test of change
+import SignInButton from './/button'
+import styles from './styleSheet';
+var api = require('../library/api.js');
 
+//Sign in page, first screen to render when app is opened
+//Once correct login details are entered app will render the Applist component
 class Signin extends Component{
-
   constructor(){
     super();
     this.state = {
@@ -25,7 +27,7 @@ class Signin extends Component{
 
   render(){
     return (
-      <View style={styles.container}>
+      <View style={styles.loginContainer}>
         <Text style={styles.header}>Login to Apteligent</Text>
         <Text style={styles.label}>Data location</Text>
         <TextInput style={styles.input} />{/*By default TextInput has no default styling*/}
@@ -53,6 +55,7 @@ class Signin extends Component{
     if(!this.state.username  || !this.state.password){
       Alert.alert('Error', 'Please enter a valid username and password');
     }else{
+      //Call the API to get the access token and render AppList component
        getAccessToken(password, username, clientId, grantType, function(){
         nav.push({
           name: 'appList'
@@ -61,54 +64,5 @@ class Signin extends Component{
     }
   };
 };
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  header: {
-    paddingTop: 150,
-    paddingBottom: 60,
-    fontSize: 24,
-    lineHeight: 33,
-    alignSelf: 'flex-start',
-    color:'rgb(52, 73, 76)',
-    fontFamily: 'AppleSDGothicNeo-Medium'
-  },
-  input: {
-    height: 40,
-    marginTop: 3,
-    marginBottom: 20,
-    borderColor: 'rgb(139, 157, 160)',
-    borderWidth: 1,
-    borderRadius: 2,
-    alignSelf: 'stretch'
-  },
-  label: {
-    fontSize: 15,
-    lineHeight: 20,
-    color: 'rgb(52, 73, 76)',
-    alignSelf: 'flex-start',
-    fontFamily: 'AppleSDGothicNeo-SemiBold'
-  },
-  forgotPassword: {
-    fontFamily: 'AppleSDGothicNeo-SemiBold',
-    fontSize: 13,
-    lineHeight: 18,
-    alignSelf: 'flex-end',
-    color: 'rgb(54, 143, 175)'
-  },
-  disclaimer: {
-    marginTop: 30,
-    lineHeight: 18,
-    fontSize: 13,
-    fontFamily: 'AppleSDGothicNeo-Medium',
-    color: 'rgb(52,73,76)',
-    alignSelf: 'flex-start'
-  }
-})
 
 module.exports = Signin

@@ -6,14 +6,9 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
-
-//var Signin = require('./components/signin');
-//var ListOfApps = require('./components/listOfApps');
-//var AppDetails = require('./components/appDetails');
-
 import Signin from './components/signin';
-import AppList from './components/listOfApps';
-import {AppsInfo, AppInfo} from './components/appData';
+import AppList from './components/appList';
+//import {AppsInfo, AppInfo} from './components/appData';
 import AppDetails from './components/appDetails';
 import AvailableApps from './components/availableApps';
 import CrashInfo from './components/crashInfo';
@@ -21,8 +16,6 @@ import CrashInfo from './components/crashInfo';
 const ROUTES = {
   signin: Signin,
   appList: AppList,
-  appsInfo: AppInfo,
-  appInfo: AppsInfo,
   appDetails: AppDetails,
   availableApps: AvailableApps,
   crashInfo: CrashInfo
@@ -46,5 +39,3 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
-
-//AppRegistry.registerComponent('ApteligentMobileApp', () => ApteligentMobileApp);

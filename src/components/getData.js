@@ -1,6 +1,6 @@
 
 var api = require('../library/api.js');
-
+//Makes the api call to get a list of all apps as well as some basic crash info regarding each app
 combineData = function(callback){
   const appData = [];
   getAppsList((data) => {
@@ -21,6 +21,7 @@ combineData = function(callback){
   })
 }
 
+//Gets a list of all crash groups for a specific app
 combineCrashData = function(id, callback){
   const crashSummaryData = [];
   getCrashInfoGeneral(id, (data) => {
