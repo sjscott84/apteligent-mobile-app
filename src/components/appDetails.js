@@ -33,8 +33,8 @@ class AppDetails extends Component {
     crashRateGraph(this.props.id, (data) =>{
       this.setState({
         crashRate: data['graph'],
-        //crashRateStart: moment(data['start']).format('h:mm A MM/DD/YYYY'),
-        //crashRateEnd: moment(data['end']).format('h:mm A MM/DD/YYYY')
+        crashRateStart: moment(data['start']).format('h:mm A MM/DD/YYYY'),
+        crashRateEnd: moment(data['end']).format('h:mm A MM/DD/YYYY')
       });
     })
   }
