@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import Signin from './components/signin';
 import AppList from './components/appList';
-//import {AppsInfo, AppInfo} from './components/appData';
 import AppDetails from './components/appDetails';
 import AvailableApps from './components/availableApps';
 import CrashInfo from './components/crashInfo';
