@@ -21,6 +21,16 @@ combineData = function(callback){
   })
 }
 
+crashRateGraph = function(id, callback){
+  const crashRate = {};
+  getCrashRateGraphInfo(id, (data) => {
+    crashRate['start'] = data['data']['start'];
+    crashRate['end'] = data['data']['end'];
+    crashRate['graph'] = data['data']['series'][0]['points'];
+    callback(crashRate);
+  })
+}
+
 //Gets a list of all crash groups for a specific app
 combineCrashData = function(id, callback){
   const crashSummaryData = [];
