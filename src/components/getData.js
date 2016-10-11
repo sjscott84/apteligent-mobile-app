@@ -33,14 +33,9 @@ combineCrashData = function(id, callback){
       obj['totalOccurances'] = crashArray[i]['total_occurrences'];
       obj['firstOccured'] = crashArray[i]['first_occurred_time'];
       obj['lastOccured'] = crashArray[i]['last_occurred_time'];
-
-      getCrashInfoDetail(id, crashArray[i]['hash'], (detail) => {
-        if(detail['data']['totalAffectedUsers']){
-          obj['affectedUsers'] = detail['data']['totalAffectedUsers'];
-          crashSummaryData.push(obj);
-          callback(crashSummaryData);
-        }
-      })
+      obj['affectedUsers'] = crashArray[i]['num_unique_sessions'];
+      crashSummaryData.push(obj);
+      callback(crashSummaryData);
     }
   })
 }
