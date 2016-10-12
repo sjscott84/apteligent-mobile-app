@@ -144,3 +144,27 @@ getCrashInfoDetail = function(id, hash, callback){
       console.log(err);
     })
 }
+
+getMAUFromApi = function(id, callback){
+  const myHeaders = new Headers({
+    "Authorization": 'Bearer '+ACCESS_ID
+  });
+  var request = new Request('https://developers.crittercism.com:443/v2/trends/mau/'+id, {
+    method: 'GET',
+    headers: myHeaders
+  })
+  fetch(request)
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      } else {
+        console.log('error');
+      }
+    })
+    .then((json) => {
+      callback(json);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
