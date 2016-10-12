@@ -50,3 +50,9 @@ combineCrashData = function(id, callback){
     }
   })
 }
+//Fetches the MAU for the last 24 hours from the api
+getMAU = function(id, callback){
+  getMAUFromApi(id, (data) => {
+    callback(data['data']['series']['todayValue']);
+  })
+}

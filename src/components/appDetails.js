@@ -16,12 +16,14 @@ import Triangle from './triangle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
 import moment from 'moment';
+import numeral from 'numeral';
 
 class AppDetails extends Component {
   constructor(props){
     super(props);
     this.state = {
       apps: props,
+      mau: 'mau',
       crashRate: [],
       crashRateStart: 'Start',
       crashRateEnd: 'End',
@@ -36,6 +38,12 @@ class AppDetails extends Component {
         crashRateStart: moment(data['start']).format('h:mm A MM/DD/YYYY'),
         crashRateEnd: moment(data['end']).format('h:mm A MM/DD/YYYY')
       });
+    })
+    getMAU(this.props.id, (data) => {
+      //console.log(data);
+      this.setState({
+        mau: data
+      })
     })
   }
   render(){
@@ -58,7 +66,7 @@ class AppDetails extends Component {
             <Text style={styles.dark14Text}>Versions: All</Text>
           </View>
           <View style={[styles.app, styles.crashInfo]}>
-            <Summary what={'MAU'} timeFrame={'Last 24h'} figure={'103K'} change={0.5} />
+            <Summary what={'MAU'} timeFrame={'Last 24h'} figure={numeral(this.state.mau).format('0.0a')} change={0.5} />
             <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
           </View>
           <CrashGraphs navigator={this.props.navigator} id={this.props.id} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} start={this.state.crashRateStart} end={this.state.crashRateEnd} />
