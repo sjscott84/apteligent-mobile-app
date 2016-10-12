@@ -15,8 +15,8 @@ import BarChart from './barChart';
 import Triangle from './triangle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
-import moment from 'moment';
 import numeral from 'numeral';
+import moment from'moment';
 
 class AppDetails extends Component {
   constructor(props){
@@ -25,8 +25,8 @@ class AppDetails extends Component {
       apps: props,
       mau: 'mau',
       crashRate: [1],
-      crashRateStart: '2016-09-13T00:00:00',
-      crashRateEnd: '2016-09-13T00:00:00',
+      crashRateStart: 'Start',
+      crashRateEnd: 'End',
       httpErrorRate: [0.2, 0.3, 0.7, 0.6, 1.2, 0.75, 0.85, 1.1, 0.432, 0.3, 0.46, 1.4]
     }
   };
@@ -71,7 +71,7 @@ class AppDetails extends Component {
             <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
           </View>
           <CrashGraphs navigator={this.props.navigator} id={this.props.id} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} start={this.state.crashRateStart} end={this.state.crashRateEnd} />
-          <CrashGraphs name={this.props.name} graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7} start='Start' end='End' />
+          <CrashGraphs name={this.props.name} graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7} start={this.state.crashRateStart} end={this.state.crashRateEnd} />
         </ScrollView>
       </View>
     )
@@ -126,7 +126,7 @@ class CrashGraphs extends Component {
           </View>
         </View>
         <View style={styles.border}>
-          <BarChart data={this.props.data} start={this.props.start} end={this.props.end} />
+          <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='percent' />
         </View>
       </View>
     )
