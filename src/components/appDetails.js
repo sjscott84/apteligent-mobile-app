@@ -109,7 +109,7 @@ class CrashGraphs extends Component {
       <View style={[styles.app, {height: 234}]}>
         <View style={styles.border}>
           <Text onPress={this._onPressNext.bind(this)} style={styles.smallLink}>{this.props.graphName}</Text>
-          <Text style={styles.light14Text}>Last 24h</Text>
+          <Text style={styles.light14Text}>Last 30 days</Text>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.boldText}>{this.props.rate+'%'}</Text>
             <Triangle change={this.props.change}/>
