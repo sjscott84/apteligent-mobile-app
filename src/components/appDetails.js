@@ -24,9 +24,9 @@ class AppDetails extends Component {
     this.state = {
       apps: props,
       mau: 'mau',
-      crashRate: [],
-      crashRateStart: 'Start',
-      crashRateEnd: 'End',
+      crashRate: [1],
+      crashRateStart: '2016-09-13T00:00:00',
+      crashRateEnd: '2016-09-13T00:00:00',
       httpErrorRate: [0.2, 0.3, 0.7, 0.6, 1.2, 0.75, 0.85, 1.1, 0.432, 0.3, 0.46, 1.4]
     }
   };
@@ -36,8 +36,8 @@ class AppDetails extends Component {
       console.log(data);
       this.setState({
         crashRate: data['graph'],
-        crashRateStart: moment(data['start']).format('h:mm A MM/DD/YYYY'),
-        crashRateEnd: moment(data['end']).format('h:mm A MM/DD/YYYY')
+        crashRateStart: data['start'],
+        crashRateEnd: data['end']
       });
     })
     getMAU(this.props.id, (data) => {
