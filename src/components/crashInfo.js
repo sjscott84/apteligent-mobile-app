@@ -69,7 +69,7 @@ class CrashInfo extends Component {
         crashName={crash[i]['crashName']}
         reason={crash[i]['crashReason']}
         users={crash[i]['affectedUsers']}
-        occurances={crash[i]['affectedUsers']}
+        occurances={crash[i]['totalOccurances']}
         firstOccured={crash[i]['firstOccured']}
         lastOccured={crash[i]['lastOccured']}
         status={crash[i]['status']}
