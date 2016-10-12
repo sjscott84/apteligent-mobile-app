@@ -17,13 +17,6 @@ import moment from 'moment';
 import getData from './getData';
 
 class CrashDetail extends Component {
-  constructor(){
-    super();
-    this.state = {
-      crashes: {}
-    }
-  }
-
   render(){
     return(
       <View style={styles.container}>
@@ -31,6 +24,16 @@ class CrashDetail extends Component {
           <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
           <Text style={styles.dark18Text}>{this.props.name}</Text>
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
+        </View>
+        <View style={styles.app}>
+          <Text style={styles.dark15Text}>CRASH DETAILS</Text>
+          <Text style={styles.bold15Text}>{this.props.crashName}</Text>
+          <Text style={styles.dark15Text}>{this.props.reason}</Text>
+          <Text style={styles.dark15Text}>Status: {this.props.status}</Text>
+          <Text style={styles.dark15Text}>Occurred: {this.props.occurances}</Text>
+          <Text style={styles.dark15Text}>Affected: {this.props.users}</Text>
+          <Text style={styles.dark15Text}>Last Occured: {moment(this.props.lastOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
+          <Text style={styles.dark15Text}>First Occured: {moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
         </View>
       </View>
     )

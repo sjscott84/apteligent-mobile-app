@@ -64,15 +64,15 @@ class CrashInfo extends Component {
     const nav = this.props.navigator;
     for(var i = 0; i < crash.length; i ++){
       crashesArray.push(<Crashes navigator={nav} 
-        key={crashesArray.length} 
+        key={crashesArray.length}
         name={this.props.name}
         crashName={crash[i]['crashName']}
-        reason={crash[i]['crashReason']} 
-        users={crash[i]['affectedUsers']} 
-        occurances={crash[i]['affectedUsers']}  
-        firstOccured={moment(crash[i]['firstOccured']).fromNow()} 
-        lastOccured={moment(crash[i]['lastOccured']).format('DD MMM YYYY h:mm')} 
-        state={crash[i]['state']}
+        reason={crash[i]['crashReason']}
+        users={crash[i]['affectedUsers']}
+        occurances={crash[i]['affectedUsers']}
+        firstOccured={crash[i]['firstOccured']}
+        lastOccured={crash[i]['lastOccured']}
+        status={crash[i]['status']}
         dailyOccurances={crash[i]['dailyOccurances']} />);
     }
     return crashesArray;
@@ -138,7 +138,7 @@ class Crashes extends Component {
       <View style={styles.app}>
         <Text style={styles.smallLink} onPress={this._onPress.bind(this)}>{this.props.crashName}</Text>
         <Text style={styles.dark15Text}>{this.props.reason}</Text>
-        <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={this.props.firstOccured} lastOccured={this.props.lastOccured} />
+        <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment(this.props.firstOccured).fromNow()} lastOccured={moment(this.props.lastOccured).format('DD MMM YYYY h:mm')} />
       </View>
     )
   }
@@ -154,7 +154,7 @@ class Crashes extends Component {
         occurances: this.props.occurances,
         firstOccured: this.props.firstOccured,
         lastOccured: this.props.lastOccured,
-        state: this.props.state,
+        status: this.props.status,
         dailyOccurances: this.props.dailyOccurances
       }});
   }
