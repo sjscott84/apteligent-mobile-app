@@ -32,6 +32,7 @@ class BarChart extends Component {
     const dataset = this.props.data;
     const start = moment(this.props.start).format('h:mm A MM/DD/YYYY');
     const end = moment(this.props.end).format('h:mm A MM/DD/YYYY');
+    const numberType=this.props.numberType;
     let rectangles = []; //Array of bars
     let textArray = []; //tick points on axis
     let tickLines = []; //tick lines;
@@ -67,16 +68,29 @@ class BarChart extends Component {
     function getTicks(numberofTicks){
       let lineHeight = 14;
       //Create the axis labels for top and bottom as well as the top axis line (these are done seperatly to ensure they display correctly)
-      textArray.push(<Text key={0} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={highNumberForYAxis - lineHeight}>{'0'}</Text>);
-      textArray.push(<Text key={max} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={lowNumberForYAxis}>{max}</Text>);
+      if(numberType === 'percent'){
+        textArray.push(<Text key={0} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={highNumberForYAxis - lineHeight}>{'0'}</Text>);
+        textArray.push(<Text key={max} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={lowNumberForYAxis}>{max+'%'}</Text>);
+      }else{
+        textArray.push(<Text key={0} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={highNumberForYAxis - lineHeight}>{0}</Text>);
+        textArray.push(<Text key={max} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={lowNumberForYAxis}>{max}</Text>);        
+      }
+
       tickLines.push(<Line key={max} x1={lowNumberForXAxis} y1={lowNumberForYAxis + 1} x2={highNumberForXAxis} y2={lowNumberForYAxis + 1} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
 
       //Create the axis labels and lines for everthing in between 0 and max, numbers displayed to 2 decimal places
       for(var i = 1; i < numberofTicks; i++){
-        let tickText = Math.round(((max / numberofTicks) * [i]) * 100) / 100;
-        let tickY = getHeight(highNumberForYAxis, max, tickText);
-        textArray.push(<Text key={tickText} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText}</Text>);
-        tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
+        if(numberType === 'percent'){
+          let tickText = Math.round(((max / numberofTicks) * [i]) * 100) / 100;
+          let tickY = getHeight(highNumberForYAxis, max, tickText);
+          textArray.push(<Text key={tickText} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText+'%'}</Text>);
+          tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
+        }else{
+          let tickText = Math.round((max / numberofTicks) * [i]);
+          let tickY = getHeight(highNumberForYAxis, max, tickText);
+          textArray.push(<Text key={tickText} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText}</Text>);
+          tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
+        }
       }
     };
 
