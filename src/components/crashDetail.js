@@ -11,10 +11,9 @@ import {
 
 import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Triangle from './triangle';
-import numeral from 'numeral';
 import moment from 'moment';
 import getData from './getData';
+import BarChart from './barChart';
 
 class CrashDetail extends Component {
   render(){
@@ -34,6 +33,8 @@ class CrashDetail extends Component {
           <Text style={styles.dark15Text}>Affected: {this.props.users}</Text>
           <Text style={styles.dark15Text}>Last Occured: {moment(this.props.lastOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
           <Text style={styles.dark15Text}>First Occured: {moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
+          <Text style={styles.dark15Text}>OCCURANCES</Text>
+          <BarChart data={this.props.dailyOccurances} start={this.props.firstOccured} end={this.props.lastOccured} /> 
         </View>
       </View>
     )

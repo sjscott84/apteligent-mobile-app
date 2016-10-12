@@ -47,7 +47,7 @@ combineCrashData = function(id, callback){
       obj['lastOccured'] = crashArray[i]['last_occurred_time'];
       obj['affectedUsers'] = crashArray[i]['num_unique_sessions'];
       obj['status'] = crashArray[i]['status'];
-      obj['dailyOccurances'] = crashArray[i]['daily_occurrences'];
+      obj['dailyOccurances'] = crashArray[i]['daily_occurrences'][1];
       crashSummaryData.push(obj);
       callback(crashSummaryData);
     }
