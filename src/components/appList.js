@@ -28,7 +28,6 @@ class AppList extends Component {
   componentWillMount(){
     //combineData() is from getData.js
       combineData((data) => {
-        console.log(data);
         this.setState({apps: data});
       });
   };

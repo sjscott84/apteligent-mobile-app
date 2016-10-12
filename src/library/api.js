@@ -98,7 +98,7 @@ getCrashInfoGeneral = function(id, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
   });
-  var request = new Request('https://developers.crittercism.com:443/v2/crash/paginatedtable/'+id+'?appVersion=all&period=100&sortBy=lastOccurred&sortOrder=descending', {
+  var request = new Request('https://developers.crittercism.com:443/v2/crash/paginatedtable/'+id+'?appVersion=all&period=30&sortBy=lastOccurred&sortOrder=descending', {
     method: 'GET',
     headers: myHeaders
   })

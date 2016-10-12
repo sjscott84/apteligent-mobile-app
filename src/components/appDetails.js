@@ -33,6 +33,7 @@ class AppDetails extends Component {
 
   componentWillMount(){
     crashRateGraph(this.props.id, (data) =>{
+      console.log(data);
       this.setState({
         crashRate: data['graph'],
         crashRateStart: moment(data['start']).format('h:mm A MM/DD/YYYY'),
