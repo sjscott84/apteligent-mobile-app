@@ -29,8 +29,8 @@ class CrashDetail extends Component {
           <Text style={styles.bold15Text}>{this.props.crashName}</Text>
           <Text style={styles.dark15Text}>{this.props.reason}</Text>
           <Text style={styles.dark15Text}>Status: {this.props.status}</Text>
-          <Text style={styles.dark15Text}>Occurred: {this.props.occurances}</Text>
-          <Text style={styles.dark15Text}>Affected: {this.props.users}</Text>
+          <Text style={styles.dark15Text}>Occurred: {this.props.occurances} times</Text>
+          <Text style={styles.dark15Text}>Affected: {this.props.users} users</Text>
           <Text style={styles.dark15Text}>Last Occured: {moment(this.props.lastOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
           <Text style={styles.dark15Text}>First Occured: {moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
           <Text style={styles.dark15Text}>OCCURANCES</Text>
