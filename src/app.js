@@ -23,7 +23,7 @@ const ROUTES = {
 export default class ApteligentMobileApp extends Component {
   render() {
     return (
-      <Navigator style={styles.container} initialRoute={{name: 'signin'}} renderScene={this._renderScene} configureScene={() => {return Navigator.SceneConfigs.FloatFromLeft}}/>
+      <Navigator style={styles.container} initialRoute={{name: 'signin'}} renderScene={this._renderScene} configureScene={() => {return Navigator.SceneConfigs.FloatFromRight}}/>
     );
   };
 
