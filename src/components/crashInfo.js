@@ -42,7 +42,7 @@ class CrashInfo extends Component {
         </View>
         <ScrollView>
           <View style={[styles.app, styles.crashInfo]}>
-            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={this.props.crashPercent} change={0.5} />
+            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={this.props.crashPercent+'%'} change={0.5} />
             <Summary what={'Crash Count'} timeFrame={'Last 24h'} figure={numeral(this.props.crashCount).format('0.0a')} change={-0.34} />
           </View>
           <View style={styles.app}>
@@ -63,7 +63,17 @@ class CrashInfo extends Component {
     const crash = this.state.crashes;
     const nav = this.props.navigator;
     for(var i = 0; i < crash.length; i ++){
-      crashesArray.push(<Crashes navigator={nav} key={crashesArray.length} name={crash[i]['crashName']} reason={crash[i]['crashReason']} users={crash[i]['affectedUsers']} occurances={crash[i]['affectedUsers']}  firstOccured={moment(crash[i]['firstOccured']).fromNow()} lastOccured={moment(crash[i]['lastOccured']).format('DD MMM YYYY h:mm')} />);
+      crashesArray.push(<Crashes navigator={nav} 
+        key={crashesArray.length} 
+        name={this.props.name}
+        crashName={crash[i]['crashName']}
+        reason={crash[i]['crashReason']} 
+        users={crash[i]['affectedUsers']} 
+        occurances={crash[i]['affectedUsers']}  
+        firstOccured={moment(crash[i]['firstOccured']).fromNow()} 
+        lastOccured={moment(crash[i]['lastOccured']).format('DD MMM YYYY h:mm')} 
+        state={crash[i]['state']}
+        dailyOccurances={crash[i]['dailyOccurances']} />);
     }
     return crashesArray;
   }
@@ -80,7 +90,7 @@ class Summary extends Component {
         <Text style={styles.dark15Text}>{this.props.what}</Text>
         <Text style={styles.light14Text}>{this.props.timeFrame}</Text>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.boldText}>{this.props.figure+'%'}</Text>
+          <Text style={styles.boldText}>{this.props.figure}</Text>
           <Triangle change={this.props.change}/>
           <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
         </View>
@@ -126,11 +136,27 @@ class Crashes extends Component {
   render(){
     return(
       <View style={styles.app}>
-        <Text style={styles.smallLink}>{this.props.name}</Text>
+        <Text style={styles.smallLink} onPress={this._onPress.bind(this)}>{this.props.crashName}</Text>
         <Text style={styles.dark15Text}>{this.props.reason}</Text>
         <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={this.props.firstOccured} lastOccured={this.props.lastOccured} />
       </View>
     )
+  }
+
+  _onPress(){
+    this.props.navigator.push({
+      name: 'crashDetail',
+      passProps: {
+        name: this.props.name,
+        crashName: this.props.crashName,
+        reason: this.props.reason,
+        users: this.props.users,
+        occurances: this.props.occurances,
+        firstOccured: this.props.firstOccured,
+        lastOccured: this.props.lastOccured,
+        state: this.props.state,
+        dailyOccurances: this.props.dailyOccurances
+      }});
   }
 }
 

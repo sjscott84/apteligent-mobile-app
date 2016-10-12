@@ -24,6 +24,7 @@ combineData = function(callback){
 crashRateGraph = function(id, callback){
   const crashRate = {};
   getCrashRateGraphInfo(id, (data) => {
+    console.log(data);
     crashRate['start'] = data['data']['start'];
     crashRate['end'] = data['data']['end'];
     crashRate['graph'] = data['data']['series'][0]['points'];
@@ -45,6 +46,8 @@ combineCrashData = function(id, callback){
       obj['firstOccured'] = crashArray[i]['first_occurred_time'];
       obj['lastOccured'] = crashArray[i]['last_occurred_time'];
       obj['affectedUsers'] = crashArray[i]['num_unique_sessions'];
+      obj['status'] = crashArray[i]['status'];
+      obj['dailyOccurances'] = crashArray[i]['daily_occurrences'];
       crashSummaryData.push(obj);
       callback(crashSummaryData);
     }
