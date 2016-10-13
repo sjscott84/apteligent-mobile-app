@@ -41,42 +41,47 @@ const palette = [
 class PieChart extends Component{
   _getSlices(){
     const data = this.props.data;
-    const total = Math.ceil(data.reduce((n, d) => d.value + n, 0));
-    const center = 75;
-    let startAngle = 0;
-    let endAngle = 0;
+    if(data.length <= 1) {
+      return (<Circle cx={'75'} cy={'75'} r={75} fill={palette[0]} />)
+    }else{
 
-    return (
-      data.map((d, i) => {
-        const angle = 360 * d.value / total;
-        const largeArc = (d.value / total) <= 0.5 ? 0 : 1;
+      const total = Math.ceil(data.reduce((n, d) => d.value + n, 0));
+      const center = 75;
+      let startAngle = 0;
+      let endAngle = 0;
 
-        startAngle = endAngle;
-        endAngle = startAngle + angle;
+      return (
+        data.map((d, i) => {
+          const angle = 360 * d.value / total;
+          const largeArc = (d.value / total) <= 0.5 ? 0 : 1;
 
-        const x1 = Math.round(center + center * Math.cos(Math.PI * startAngle / 180));
-        const y1 = Math.round(center + center * Math.sin(Math.PI * startAngle / 180));
+          startAngle = endAngle;
+          endAngle = startAngle + angle;
 
-        const x2 = Math.round(center + center * Math.cos(Math.PI * endAngle / 180));
-        const y2 = Math.round(center + center * Math.sin(Math.PI * endAngle / 180));
+          const x1 = Math.round(center + center * Math.cos(Math.PI * startAngle / 180));
+          const y1 = Math.round(center + center * Math.sin(Math.PI * startAngle / 180));
 
-        const dPath = 
-          'M' + center + ' ' + center + ' ' +
-          'L' + x1 + ' ' + y1 + ' ' +
-          'A' + center + ' ' + center + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' ' +
-          'Z'
+          const x2 = Math.round(center + center * Math.cos(Math.PI * endAngle / 180));
+          const y2 = Math.round(center + center * Math.sin(Math.PI * endAngle / 180));
 
-        return (
-          <Path
-            key={ 'sector' + i }
-            d={ dPath }
-            fill={palette[i]}
-            stroke="#fff"
-            strokeWidth={ 0 } 
-            onPress={() => {console.log(d.label)}} />
-        )
-      })
-    )
+          const dPath = 
+            'M' + center + ' ' + center + ' ' +
+            'L' + x1 + ' ' + y1 + ' ' +
+            'A' + center + ' ' + center + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' ' +
+            'Z'
+
+          return (
+            <Path
+              key={ 'sector' + i }
+              d={ dPath }
+              fill={palette[i]}
+              stroke="#fff"
+              strokeWidth={ 0 } 
+              onPress={() => {console.log(d.label)}} />
+          )
+        })
+      )
+    }
   }
 
   render(){
