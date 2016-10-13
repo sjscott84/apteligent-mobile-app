@@ -51,7 +51,7 @@ class CrashDetail extends Component {
             <Text style={styles.dark15Text}>OCCURANCES</Text>
             <BarChart data={this.props.dailyOccurances} start={this.props.firstOccured} end={this.props.lastOccured} numberType='number' /> 
           </View>
-          <View style={[styles.app, {height: 200}]}>
+          <View style={styles.app}>
             <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}]}>
               <Text style={styles.dark15Text}>App Versions</Text>
               <Text style={styles.dark15Text}>OS Versions</Text>
