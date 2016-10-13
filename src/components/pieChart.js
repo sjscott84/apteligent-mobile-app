@@ -84,7 +84,7 @@ class PieChart extends Component{
         <Svg height={'150'} width={'150'}>
           <G>
             {this._getSlices()}
-            <Circle cx={'75'} cy={'75'} r={37.5} fill={'white'} />
+            <Circle cx={'75'} cy={'75'} r={45} fill={'white'} />
           </G>
         </Svg>
     )

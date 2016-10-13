@@ -16,16 +16,20 @@ import getData from './getData';
 import BarChart from './barChart';
 import PieChart from './pieChart'
 
-const data = [
-  {label: '1', value: 20},
-  {label: '2', value: 15},
-  {label: '3', value: 30},
-  {label: '4', value: 7},
-  {label: '5', value: 37},
-  {label: '6', value: 4}
-  ]
-
 class CrashDetail extends Component {
+  constructor(){
+    super();
+      this.state = {
+        version: []
+      }
+  }
+
+  componentWillMount(){
+    getCrashByVersion(this.props.id, this.props.hash, (data) => {
+      this.setState({version: data});
+    })
+  }
+
   render(){
     return(
       <View style={styles.container}>
@@ -47,7 +51,7 @@ class CrashDetail extends Component {
           <BarChart data={this.props.dailyOccurances} start={this.props.firstOccured} end={this.props.lastOccured} numberType='number' /> 
         </View>
         <View style={[styles.app, {height: 200}]}>
-          <PieChart data={data} />
+          <PieChart data={this.state.version} />
         </View>
       </View>
     )
