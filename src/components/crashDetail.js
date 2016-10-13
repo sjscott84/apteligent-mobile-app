@@ -14,6 +14,16 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import getData from './getData';
 import BarChart from './barChart';
+import PieChart from './pieChart'
+
+const data = [
+  {label: '1', value: 20},
+  {label: '2', value: 15},
+  {label: '3', value: 30},
+  {label: '4', value: 7},
+  {label: '5', value: 37},
+  {label: '6', value: 4}
+  ]
 
 class CrashDetail extends Component {
   render(){
@@ -35,6 +45,9 @@ class CrashDetail extends Component {
           <Text style={styles.dark15Text}>First Occured: {moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
           <Text style={styles.dark15Text}>OCCURANCES</Text>
           <BarChart data={this.props.dailyOccurances} start={this.props.firstOccured} end={this.props.lastOccured} numberType='number' /> 
+        </View>
+        <View style={[styles.app, {height: 200}]}>
+          <PieChart data={data} />
         </View>
       </View>
     )
