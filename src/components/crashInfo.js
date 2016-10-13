@@ -66,6 +66,8 @@ class CrashInfo extends Component {
       crashesArray.push(<Crashes navigator={nav} 
         key={crashesArray.length}
         name={this.props.name}
+        id={this.props.id}
+        hash={crash[i]['hash']}
         crashName={crash[i]['crashName']}
         reason={crash[i]['crashReason']}
         users={crash[i]['affectedUsers']}
@@ -148,6 +150,8 @@ class Crashes extends Component {
       name: 'crashDetail',
       passProps: {
         name: this.props.name,
+        hash: this.props.hash,
+        id: this.props.id,
         crashName: this.props.crashName,
         reason: this.props.reason,
         users: this.props.users,

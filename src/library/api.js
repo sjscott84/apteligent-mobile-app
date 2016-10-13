@@ -123,13 +123,12 @@ getCrashInfoDetail = function(id, hash, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
   });
-  var request = new Request('https://developers.crittercism.com:443/v2/crash/'+id+'/'+hash+'?diagnostics=false', {
+  var request = new Request('https://developers.crittercism.com:443/v2/crash/'+id+'/'+hash+'?diagnostics=false&get_other_crashes=false', {
     method: 'GET',
     headers: myHeaders
   })
   fetch(request)
     .then((res) => {
-      //console.log(res);
       if(res.ok){
         return res.json();
       } else {
