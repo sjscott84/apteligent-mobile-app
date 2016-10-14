@@ -64,7 +64,6 @@ getCrashByVersion = function(id, hash, callback){
   let crashByVersion = [];
   getCrashInfoDetail(id, hash, (data) => {
     const version = data['data']['diagnostics']['discrete_diagnostic_data']['app_version'];
-    console.log(version);
     for(var i = 0; i < version.length; i++){
       let obj = {};
       obj['label'] = version[i][0];

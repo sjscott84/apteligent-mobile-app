@@ -25,15 +25,14 @@ class AppDetails extends Component {
       apps: props,
       mau: 'mau',
       crashRate: [1],
-      crashRateStart: 'Start',
-      crashRateEnd: 'End',
+      crashRateStart: '',
+      crashRateEnd: '',
       httpErrorRate: [0.2, 0.3, 0.7, 0.6, 1.2, 0.75, 0.85, 1.1, 0.432, 0.3, 0.46, 1.4]
     }
   };
 
   componentWillMount(){
     crashRateGraph(this.props.id, (data) =>{
-      console.log(data);
       this.setState({
         crashRate: data['graph'],
         crashRateStart: data['start'],

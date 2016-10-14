@@ -28,7 +28,6 @@ class CrashInfo extends Component {
     //combineCrashData function is from getData.js
     combineCrashData(this.props.id, (data) => {
       this.setState({crashes: data});
-      console.log(this.state.crashes);
     });
   };
 
