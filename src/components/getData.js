@@ -24,7 +24,6 @@ combineData = function(callback){
 crashRateGraph = function(id, callback){
   const crashRate = {};
   getCrashRateGraphInfo(id, (data) => {
-    console.log(data);
     crashRate['start'] = data['data']['start'];
     crashRate['end'] = data['data']['end'];
     crashRate['graph'] = data['data']['series'][0]['points'];
