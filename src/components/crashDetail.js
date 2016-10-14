@@ -6,8 +6,13 @@ import {
   Image,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Dimensions,
 } from 'react-native';
+import Svg,{
+    G,
+    Line
+} from 'react-native-svg';
 
 import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -88,7 +93,12 @@ class CrashList extends Component {
 
   render(){
     return(
-      <View style={styles.app}>
+      <View style={{marginTop: 31}}>
+      <View style={[{flex: 1}, {flexDirection: 'row'}, {justifyContent: 'flex-start'}]}>
+        <Text style={[{flex: 0.4}, styles.bold14Text]}>Version</Text>
+        <Text style={[{flex: 0.4}, styles.bold14Text]}>Crashes</Text>
+        <Text style={[{flex: 0.2}, styles.bold14Text]}>Percentage</Text>
+      </View>
         {this._getDetails()}
       </View>
     )
@@ -98,10 +108,10 @@ class CrashList extends Component {
 class CrashItem extends Component {
   render(){
     return(
-      <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}]}>
-        <Text>{this.props.name}</Text>
-        <Text>{this.props.value}</Text>
-        <Text>{numeral(this.props.percent).format('0.0000')+'%'}</Text>
+      <View style={[{flex: 1}, {flexDirection: 'row'}, {justifyContent: 'flex-start'}]}>
+        <Text style={[{flex: 0.4}, styles.light14Text]}>{this.props.name}</Text>
+        <Text style={[{flex: 0.4}, styles.light14Text]}>{this.props.value}</Text>
+        <Text style={[{flex: 0.2}, styles.light14Text]}>{numeral(this.props.percent).format('0.0000')+'%'}</Text>
       </View>
     )
   }
