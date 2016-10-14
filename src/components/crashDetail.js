@@ -26,6 +26,7 @@ class CrashDetail extends Component {
 
   componentWillMount(){
     getCrashByVersion(this.props.id, this.props.hash, (data) => {
+      console.log(data);
       this.setState({version: data});
     })
   }

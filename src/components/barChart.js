@@ -88,7 +88,7 @@ class BarChart extends Component {
           textArray.push(<Text key={tickText} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText+'%'}</Text>);
           tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
         }else{
-          let tickText = Math.round((max / numberofTicks) * [i]);
+          let tickText = numeral(((max / numberofTicks) * [i])).format('0.0');
           let tickY = getHeight(highNumberForYAxis, max, tickText);
           textArray.push(<Text key={tickText} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText}</Text>);
           tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
