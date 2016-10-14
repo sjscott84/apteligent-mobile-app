@@ -49,6 +49,13 @@ class PieChart extends Component{
       const center = 75;
       let startAngle = 0;
       let endAngle = 0;
+      let max = 0;
+
+      for(var j = 0; j < data.length; j++){
+        if(data[j]['value'] > max){
+          max = data[j]['value'];
+        }
+      }
 
       return (
         data.map((d, i) => {
@@ -70,11 +77,19 @@ class PieChart extends Component{
             'A' + center + ' ' + center + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' ' +
             'Z'
 
+          getColor = function(){
+            if(d.value === max){
+              return 'rgb(18,111,126)';
+            }else{
+              return palette[i];
+            }
+          }
+          
           return (
             <Path
               key={ 'sector' + i }
               d={ dPath }
-              fill={palette[i]}
+              fill={getColor()}
               stroke="#fff"
               strokeWidth={ 0 } 
               onPress={() => {console.log(d.label)}} />
