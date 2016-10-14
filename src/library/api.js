@@ -38,7 +38,6 @@ getAppsList = function(callback){
   })
   fetch(request)
     .then((res) => {
-      console.log(res);
       if(res.ok){
         return res.json();
       }else{
@@ -88,7 +87,6 @@ getCrashRateGraphInfo = function(id, callback){
       }
     })
     .then((json) => {
-      console.log(json)
       callback(json);
     })
 }
