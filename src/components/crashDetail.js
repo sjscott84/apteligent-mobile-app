@@ -31,8 +31,7 @@ class CrashDetail extends Component {
 
   componentWillMount(){
     getCrashByAppVersion(this.props.id, this.props.hash, (data) => {
-      console.log(data);
-      this.setState({version: data});
+      this._summariseData(data);
     })
   }
 
@@ -71,42 +70,51 @@ class CrashDetail extends Component {
         </ScrollView>
       </View>
     )
-  }
+  };
+
+  _summariseData(data){
+    if(data.length > 10){
+      let arrayLength = data.length;
+      let dataTotal = Math.ceil(data.reduce((n, d) => d.value + n, 0));
+      let summary = data.splice(9, arrayLength);
+      let summaryTotal = Math.ceil(summary.reduce((n, d) => d.value + n, 0));
+      data.push({label: 'All Others', value: summaryTotal});
+      this.setState({version: data});
+    }else{
+      this.setState({version: data});
+    }
+  };
 
   _onPressApp(){
     getCrashByAppVersion(this.props.id, this.props.hash, (data) => {
-      console.log(data);
-      this.setState({version: data});
+      this._summariseData(data);
     })
-  }
+  };
 
   _onPressOS(){
     getCrashByOsVersion(this.props.id, this.props.hash, (data) => {
-      console.log(data);
-      this.setState({version: data});
+      this._summariseData(data);
     })
-  }
+  };
 
   _onPressDevice(){
     getCrashByDevice(this.props.id, this.props.hash, (data) => {
-      console.log(data);
-      this.setState({version: data});
+      this._summariseData(data);
     })
-  }
+  };
 
   _onPressBack(){
     this.props.navigator.pop();
-  }
+  };
 };
 
 class CrashList extends Component {
   _getDetails(){
     let allDetails = [];
-    let total = Math.ceil(this.props.data.reduce((n, d) => d.value + n, 0))
+    let total = Math.ceil(this.props.data.reduce((n, d) => d.value + n, 0));
     for(var i = 0; i < this.props.data.length; i++){
       let data = this.props.data[i];
       let percent = data['value'] / total;
-      //console.log(percent);
       allDetails.push(<CrashItem key={[i]} name={data['label']} value={data['value']} percent={percent} />);
     }
     return allDetails

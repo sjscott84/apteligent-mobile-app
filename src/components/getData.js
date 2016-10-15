@@ -63,13 +63,15 @@ getCrashByAppVersion = function(id, hash, callback){
   let crashByVersion = [];
   getCrashInfoDetail(id, hash, (data) => {
     const version = data['data']['diagnostics']['discrete_diagnostic_data']['app_version'];
+    let length = version.length
     for(var i = 0; i < version.length; i++){
       let obj = {};
       obj['label'] = version[i][0];
       obj['value'] = version[i][1];
       crashByVersion.push(obj);
     }
-    callback(crashByVersion);
+    let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
+    callback(sortedArray);
   })
 }
 
@@ -83,7 +85,8 @@ getCrashByOsVersion = function(id, hash, callback){
       obj['value'] = version[i][1];
       crashByVersion.push(obj);
     }
-    callback(crashByVersion);
+    let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
+    callback(sortedArray);
   })
 }
 
@@ -96,8 +99,9 @@ getCrashByDevice = function(id, hash, callback){
       obj['label'] = version[i][0];
       obj['value'] = version[i][1];
       crashByVersion.push(obj);
-      callback(crashByVersion);
     }
+    let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
+    callback(sortedArray);
   })
 }
 
