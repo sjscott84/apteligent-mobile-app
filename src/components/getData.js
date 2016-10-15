@@ -59,10 +59,38 @@ getMAU = function(id, callback){
   })
 }
 
-getCrashByVersion = function(id, hash, callback){
+getCrashByAppVersion = function(id, hash, callback){
   let crashByVersion = [];
   getCrashInfoDetail(id, hash, (data) => {
     const version = data['data']['diagnostics']['discrete_diagnostic_data']['app_version'];
+    for(var i = 0; i < version.length; i++){
+      let obj = {};
+      obj['label'] = version[i][0];
+      obj['value'] = version[i][1];
+      crashByVersion.push(obj);
+    }
+    callback(crashByVersion);
+  })
+}
+
+getCrashByOsVersion = function(id, hash, callback){
+  let crashByVersion = [];
+  getCrashInfoDetail(id, hash, (data) => {
+    const version = data['data']['diagnostics']['discrete_diagnostic_data']['system_version'];
+    for(var i = 0; i < version.length; i++){
+      let obj = {};
+      obj['label'] = version[i][0];
+      obj['value'] = version[i][1];
+      crashByVersion.push(obj);
+    }
+    callback(crashByVersion);
+  })
+}
+
+getCrashByDevice = function(id, hash, callback){
+  let crashByVersion = [];
+  getCrashInfoDetail(id, hash, (data) => {
+    const version = data['data']['diagnostics']['discrete_diagnostic_data']['model'];
     for(var i = 0; i < version.length; i++){
       let obj = {};
       obj['label'] = version[i][0];
@@ -72,3 +100,4 @@ getCrashByVersion = function(id, hash, callback){
     }
   })
 }
+

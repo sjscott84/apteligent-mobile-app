@@ -84,7 +84,7 @@ class PieChart extends Component{
               return palette[i];
             }
           }
-          
+
           return (
             <Path
               key={ 'sector' + i }

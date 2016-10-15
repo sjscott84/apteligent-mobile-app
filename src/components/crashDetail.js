@@ -30,7 +30,7 @@ class CrashDetail extends Component {
   }
 
   componentWillMount(){
-    getCrashByVersion(this.props.id, this.props.hash, (data) => {
+    getCrashByAppVersion(this.props.id, this.props.hash, (data) => {
       console.log(data);
       this.setState({version: data});
     })
@@ -59,9 +59,9 @@ class CrashDetail extends Component {
           </View>
           <View style={styles.app}>
             <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}]}>
-              <Text style={styles.dark15Text}>App Versions</Text>
-              <Text style={styles.dark15Text}>OS Versions</Text>
-              <Text style={styles.dark15Text}>Devices</Text>
+              <Text style={styles.dark15Text} onPress={this._onPressApp.bind(this)}>App Versions</Text>
+              <Text style={styles.dark15Text} onPress={this._onPressOS.bind(this)}>OS Versions</Text>
+              <Text style={styles.dark15Text} onPress={this._onPressDevice.bind(this)}>Devices</Text>
             </View>
             <View style={[{marginTop: 40}, {marginLeft: 53}]}>
               <PieChart data={this.state.version} />
@@ -71,6 +71,27 @@ class CrashDetail extends Component {
         </ScrollView>
       </View>
     )
+  }
+
+  _onPressApp(){
+    getCrashByAppVersion(this.props.id, this.props.hash, (data) => {
+      console.log(data);
+      this.setState({version: data});
+    })
+  }
+
+  _onPressOS(){
+    getCrashByOsVersion(this.props.id, this.props.hash, (data) => {
+      console.log(data);
+      this.setState({version: data});
+    })
+  }
+
+  _onPressDevice(){
+    getCrashByDevice(this.props.id, this.props.hash, (data) => {
+      console.log(data);
+      this.setState({version: data});
+    })
   }
 
   _onPressBack(){
