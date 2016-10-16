@@ -16,6 +16,7 @@ import Svg,{
 import styles from './styleSheet';
 
 const palette = [
+  'rgb(18,111,126)',
   'rgb(10,61,72)',
   'rgb(23,153,173)',
   'rgb(44,186,221)',
@@ -47,15 +48,8 @@ class PieChart extends Component{
 
       const total = Math.ceil(data.reduce((n, d) => d.value + n, 0));
       const center = 75;
-      let startAngle = 0;
-      let endAngle = 0;
-      let max = 0;
-
-      for(var j = 0; j < data.length; j++){
-        if(data[j]['value'] > max){
-          max = data[j]['value'];
-        }
-      }
+      let startAngle = 270;
+      let endAngle = 270;
 
       return (
         data.map((d, i) => {
@@ -77,19 +71,11 @@ class PieChart extends Component{
             'A' + center + ' ' + center + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' ' +
             'Z'
 
-          getColor = function(){
-            if(d.value === max){
-              return 'rgb(18,111,126)';
-            }else{
-              return palette[i];
-            }
-          }
-
           return (
             <Path
               key={ 'sector' + i }
               d={ dPath }
-              fill={getColor()}
+              fill={palette[i]}
               stroke="#fff"
               strokeWidth={ 0 } 
               onPress={() => {console.log(d.label)}} />
