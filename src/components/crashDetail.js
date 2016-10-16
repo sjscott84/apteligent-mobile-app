@@ -10,8 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import Svg,{
-    G,
-    Line
+    Circle
 } from 'react-native-svg';
 
 import styles from './styleSheet';
@@ -62,8 +61,12 @@ class CrashDetail extends Component {
               <Text style={styles.dark15Text} onPress={this._onPressOS.bind(this)}>OS Versions</Text>
               <Text style={styles.dark15Text} onPress={this._onPressDevice.bind(this)}>Devices</Text>
             </View>
-            <View style={[{marginTop: 40}, {marginLeft: 53}]}>
+            <View style={[{flexDirection: 'row'}, {marginTop: 40}, {marginLeft: 53}]}>
               <PieChart data={this.state.version} />
+              <View style={{marginLeft: 10}}>
+                <TopCrashInfo color={'rgb(18,111,126)'} data={this.state.version} index={0} />
+                <TopCrashInfo color={'rgb(10,61,72)'} data={this.state.version} index={1} />
+              </View>
             </View>
             <CrashList data={this.state.version} />
           </View>
@@ -73,9 +76,9 @@ class CrashDetail extends Component {
   };
 
   _summariseData(data){
+    const dataTotal = Math.ceil(data.reduce((n, d) => d.value + n, 0));
     if(data.length > 10){
       let arrayLength = data.length;
-      let dataTotal = Math.ceil(data.reduce((n, d) => d.value + n, 0));
       let summary = data.splice(9, arrayLength);
       let summaryTotal = Math.ceil(summary.reduce((n, d) => d.value + n, 0));
       data.push({label: 'All Others', value: summaryTotal});
@@ -140,9 +143,41 @@ class CrashItem extends Component {
       <View style={[{flex: 1}, {flexDirection: 'row'}, {justifyContent: 'flex-start'}]}>
         <Text style={[{flex: 0.4}, styles.light14Text]}>{this.props.name}</Text>
         <Text style={[{flex: 0.4}, styles.light14Text]}>{this.props.value}</Text>
-        <Text style={[{flex: 0.2}, styles.light14Text]}>{numeral(this.props.percent).format('0.0000')+'%'}</Text>
+        <Text style={[{flex: 0.2}, styles.light14Text]}>{numeral(this.props.percent).format('0.00%')}</Text>
       </View>
     )
+  }
+}
+
+class TopCrashInfo extends Component {
+  render(){
+    return(
+      <View>
+        <View style={{flexDirection: 'row'}}>
+          <Svg height={20} width={13}>
+            <Circle cx={6.5} cy={11} r={6.5} fill={this.props.color} />
+          </Svg>
+          {this._getText()}
+        </View>
+      </View>
+    )
+  };
+
+  _getText(){
+    let data = this.props.data;
+    let index = this.props.index;
+    let total = Math.ceil(this.props.data.reduce((n, d) => d.value + n, 0));
+    if(data[index] !== undefined){
+      let percent = numeral(data[index]['value'] / total ).format('0.00%');
+      return (
+        <View>
+          <Text style={styles.bold15Text}>{percent}</Text>
+          <Text style={styles.bold15Text}>{data[index]['label']}</Text>
+          <Text style={styles.light14Text}>{data[index]['value']+' crashes'}</Text>
+        </View>
+      )
+    }
+    return <Text>{'Value'}</Text>
   }
 }
 
