@@ -65,7 +65,7 @@ class CrashDetail extends Component {
               <PieChart data={this.state.version} />
               <View style={{marginLeft: 10}}>
                 <TopCrashInfo color={'rgb(18,111,126)'} data={this.state.version} index={0} />
-                <TopCrashInfo color={'rgb(10,61,72)'} data={this.state.version} index={1} />
+                {this._getTopCrashes()}
               </View>
             </View>
             <CrashList data={this.state.version} />
@@ -74,6 +74,12 @@ class CrashDetail extends Component {
       </View>
     )
   };
+
+  _getTopCrashes(){
+    if(this.state.version.length > 1){
+      return (<TopCrashInfo color={'rgb(10,61,72)'} data={this.state.version} index={1} />);
+    }
+  }
 
   _summariseData(data){
     const dataTotal = Math.ceil(data.reduce((n, d) => d.value + n, 0));
