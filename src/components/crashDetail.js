@@ -10,7 +10,8 @@ import {
   Dimensions,
 } from 'react-native';
 import Svg,{
-    Circle
+    Circle,
+    Line
 } from 'react-native-svg';
 
 import styles from './styleSheet';
@@ -24,7 +25,9 @@ class CrashDetail extends Component {
   constructor(){
     super();
       this.state = {
-        version: []
+        version: [],
+        selectX1: 20,
+        selectX2: Dimensions.get('window').width / 3 - 10
       }
   }
 
@@ -56,10 +59,13 @@ class CrashDetail extends Component {
             <BarChart data={this.props.dailyOccurances} start={this.props.firstOccured} end={this.props.lastOccured} numberType='number' /> 
           </View>
           <View style={styles.app}>
+            <Svg height={8} width={Dimensions.get('window').width}>
+              <Line x1={this.state.selectX1} y1={3} x2={this.state.selectX2} y2={3} stroke={'rgb(54,143,175)'} strokeWidth={3} />
+            </Svg>
             <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}]}>
-              <Text style={styles.dark15Text} onPress={this._onPressApp.bind(this)}>App Versions</Text>
-              <Text style={styles.dark15Text} onPress={this._onPressOS.bind(this)}>OS Versions</Text>
-              <Text style={styles.dark15Text} onPress={this._onPressDevice.bind(this)}>Devices</Text>
+              <Text style={[styles.dark15Text, {marginLeft: 0}]} onPress={this._onPressApp.bind(this)}>App Versions</Text>
+              <Text style={[styles.dark15Text, {marginLeft: 0}]} onPress={this._onPressOS.bind(this)}>OS Versions</Text>
+              <Text style={[styles.dark15Text, {marginLeft: 0}]} onPress={this._onPressDevice.bind(this)}>Devices</Text>
             </View>
             <View style={[{flexDirection: 'row'}, {marginTop: 40}, {marginLeft: 53}]}>
               <PieChart data={this.state.version} />
@@ -95,18 +101,24 @@ class CrashDetail extends Component {
   };
 
   _onPressApp(){
+    const width = Dimensions.get('window').width;
+    this.setState({selectX1: 20, selectX2: width / 3 - 10});
     getCrashByAppVersion(this.props.id, this.props.hash, (data) => {
       this._summariseData(data);
     })
   };
 
   _onPressOS(){
+    const width = Dimensions.get('window').width;
+    this.setState({selectX1: width / 3 + 20, selectX2: (width / 3 + 20) + (width / 3 - 10) })
     getCrashByOsVersion(this.props.id, this.props.hash, (data) => {
       this._summariseData(data);
     })
   };
 
   _onPressDevice(){
+    const width = Dimensions.get('window').width;
+    this.setState({selectX1: (width / 3) * 2 + 20, selectX2: ((width / 3) * 2 + 20) + (width / 3 - 40) })
     getCrashByDevice(this.props.id, this.props.hash, (data) => {
       this._summariseData(data);
     })
