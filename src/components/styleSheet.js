@@ -117,7 +117,7 @@ module.exports = StyleSheet.create({
   dark15Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 15,
-    lineHeight: 24,
+    lineHeight: 18,
     marginLeft: 6,
     color: 'rgb(52,73,76)'
   },
@@ -139,6 +139,13 @@ module.exports = StyleSheet.create({
   light14Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 14,
+    lineHeight: 18,
+    marginLeft: 6,
+    color: 'rgb(122,143,147)'
+  },
+  light15Text: {
+    fontFamily: 'AppleSDGothicNeo-Medium',
+    fontSize: 15,
     lineHeight: 18,
     marginLeft: 6,
     color: 'rgb(122,143,147)'
