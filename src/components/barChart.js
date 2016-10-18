@@ -31,8 +31,8 @@ class BarChart extends Component {
 
   _svgGraph(){
     const dataset = this.props.data;
-    const start = moment(this.props.start).format('MMMM Do YYYY');
-    const end = moment(this.props.end).format('MMMM Do YYYY');
+    const start = moment(this.props.start).format('h:mm A MM/DD/YYYY');
+    const end = moment(this.props.end).format('h:mm A MM/DD/YYYY');
     const numberType=this.props.numberType;
     let rectangles = []; //Array of bars
     let textArray = []; //tick points on axis
