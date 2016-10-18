@@ -36,6 +36,7 @@ combineCrashData = function(id, callback){
   const crashSummaryData = [];
   getCrashInfoGeneral(id, (data) => {
     let crashArray = data['data']['errors'];
+    console.log(crashArray);
     for(var i = 0; i < crashArray.length; i++){
       let obj = {};
       obj['crashName'] = crashArray[i]['name'];

@@ -59,7 +59,7 @@ class CrashDetail extends Component {
             <Text style={styles.dark15Text}>Last Occured: {moment(this.props.lastOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
             <Text style={styles.dark15Text}>First Occured: {moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
             <Text style={styles.dark15Text}>OCCURANCES</Text>
-            <BarChart data={this.props.dailyOccurances} start={this.props.firstOccured} end={this.props.lastOccured} numberType='number' /> 
+            <BarChart data={this.props.dailyOccurances} start={moment().subtract(30, 'days')} end={moment().format()} numberType='number' /> 
           </View>
           <View style={styles.app}>
             <Svg height={8} width={Dimensions.get('window').width}>
@@ -148,9 +148,9 @@ class CrashList extends Component {
     return(
       <View style={{marginTop: 31}}>
       <View style={[{flex: 1}, {flexDirection: 'row'}, {justifyContent: 'flex-start'}]}>
-        <Text style={[{flex: 0.4}, styles.bold14Text]}>Version</Text>
-        <Text style={[{flex: 0.4}, styles.bold14Text]}>Crashes</Text>
-        <Text style={[{flex: 0.2}, styles.bold14Text]}>Percentage</Text>
+        <Text style={[{flex: 0.35}, styles.bold14Text]}>Version</Text>
+        <Text style={[{flex: 0.35}, styles.bold14Text]}>Crashes</Text>
+        <Text style={[{flex: 0.3}, styles.bold14Text]}>Percentage</Text>
       </View>
         {this._getDetails()}
       </View>
@@ -162,9 +162,9 @@ class CrashItem extends Component {
   render(){
     return(
       <View style={[{flex: 1}, {flexDirection: 'row'}, {justifyContent: 'flex-start'}]}>
-        <Text style={[{flex: 0.4}, styles.light14Text]}>{this.props.name}</Text>
-        <Text style={[{flex: 0.4}, styles.light14Text]}>{this.props.value}</Text>
-        <Text style={[{flex: 0.2}, styles.light14Text]}>{numeral(this.props.percent).format('0.00%')}</Text>
+        <Text style={[{flex: 0.35}, styles.light14Text]}>{this.props.name}</Text>
+        <Text style={[{flex: 0.35}, styles.light14Text]}>{this.props.value}</Text>
+        <Text style={[{flex: 0.3}, styles.light14Text]}>{numeral(this.props.percent).format('0.00%')}</Text>
       </View>
     )
   }
