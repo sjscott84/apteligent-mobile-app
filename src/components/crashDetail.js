@@ -50,15 +50,30 @@ class CrashDetail extends Component {
         </View>
         <ScrollView>
           <View style={styles.app}>
-            <Text style={styles.dark15Text}>CRASH DETAILS</Text>
+            <Text style={[styles.dark15Text, {marginTop: 5}]}>CRASH DETAILS</Text>
             <Text style={styles.bold15Text}>{this.props.crashName}</Text>
             <Text style={styles.dark15Text}>{this.props.reason}</Text>
-            <Text style={styles.dark15Text}>Status: {this.props.status}</Text>
-            <Text style={styles.dark15Text}>Occurred: {this.props.occurances} times</Text>
-            <Text style={styles.dark15Text}>Affected: {this.props.users} users</Text>
-            <Text style={styles.dark15Text}>Last Occured: {moment(this.props.lastOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
-            <Text style={styles.dark15Text}>First Occured: {moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
-            <Text style={styles.dark15Text}>OCCURANCES</Text>
+            <View style={[{flexDirection: 'row'}, {marginTop: 5}]}>
+              <Text style={[{flex: 0.4}, styles.dark15Text]}>Status</Text>
+              <Text style={[{flex: 0.6}, styles.bold15Text]}>{this.props.status}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 0.4}, styles.dark15Text]}>Occurred</Text>
+              <Text style={[{flex: 0.6}, styles.bold15Text]}>{this.props.occurances} times</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 0.4}, styles.dark15Text]}>Affected</Text>
+              <Text style={[{flex: 0.6}, styles.bold15Text]}>{this.props.users} users</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 0.4}, styles.dark15Text]}>Last Occured</Text>
+              <Text style={[{flex: 0.6}, styles.bold15Text]}>{moment(this.props.lastOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 0.4}, styles.dark15Text]}>First Occured</Text>
+              <Text style={[{flex: 0.6}, styles.bold15Text]}>{moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
+            </View>
+            <Text style={[styles.dark15Text, {marginTop: 10}]}>OCCURANCES</Text>
             <BarChart data={this.props.dailyOccurances} start={moment().subtract(30, 'days')} end={moment().format()} numberType='number' /> 
           </View>
           <View style={styles.app}>

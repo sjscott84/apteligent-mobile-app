@@ -209,7 +209,7 @@ module.exports = StyleSheet.create({
     marginTop: 10
   },
   svg: {
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 6,
     marginRight: 6,
     flex: 1,
