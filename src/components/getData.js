@@ -122,3 +122,18 @@ getStacktrace = function(callback){
   callback(crashByVersion);
 }
 
+getBreadcrumbs = function(callback){
+  let crashByVersion = [];
+  const version = crashInfo['breadcrumbTraces'];
+  for(var i = 0; i < version.length; i++){
+    let obj = {};
+    obj['username'] = version[i]['username'];
+    obj['appVersion'] = version[i]['appVersion'];
+    obj['dateAndTime'] = version[i]['traceTs'];
+    obj['noOfBreadcrumbs'] = version[i]['parsedBreadcrumbs'].length;
+    crashByVersion.push(obj);
+  }
+  //let sortedArray = crashByVersion.sort(function(a, b){return b.trace - a.trace});
+  callback(crashByVersion);
+}
+

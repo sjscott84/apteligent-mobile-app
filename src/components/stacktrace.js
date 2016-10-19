@@ -55,7 +55,7 @@ class Stacktrace extends Component {
         <View style={styles.app}>
           <ScrollView>
           <Text style={styles.bold15Text}>Name</Text>
-          <Text style={styles.dark15Text}>{this.props.name}</Text>
+          <Text style={styles.dark15Text}>{this.props.crashName}</Text>
           <Text style={styles.bold15Text}>Reason</Text>
           <Text style={styles.dark15Text}>{this.props.reason}</Text>
           <Text style={styles.bold15Text}>App Version</Text>
