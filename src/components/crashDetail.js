@@ -35,8 +35,10 @@ class CrashDetail extends Component {
   }
 
   componentWillMount(){
-    getCrashByAppVersion(this.props.id, this.props.hash, (data) => {
-      this._summariseData(data);
+    getCrashInfo(this.props.id, this.props.hash, () => {
+      getCrashByAppVersion((data) => {
+        this._summariseData(data);
+      })
     })
   }
 
@@ -121,7 +123,7 @@ class CrashDetail extends Component {
   _onPressApp(){
     const width = Dimensions.get('window').width;
     this.setState({selectX1: 20, selectX2: width / 3 - 10, appVersionText: styles.dark15Text, osVersionText: styles.light15Text, deviceVersionText: styles.light15Text});
-    getCrashByAppVersion(this.props.id, this.props.hash, (data) => {
+    getCrashByAppVersion((data) => {
       this._summariseData(data);
     })
   };
@@ -129,7 +131,7 @@ class CrashDetail extends Component {
   _onPressOS(){
     const width = Dimensions.get('window').width;
     this.setState({selectX1: width / 3 + 20, selectX2: (width / 3 + 20) + (width / 3 - 10), appVersionText: styles.light15Text, osVersionText: styles.dark15Text, deviceVersionText: styles.light15Text })
-    getCrashByOsVersion(this.props.id, this.props.hash, (data) => {
+    getCrashByOsVersion((data) => {
       this._summariseData(data);
     })
   };
@@ -137,7 +139,7 @@ class CrashDetail extends Component {
   _onPressDevice(){
     const width = Dimensions.get('window').width;
     this.setState({selectX1: (width / 3) * 2 + 20, selectX2: ((width / 3) * 2 + 20) + (width / 3 - 40), appVersionText: styles.light15Text, osVersionText: styles.light15Text, deviceVersionText: styles.dark15Text })
-    getCrashByDevice(this.props.id, this.props.hash, (data) => {
+    getCrashByDevice((data) => {
       this._summariseData(data);
     })
   };
