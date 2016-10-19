@@ -32,7 +32,7 @@ class Breadcrumbs extends Component {
     getBreadcrumbs((data) => {
       let breadcrumbArray = [];
       for(var i = 0; i < data.length; i++){
-        breadcrumbArray.push(<BreadcrumbItem key={[i]} username={data[i]['username']} appVersion={data[i]['appVersion']} dateAndTime={data[i]['dateAndTime']} noOfBreadcrumbs={data[i]['noOfBreadcrumbs']} />)
+        breadcrumbArray.push(<BreadcrumbItem key={[i]} username={data[i]['username']} appVersion={data[i]['appVersion']} dateAndTime={moment(data[i]['dateAndTime']).format('MM/DD/YYYY hh:mm:ss UTC')} noOfBreadcrumbs={data[i]['noOfBreadcrumbs']} />)
       }
       this.setState({breadcrumbs: breadcrumbArray });
     })
@@ -63,7 +63,7 @@ class Breadcrumbs extends Component {
 class BreadcrumbItem extends Component {
   render(){
     return(
-      <View style={[styles.app, {marginTop: 0}]}>
+      <View style={{marginTop: 0}}>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.dark15Text}>Username</Text>
           <Text style={[styles.smallLink, {marginTop: 0}]}>{this.props.username}</Text>
