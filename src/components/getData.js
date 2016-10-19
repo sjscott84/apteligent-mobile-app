@@ -1,5 +1,6 @@
 
 var api = require('../library/api.js');
+let crashInfo;
 //Makes the api call to get a list of all apps as well as some basic crash info regarding each app
 combineData = function(callback){
   const appData = [];
@@ -60,10 +61,17 @@ getMAU = function(id, callback){
   })
 }
 
-getCrashByAppVersion = function(id, hash, callback){
-  let crashByVersion = [];
+getCrashInfo = function(id, hash, callback){
   getCrashInfoDetail(id, hash, (data) => {
-    const version = data['data']['diagnostics']['discrete_diagnostic_data']['app_version'];
+    crashInfo = data['data'];
+    console.log(crashInfo);
+    callback();
+  })
+}
+
+getCrashByAppVersion = function(callback){
+  let crashByVersion = [];
+    const version = crashInfo['diagnostics']['discrete_diagnostic_data']['app_version'];
     let length = version.length
     for(var i = 0; i < version.length; i++){
       let obj = {};
@@ -73,13 +81,11 @@ getCrashByAppVersion = function(id, hash, callback){
     }
     let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
     callback(sortedArray);
-  })
 }
 
-getCrashByOsVersion = function(id, hash, callback){
+getCrashByOsVersion = function(callback){
   let crashByVersion = [];
-  getCrashInfoDetail(id, hash, (data) => {
-    const version = data['data']['diagnostics']['discrete_diagnostic_data']['system_version'];
+    const version = crashInfo['diagnostics']['discrete_diagnostic_data']['system_version'];
     for(var i = 0; i < version.length; i++){
       let obj = {};
       obj['label'] = version[i][0];
@@ -88,13 +94,11 @@ getCrashByOsVersion = function(id, hash, callback){
     }
     let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
     callback(sortedArray);
-  })
 }
 
-getCrashByDevice = function(id, hash, callback){
+getCrashByDevice = function(callback){
   let crashByVersion = [];
-  getCrashInfoDetail(id, hash, (data) => {
-    const version = data['data']['diagnostics']['discrete_diagnostic_data']['model'];
+    const version = crashInfo['diagnostics']['discrete_diagnostic_data']['model'];
     for(var i = 0; i < version.length; i++){
       let obj = {};
       obj['label'] = version[i][0];
@@ -103,6 +107,5 @@ getCrashByDevice = function(id, hash, callback){
     }
     let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
     callback(sortedArray);
-  })
 }
 
