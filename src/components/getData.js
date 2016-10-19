@@ -131,6 +131,9 @@ getBreadcrumbs = function(callback){
     obj['appVersion'] = version[i]['appVersion'];
     obj['dateAndTime'] = version[i]['traceTs'];
     obj['noOfBreadcrumbs'] = version[i]['parsedBreadcrumbs'].length;
+    obj['breadcrumbs'] = version[i]['parsedBreadcrumbs'];
+    obj['device'] = version[i]['device'];
+    obj['os'] = version[i]['os'];
     crashByVersion.push(obj);
   }
   //let sortedArray = crashByVersion.sort(function(a, b){return b.trace - a.trace});

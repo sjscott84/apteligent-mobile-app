@@ -31,8 +31,19 @@ class Breadcrumbs extends Component {
   componentWillMount(){
     getBreadcrumbs((data) => {
       let breadcrumbArray = [];
+      let nav = this.props.navigator;
       for(var i = 0; i < data.length; i++){
-        breadcrumbArray.push(<BreadcrumbItem key={[i]} username={data[i]['username']} appVersion={data[i]['appVersion']} dateAndTime={moment(data[i]['dateAndTime']).format('MM/DD/YYYY hh:mm:ss UTC')} noOfBreadcrumbs={data[i]['noOfBreadcrumbs']} />)
+        breadcrumbArray.push(<BreadcrumbItem 
+          name={this.props.name}
+          navigator={nav}
+          key={[i]} 
+          username={data[i]['username']} 
+          appVersion={data[i]['appVersion']} 
+          dateAndTime={moment(data[i]['dateAndTime']).format('MM/DD/YYYY hh:mm:ss UTC')} 
+          noOfBreadcrumbs={data[i]['noOfBreadcrumbs']}
+          device={data[i]['device']}
+          os={data[i]['os']}
+          breadcrumbs={data[i]['breadcrumbs']} />)
       }
       this.setState({breadcrumbs: breadcrumbArray });
     })
@@ -80,7 +91,7 @@ class BreadcrumbItem extends Component {
           <Text style={styles.dark15Text}>Date & Time</Text>
           <Text style={styles.bold15Text}>{this.props.dateAndTime}</Text>
         </View>
-        <TouchableHighlight style={styles.button} underlayColor={'gray'} onPress={this._onPressViewDetails}>
+        <TouchableHighlight style={styles.button} underlayColor={'gray'} onPress={this._onPressViewDetails.bind(this)}>
           <Text style={styles.buttonText}>VIEW DETAILS</Text>
         </TouchableHighlight>
       </View>
@@ -88,7 +99,19 @@ class BreadcrumbItem extends Component {
   };
 
   _onPressViewDetails(){
-    console.log('view details');
+    this.props.navigator.push({
+      name: 'breadcrumbDetails',
+      passProps: {
+        name: this.props.name,
+        username: this.props.username,
+        appVersion: this.props.appVersion,
+        noOfBreadcrumbs: this.props.noOfBreadcrumbs,
+        dateAndTime: this.props.dateAndTime,
+        device: this.props.device,
+        os: this.props.os,
+        breadcrumbs: this.props.breadcrumbs
+      }
+    })
   }
 }
 
