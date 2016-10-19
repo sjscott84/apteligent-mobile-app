@@ -20,6 +20,7 @@ import moment from 'moment';
 import getData from './getData';
 import BarChart from './barChart';
 import PieChart from './pieChart'
+import Button from './button';
 
 class CrashDetail extends Component {
   constructor(){
@@ -96,8 +97,8 @@ class CrashDetail extends Component {
             </View>
             <CrashList data={this.state.version} />
             <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}]}>
-              <Text style={styles.dark15Text} onPress={this._onPressStacktrace.bind(this)}>STACKTRACE</Text>
-              <Text style={styles.dark15Text}>BREADCRUMBS</Text>
+              <Button text={'STACKTRACE'} onPress={this._onPressStacktrace.bind(this)} />
+              <Button text={'BREADCRUMBS'} onPress={this._onPressBreadcrumbs.bind(this)} />
             </View>
           </View>
         </ScrollView>
@@ -156,11 +157,21 @@ class CrashDetail extends Component {
     this.props.navigator.push({
       name: 'stacktrace',
       passProps: {
-        name: this.props.crashName,
+        name: this.props.name,
+        crashName: this.props.crashName,
         reason: this.props.reason
       }
     });
   };
+
+  _onPressBreadcrumbs(){
+    this.props.navigator.push({
+      name: 'breadcrumbs',
+      passProps: {
+        name: this.props.name
+      }
+    });
+  }
 };
 
 class CrashList extends Component {
