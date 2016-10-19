@@ -85,27 +85,40 @@ getCrashByAppVersion = function(callback){
 
 getCrashByOsVersion = function(callback){
   let crashByVersion = [];
-    const version = crashInfo['diagnostics']['discrete_diagnostic_data']['system_version'];
-    for(var i = 0; i < version.length; i++){
-      let obj = {};
-      obj['label'] = version[i][0];
-      obj['value'] = version[i][1];
-      crashByVersion.push(obj);
-    }
-    let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
-    callback(sortedArray);
+  const version = crashInfo['diagnostics']['discrete_diagnostic_data']['system_version'];
+  for(var i = 0; i < version.length; i++){
+    let obj = {};
+    obj['label'] = version[i][0];
+    obj['value'] = version[i][1];
+    crashByVersion.push(obj);
+  }
+  let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
+  callback(sortedArray);
 }
 
 getCrashByDevice = function(callback){
   let crashByVersion = [];
-    const version = crashInfo['diagnostics']['discrete_diagnostic_data']['model'];
-    for(var i = 0; i < version.length; i++){
-      let obj = {};
-      obj['label'] = version[i][0];
-      obj['value'] = version[i][1];
-      crashByVersion.push(obj);
-    }
-    let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
-    callback(sortedArray);
+  const version = crashInfo['diagnostics']['discrete_diagnostic_data']['model'];
+  for(var i = 0; i < version.length; i++){
+    let obj = {};
+    obj['label'] = version[i][0];
+    obj['value'] = version[i][1];
+    crashByVersion.push(obj);
+  }
+  let sortedArray = crashByVersion.sort(function(a, b){return b.value - a.value});
+  callback(sortedArray);
+};
+
+getStacktrace = function(callback){
+  let crashByVersion = [];
+  const version = crashInfo['stacktrace'];
+  for(var i = 0; i < version.length; i++){
+    let obj = {};
+    obj['lineNumber'] = version[i]['line_number'];
+    obj['trace'] = version[i]['trace'];
+    crashByVersion.push(obj);
+  }
+  //let sortedArray = crashByVersion.sort(function(a, b){return b.trace - a.trace});
+  callback(crashByVersion);
 }
 

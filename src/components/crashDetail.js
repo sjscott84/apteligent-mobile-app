@@ -95,6 +95,10 @@ class CrashDetail extends Component {
               </View>
             </View>
             <CrashList data={this.state.version} />
+            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}]}>
+              <Text style={styles.dark15Text} onPress={this._onPressStacktrace.bind(this)}>STACKTRACE</Text>
+              <Text style={styles.dark15Text}>BREADCRUMBS</Text>
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -105,7 +109,7 @@ class CrashDetail extends Component {
     if(this.state.version.length > 1){
       return (<TopCrashInfo color={'rgb(10,61,72)'} data={this.state.version} index={1} />);
     }
-  }
+  };
 
   _summariseData(data){
     const dataTotal = Math.ceil(data.reduce((n, d) => d.value + n, 0));
@@ -146,6 +150,16 @@ class CrashDetail extends Component {
 
   _onPressBack(){
     this.props.navigator.pop();
+  };
+
+  _onPressStacktrace(){
+    this.props.navigator.push({
+      name: 'stacktrace',
+      passProps: {
+        name: this.props.crashName,
+        reason: this.props.reason
+      }
+    });
   };
 };
 
