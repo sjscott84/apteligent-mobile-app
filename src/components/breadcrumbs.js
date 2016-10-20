@@ -57,11 +57,11 @@ class Breadcrumbs extends Component {
           <Text style={styles.dark18Text}>{this.props.name}</Text>
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
-        <View style={styles.app}>
-          <ScrollView>
-          {this.state.breadcrumbs}
-          </ScrollView>
-        </View>
+        <ScrollView>
+          <View style={styles.app}>
+            {this.state.breadcrumbs}
+          </View>
+        </ScrollView>
       </View>
     )
   }

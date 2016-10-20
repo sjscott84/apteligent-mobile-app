@@ -79,7 +79,7 @@ class BreadcrumbDetails extends Component {
   _getSquares(){
     let squareArray = [];
     let crashDetails = [];
-    let summary = [{crashes: 0}, {handledException: 0}, {user: 0}, {network: 0}, {system: 0}]
+    let summary = [{crashes: 0}, {handledException: 0}, {user: 0}, {network: 0}, {system: 0}, {unknown: 0}]
     let crumbs = this.props.breadcrumbs
     let color;
     let text;
@@ -92,24 +92,24 @@ class BreadcrumbDetails extends Component {
       }
       switch(crumbs[i]['type']){
         case 'crash':
-          summary[0]['crashes']++
+          summary[0]['crashes']++;
           color = 'rgb(208,2,27)';
-          text = crumbs[i]['payload']['name']+': '+ crumbs[i]['payload']['reason']
+          text = crumbs[i]['payload']['name']+': '+ crumbs[i]['payload']['reason'];
           break;
         case 'handledException':
-          summary[1]['handledException']++
+          summary[1]['handledException']++;
           color = 'rgb(252,200,148)';
-          text = crumbs[i]['payload']['name']+': '+ crumbs[i]['payload']['reason']
+          text = crumbs[i]['payload']['name']+': '+ crumbs[i]['payload']['reason'];
           break;
         case 'user':
-          summary[2]['user']++
+          summary[2]['user']++;
           color = 'rgb(205,220,57)';
-          text = crumbs[i]['payload']['text']
+          text = crumbs[i]['payload']['text'];
           break;
         case 'network':
-          summary[3]['network']++
+          summary[3]['network']++;
           color = 'rgb(10,61,72)';
-          text = <View height={103} width={Dimensions.get('window').width-60}>
+          text = <View height={130} width={Dimensions.get('window').width-60}>
                   <Text style={styles.smallLink}>{crumbs[i]['payload']['url']}</Text>
                   <Text style={styles.dark13Text}>{crumbs[i]['deviceOccurredTs']}</Text>
                   <Text style={styles.dark13Text}>Method: {crumbs[i]['payload']['httpMethod']}</Text>
@@ -123,9 +123,30 @@ class BreadcrumbDetails extends Component {
                   </View>
                  </View>
           break;
-        default:
-          summary[4]['system']++ 
+        case 'networkChange':
+          summary[4]['system']++;
           color = 'rgb(121,142,35)';
+          text = 'Connection Up';
+          break;
+        case 'sessionStart':
+          summary[4]['system']++;
+          color = 'rgb(121,142,35)';
+          text = 'sessionStart';
+          break;
+        case 'viewLoad':
+          summary[4]['system']++;
+          color = 'rgb(121,142,35)';
+          text = crumbs[i]['payload']['viewName']+': '+ crumbs[i]['payload']['event'];
+          break;
+        case 'applicationEvent':
+          summary[2]['user']++
+          color = 'rgb(205,220,57)';
+          text = 'applicationEvent';
+          break;
+        default:
+          summary[5]['unknown']++ ;
+          color = 'rgb(223,217,229)';
+          text = 'Unknown event';
       }
       squareArray.push(
         <Svg key={i} height={35} width={35}>
