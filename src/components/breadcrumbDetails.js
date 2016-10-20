@@ -37,6 +37,11 @@ class BreadcrumbDetails extends Component {
         </View>
         <ScrollView>
           <View style={styles.app}>
+            <Text style={styles.dark15Text}>BREADCRUMBS</Text>
+            <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 6}]}>
+            <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
+            <Text style={styles.dark15Text}>Changing date range does not filter breadcrumbs.</Text>
+            </View>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.dark15Text}>Username</Text>
               <Text style={[styles.smallLink, {marginTop: 0}]}>{this.props.username}</Text>
@@ -104,7 +109,19 @@ class BreadcrumbDetails extends Component {
         case 'network':
           summary[3]['network']++
           color = 'rgb(10,61,72)';
-          text = crumbs[i]['payload']['url']
+          text = <View height={103} width={Dimensions.get('window').width-60}>
+                  <Text style={styles.smallLink}>{crumbs[i]['payload']['url']}</Text>
+                  <Text style={styles.dark13Text}>{crumbs[i]['deviceOccurredTs']}</Text>
+                  <Text style={styles.dark13Text}>Method: {crumbs[i]['payload']['httpMethod']}</Text>
+                  <View style={[{flexDirection: 'row'}, {flex: 1}]}>
+                    <Text style={[styles.dark13Text, {flex: 0.5}]}>Latency: {crumbs[i]['payload']['latencyMs']}ms</Text>
+                    <Text style={[styles.dark13Text, {flex: 0.5}]}>HTTP Status: {crumbs[i]['payload']['httpStatusCode']}</Text>
+                  </View>
+                  <View style={[{flexDirection: 'row'}, {flex: 1}]}>
+                    <Text style={[styles.dark13Text, {flex: 0.5}]}>Bytes In: {crumbs[i]['payload']['bytesReceived']}</Text>
+                    <Text style={[styles.dark13Text, {flex: 0.5}]}>Bytes Out: {crumbs[i]['payload']['bytesSent']}</Text>
+                  </View>
+                 </View>
           break;
         default:
           summary[4]['system']++ 
@@ -146,7 +163,9 @@ class Crumbs extends Component {
           <Summary color={'rgb(205,220,57)'} what={'User Defined'} number={this.props.user} />
           <Summary color={'rgb(10,61,72)'} what={'Network Events'} number={this.props.network} />
           <Summary color={'rgb(121,142,35)'} what={'System Events'} number={this.props.system} />
+        <View style={{marginTop: 10}}>
           {this.props.crashDetails}
+        </View>
       </View>
     )
   };
