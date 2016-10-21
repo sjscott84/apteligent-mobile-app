@@ -3,11 +3,11 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Image,
   Text,
   View,
   ScrollView,
   Dimensions,
+  TouchableHighlight
 } from 'react-native';
 import Svg,{
     Circle,
@@ -89,7 +89,11 @@ class CrashDetail extends Component {
               <Text style={[this.state.deviceVersionText, {marginLeft: 0}]} onPress={this._onPressDevice.bind(this)}>Devices</Text>
             </View>
             <View style={[{flexDirection: 'row'}, {marginTop: 40}, {marginLeft: 53}]}>
-              <PieChart data={this.state.version} />
+              <TouchableHighlight onPress={this._openInteractiveChart.bind(this)}>
+                <View>
+                <PieChart data={this.state.version} height={'150'} width={'150'} cx={75} cy={75} interactive={false} />
+                </View>
+              </TouchableHighlight>
               <View style={{marginLeft: 10}}>
                 <TopCrashInfo color={'rgb(18,111,126)'} data={this.state.version} index={0} />
                 {this._getTopCrashes()}
@@ -106,12 +110,24 @@ class CrashDetail extends Component {
     )
   };
 
+  _openInteractiveChart(){
+    this.props.navigator.push({
+      name: 'interactivePieChart',
+      passProps: {
+        name: this.props.name,
+        data: this.state.version
+      }
+    });
+  }
+
+  //Display to two (or if only one, one) top crashes next to the bar chart
   _getTopCrashes(){
     if(this.state.version.length > 1){
       return (<TopCrashInfo color={'rgb(10,61,72)'} data={this.state.version} index={1} />);
     }
   };
 
+  //Reduce data to show top 9 and combine all others into an 'All Others category'
   _summariseData(data){
     const dataTotal = Math.ceil(data.reduce((n, d) => d.value + n, 0));
     if(data.length > 10){
@@ -125,6 +141,7 @@ class CrashDetail extends Component {
     }
   };
 
+  //Display the crashes sorted by app version and update the styles to reflect which crash sort is being used
   _onPressApp(){
     const width = Dimensions.get('window').width;
     this.setState({selectX1: 20, selectX2: width / 3 - 10, appVersionText: styles.dark15Text, osVersionText: styles.light15Text, deviceVersionText: styles.light15Text});
@@ -133,6 +150,7 @@ class CrashDetail extends Component {
     })
   };
 
+  //Display the crashes sorted by operating system version and update the styles to reflect which crash sort is being used
   _onPressOS(){
     const width = Dimensions.get('window').width;
     this.setState({selectX1: width / 3 + 20, selectX2: (width / 3 + 20) + (width / 3 - 10), appVersionText: styles.light15Text, osVersionText: styles.dark15Text, deviceVersionText: styles.light15Text })
@@ -141,6 +159,7 @@ class CrashDetail extends Component {
     })
   };
 
+  //Display the crashes sorted by device and update the styles to reflect which crash sort is being used
   _onPressDevice(){
     const width = Dimensions.get('window').width;
     this.setState({selectX1: (width / 3) * 2 + 20, selectX2: ((width / 3) * 2 + 20) + (width / 3 - 40), appVersionText: styles.light15Text, osVersionText: styles.light15Text, deviceVersionText: styles.dark15Text })
@@ -149,10 +168,12 @@ class CrashDetail extends Component {
     })
   };
 
+  //Go back to previous screen
   _onPressBack(){
     this.props.navigator.pop();
   };
 
+  //Open the stacktrace screen
   _onPressStacktrace(){
     this.props.navigator.push({
       name: 'stacktrace',
@@ -164,6 +185,7 @@ class CrashDetail extends Component {
     });
   };
 
+  //Open the breadcrumbs screen
   _onPressBreadcrumbs(){
     this.props.navigator.push({
       name: 'breadcrumbs',
@@ -175,6 +197,7 @@ class CrashDetail extends Component {
 };
 
 class CrashList extends Component {
+  //Display as a list the same data as shown in the pie chart
   _getDetails(){
     let allDetails = [];
     let total = Math.ceil(this.props.data.reduce((n, d) => d.value + n, 0));

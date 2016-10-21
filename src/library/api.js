@@ -1,6 +1,6 @@
 
-let ACCESS_ID = null;
-//let ACCESS_ID = 'f4496f437432d673e35687a22af03418';
+//let ACCESS_ID = null;
+let ACCESS_ID = 'f4496f437432d673e35687a22af03418';
 
 //Get access token
 getAccessToken = function(password, username, clientId, grantType, callback){
@@ -70,6 +70,9 @@ getCrashSummaries = function(id, callback){
     })
     .then((json) => {
       callback(json);
+    })
+    .catch((err) => {
+      console.log(err)
     })
 }
 
