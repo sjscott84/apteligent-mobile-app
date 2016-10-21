@@ -37,7 +37,6 @@ class Stacktrace extends Component {
         }else{
           backgroundColor = 'rgb(244,246,247)';
         }
-
         stackTraceText.push(<Text key={[i]} style={[styles.dark15Text, {backgroundColor: backgroundColor}]}>{data[i]['lineNumber']}     {data[i]['trace']}</Text>)
       }
       this.setState({stacktrace: stackTraceText});
@@ -52,18 +51,18 @@ class Stacktrace extends Component {
           <Text style={styles.dark18Text}>{this.props.name}</Text>
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
-        <View style={styles.app}>
-          <ScrollView>
-          <Text style={styles.bold15Text}>Name</Text>
-          <Text style={styles.dark15Text}>{this.props.crashName}</Text>
-          <Text style={styles.bold15Text}>Reason</Text>
-          <Text style={styles.dark15Text}>{this.props.reason}</Text>
-          <Text style={styles.bold15Text}>App Version</Text>
-          <Text style={styles.dark15Text}>Total</Text>
-          <Text style={styles.bold15Text}>Crashed Thread</Text>
-          {this.state.stacktrace}
-          </ScrollView>
-        </View>
+        <ScrollView>
+          <View style={styles.app}>
+            <Text style={styles.bold15Text}>Name</Text>
+            <Text style={styles.dark15Text}>{this.props.crashName}</Text>
+            <Text style={styles.bold15Text}>Reason</Text>
+            <Text style={styles.dark15Text}>{this.props.reason}</Text>
+            <Text style={styles.bold15Text}>App Version</Text>
+            <Text style={styles.dark15Text}>Total</Text>
+            <Text style={styles.bold15Text}>Crashed Thread</Text>
+            {this.state.stacktrace}
+          </View>
+        </ScrollView>
       </View>
     )
   }

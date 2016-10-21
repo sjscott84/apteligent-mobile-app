@@ -40,7 +40,7 @@ class BreadcrumbDetails extends Component {
             <Text style={styles.dark15Text}>BREADCRUMBS</Text>
             <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 6}]}>
             <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
-            <Text style={styles.dark15Text}>Changing date range does not filter breadcrumbs.</Text>
+            <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Changing date range does not filter breadcrumbs.</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.dark15Text}>Username</Text>
