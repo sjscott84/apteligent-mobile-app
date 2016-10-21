@@ -111,6 +111,7 @@ class CrashDetail extends Component {
   };
 
   _openInteractiveChart(){
+    console.log(this.state.version);
     this.props.navigator.push({
       name: 'interactivePieChart',
       passProps: {

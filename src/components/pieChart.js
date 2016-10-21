@@ -70,6 +70,7 @@ class PieChart extends Component{
             'L' + x1 + ' ' + y1 + ' ' +
             'A' + center + ' ' + center + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' ' +
             'Z'
+            
           if(this.props.interactive){
             return (
               <Path
@@ -78,7 +79,7 @@ class PieChart extends Component{
                 fill={palette[i]}
                 stroke="#fff"
                 strokeWidth={ 0 } 
-                onPress={() => {console.log(d.label)}} />
+                onPress={() => {this.props.onPress(d.label, d.value)}} />
             )
           }else{
             return (
