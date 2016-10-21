@@ -47,7 +47,7 @@ class PieChart extends Component{
     }else{
 
       const total = Math.ceil(data.reduce((n, d) => d.value + n, 0));
-      const center = 75;
+      const center = this.props.cx;
       let startAngle = 270;
       let endAngle = 270;
 
@@ -70,16 +70,26 @@ class PieChart extends Component{
             'L' + x1 + ' ' + y1 + ' ' +
             'A' + center + ' ' + center + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' ' +
             'Z'
-
-          return (
-            <Path
-              key={ 'sector' + i }
-              d={ dPath }
-              fill={palette[i]}
-              stroke="#fff"
-              strokeWidth={ 0 } 
-              onPress={() => {console.log(d.label)}} />
-          )
+          if(this.props.interactive){
+            return (
+              <Path
+                key={ 'sector' + i }
+                d={ dPath }
+                fill={palette[i]}
+                stroke="#fff"
+                strokeWidth={ 0 } 
+                onPress={() => {console.log(d.label)}} />
+            )
+          }else{
+            return (
+              <Path
+                key={ 'sector' + i }
+                d={ dPath }
+                fill={palette[i]}
+                stroke="#fff"
+                strokeWidth={ 0 } />
+            )
+          }
         })
       )
     }
@@ -87,10 +97,10 @@ class PieChart extends Component{
 
   render(){
     return(
-        <Svg height={'150'} width={'150'}>
+        <Svg height={this.props.height} width={this.props.width}>
           <G>
             {this._getSlices()}
-            <Circle cx={'75'} cy={'75'} r={45} fill={'white'} />
+            <Circle cx={this.props.cx} cy={this.props.cy} r={45} fill={'white'} />
           </G>
         </Svg>
     )

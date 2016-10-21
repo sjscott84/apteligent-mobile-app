@@ -15,6 +15,7 @@ import CrashDetail from './components/crashDetail';
 import Stacktrace from './components/stacktrace';
 import Breadcrumbs from './components/breadcrumbs';
 import BreadcrumbDetails from './components/breadcrumbDetails';
+import InteractivePieChart from './components/interactivePieChart'
 
 const ROUTES = {
   signin: Signin,
@@ -25,13 +26,14 @@ const ROUTES = {
   crashDetail: CrashDetail,
   stacktrace: Stacktrace,
   breadcrumbs: Breadcrumbs,
-  breadcrumbDetails: BreadcrumbDetails
+  breadcrumbDetails: BreadcrumbDetails,
+  interactivePieChart: InteractivePieChart
 }
 
 export default class ApteligentMobileApp extends Component {
   render() {
     return (
-      <Navigator style={styles.container} initialRoute={{name: 'signin'}} renderScene={this._renderScene} configureScene={() => {return Navigator.SceneConfigs.FloatFromRight}}/>
+      <Navigator style={styles.container} initialRoute={{name: 'appList'}} renderScene={this._renderScene} configureScene={() => {return Navigator.SceneConfigs.FloatFromRight}}/>
     );
   };
 

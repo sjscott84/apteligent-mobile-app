@@ -61,6 +61,7 @@ getMAU = function(id, callback){
   })
 }
 
+//Returns all data avaliable for a particular crash hash
 getCrashInfo = function(id, hash, callback){
   getCrashInfoDetail(id, hash, (data) => {
     crashInfo = data['data'];
@@ -69,6 +70,7 @@ getCrashInfo = function(id, hash, callback){
   })
 }
 
+//Gets the crash info (received by getCrashInfo) by version
 getCrashByAppVersion = function(callback){
   let crashByVersion = [];
     const version = crashInfo['diagnostics']['discrete_diagnostic_data']['app_version'];
@@ -83,6 +85,7 @@ getCrashByAppVersion = function(callback){
     callback(sortedArray);
 }
 
+//Gets the crash info (received by getCrashInfo) by operating system
 getCrashByOsVersion = function(callback){
   let crashByVersion = [];
   const version = crashInfo['diagnostics']['discrete_diagnostic_data']['system_version'];
@@ -96,6 +99,7 @@ getCrashByOsVersion = function(callback){
   callback(sortedArray);
 }
 
+//Gets the crash info (received by getCrashInfo) by device
 getCrashByDevice = function(callback){
   let crashByVersion = [];
   const version = crashInfo['diagnostics']['discrete_diagnostic_data']['model'];
@@ -109,6 +113,7 @@ getCrashByDevice = function(callback){
   callback(sortedArray);
 };
 
+//Gets the crash info (received by getCrashInfo) stacktrace
 getStacktrace = function(callback){
   let crashByVersion = [];
   const version = crashInfo['stacktrace'];
@@ -118,10 +123,10 @@ getStacktrace = function(callback){
     obj['trace'] = version[i]['trace'];
     crashByVersion.push(obj);
   }
-  //let sortedArray = crashByVersion.sort(function(a, b){return b.trace - a.trace});
   callback(crashByVersion);
 }
 
+//Gets the crash info (received by getCrashInfo) breadcrumbs
 getBreadcrumbs = function(callback){
   let crashByVersion = [];
   const version = crashInfo['breadcrumbTraces'];
@@ -136,7 +141,6 @@ getBreadcrumbs = function(callback){
     obj['os'] = version[i]['os'];
     crashByVersion.push(obj);
   }
-  //let sortedArray = crashByVersion.sort(function(a, b){return b.trace - a.trace});
   callback(crashByVersion);
 }
 
