@@ -23,7 +23,10 @@ class BreadcrumbDetails extends Component {
   constructor(props){
     super(props);
     this.state = {
-      breadcrumb: props
+      breadcrumb: props,
+      color: 'rgb(255,255,255)',
+      number: '',
+      text: ''
     }
   }
 
@@ -150,7 +153,7 @@ class BreadcrumbDetails extends Component {
       }
       squareArray.push(
         <Svg key={i} height={35} width={35}>
-          <Rect x={1} y={1} width={31} height={31} fill={color} />
+          <Rect x={1} y={1} width={31} height={31} fill={color} onPress={() => {console.log('click')}} />
         </Svg>
       )
       crashDetails.push(

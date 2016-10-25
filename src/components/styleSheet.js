@@ -253,5 +253,11 @@ module.exports = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-SemiBold',
     alignSelf: 'center',
     color: 'rgb(255,255,255)'
+  },
+  marginLeft: {
+    marginLeft: 6
+  },
+  marginRight: {
+    marginRight: 6
   }
 })
