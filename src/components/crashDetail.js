@@ -27,6 +27,7 @@ class CrashDetail extends Component {
     super();
       this.state = {
         version: [],
+        width: Dimensions.get('window').width,
         selectX1: 20,
         selectX2: Dimensions.get('window').width / 3 - 10,
         appVersionText: styles.dark15Text,
@@ -94,7 +95,7 @@ class CrashDetail extends Component {
                 <PieChart data={this.state.version} height={'150'} width={'150'} cx={75} cy={75} interactive={false} />
                 </View>
               </TouchableHighlight>
-              <View style={{marginLeft: 10}}>
+              <View>
                 <TopCrashInfo color={'rgb(18,111,126)'} data={this.state.version} index={0} />
                 {this._getTopCrashes()}
               </View>
@@ -144,8 +145,7 @@ class CrashDetail extends Component {
 
   //Display the crashes sorted by app version and update the styles to reflect which crash sort is being used
   _onPressApp(){
-    const width = Dimensions.get('window').width;
-    this.setState({selectX1: 20, selectX2: width / 3 - 10, appVersionText: styles.dark15Text, osVersionText: styles.light15Text, deviceVersionText: styles.light15Text});
+    this.setState({selectX1: 20, selectX2: this.state.width / 3 - 10, appVersionText: styles.dark15Text, osVersionText: styles.light15Text, deviceVersionText: styles.light15Text});
     getCrashByAppVersion((data) => {
       this._summariseData(data);
     })
@@ -153,8 +153,7 @@ class CrashDetail extends Component {
 
   //Display the crashes sorted by operating system version and update the styles to reflect which crash sort is being used
   _onPressOS(){
-    const width = Dimensions.get('window').width;
-    this.setState({selectX1: width / 3 + 20, selectX2: (width / 3 + 20) + (width / 3 - 10), appVersionText: styles.light15Text, osVersionText: styles.dark15Text, deviceVersionText: styles.light15Text })
+    this.setState({selectX1: this.state.width / 3 + 20, selectX2: (this.state.width / 3 + 20) + (this.state.width / 3 - 10), appVersionText: styles.light15Text, osVersionText: styles.dark15Text, deviceVersionText: styles.light15Text })
     getCrashByOsVersion((data) => {
       this._summariseData(data);
     })
@@ -162,8 +161,7 @@ class CrashDetail extends Component {
 
   //Display the crashes sorted by device and update the styles to reflect which crash sort is being used
   _onPressDevice(){
-    const width = Dimensions.get('window').width;
-    this.setState({selectX1: (width / 3) * 2 + 20, selectX2: ((width / 3) * 2 + 20) + (width / 3 - 40), appVersionText: styles.light15Text, osVersionText: styles.light15Text, deviceVersionText: styles.dark15Text })
+    this.setState({selectX1: (this.state.width / 3) * 2 + 20, selectX2: ((this.state.width / 3) * 2 + 20) + (this.state.width / 3 - 40), appVersionText: styles.light15Text, osVersionText: styles.light15Text, deviceVersionText: styles.dark15Text })
     getCrashByDevice((data) => {
       this._summariseData(data);
     })
