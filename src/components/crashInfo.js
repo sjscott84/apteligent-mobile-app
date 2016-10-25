@@ -41,7 +41,7 @@ class CrashInfo extends Component {
         </View>
         <ScrollView>
           <View style={[styles.app, styles.crashInfo]}>
-            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={this.props.crashPercent+'%'} change={0.5} />
+            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={numeral(this.state.crashPercent).format('0.00')+'%'} change={0.5} />
             <Summary what={'Crash Count'} timeFrame={'Last 24h'} figure={numeral(this.props.crashCount).format('0.0a')} change={-0.34} />
           </View>
           <View style={styles.app}>
