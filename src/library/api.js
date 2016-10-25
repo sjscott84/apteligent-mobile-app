@@ -76,6 +76,29 @@ getCrashSummariesApi = function(id, callback){
     })
 }
 
+getLiveStateData = function(id, time, callback){
+  const myHeaders = new Headers({
+    "Authorization": 'Bearer '+ACCESS_ID
+  });
+  var request = new Request('https://developers.crittercism.com:443/v2/liveStats/'+id+'/'+time, {
+    method: 'GET',
+    headers: myHeaders
+  })
+  fetch(request)
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      }
+    })
+    .then((json) => {
+      console.log(json);
+      callback(json);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
 getCrashRateGraphInfo = function(id, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID

@@ -25,6 +25,24 @@ getCrashSummaries = function(id, callback){
   })
 }
 
+crashCountGraph = function(id, time, callback){
+  getLiveStateData(id, time, data => {
+    let start = data['data']['periodicData'][0]['start'];
+    let end = data['data']['periodicData'][data['data']['periodicData'].length-1]['end']
+    let appLoadTotal = 0;
+    let crashCountTotal = 0;
+    let crashRateArray = [];
+    let appLoadsArray = [];
+    for(var i = 0; i < data['data']['periodicData'].length; i++){
+      crashRateArray.push(data['data']['periodicData'][i]['crashes']);
+      crashCountTotal = crashCountTotal + data['data']['periodicData'][i]['crashes'];
+      appLoadsArray.push(data['data']['periodicData'][i]['appLoads']);
+      appLoadTotal = appLoadTotal + data['data']['periodicData'][i]['appLoads']
+    }
+    callback(crashRateArray, appLoadsArray, start, end, appLoadTotal, crashCountTotal);
+  })
+}
+
 crashRateGraph = function(id, callback){
   const crashRate = {};
   getCrashRateGraphInfo(id, (data) => {

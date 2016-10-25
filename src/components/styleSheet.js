@@ -240,9 +240,11 @@ module.exports = StyleSheet.create({
     borderRadius: 2,
     height: 36,
     padding: 5,
-    marginTop: 20,
-    marginBottom: 20,
-    alignSelf: 'stretch',
+    margin: 6,
+    marginBottom: 0,
+    //marginTop: 20,
+    //marginBottom: 20,
+    //alignSelf: 'stretch',
     backgroundColor: 'rgb(46,167,158)'
   },
   buttonText: {
