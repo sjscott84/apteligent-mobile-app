@@ -41,7 +41,7 @@ class AvailableApps extends Component {
     const appView = [];
     const app = this.state.apps;
     for(var i = 0; i < app.length; i ++){
-      appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} crashPercent={app[i]['crashPercent'].toFixed(2)} appLoads={numeral(app[i]['appLoads']).format('0.0a')} />);
+      appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
     }
     return appView;
   };
@@ -51,7 +51,7 @@ class AvailableAppsInfo extends Component {
   render(){
     return(
       <View style={styles.availableApps}>
-        <Text style={styles.dark15Text} onPress={this._onPress.bind(this)} id={this.props.id} name={this.props.name} type={this.props.type} crashPercent={this.props.crashPercent} appLoads={this.props.appLoads}>{this.props.name}</Text>
+        <Text style={styles.dark15Text} onPress={this._onPress.bind(this)} id={this.props.id} name={this.props.name} type={this.props.type}>{this.props.name}</Text>
       </View>
     )
   };
@@ -63,9 +63,7 @@ class AvailableAppsInfo extends Component {
       passProps: {
         id: this.props.id,
         name: this.props.name,
-        type: this.props.type,
-        crashPercent: this.props.crashPercent,
-        appLoads: this.props.appLoads
+        type: this.props.type
       }
     });
   };

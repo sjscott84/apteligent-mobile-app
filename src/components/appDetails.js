@@ -66,6 +66,11 @@ class AppDetails extends Component {
             <Text style={styles.dark14Text}>Versions: All</Text>
           </View>
           <View style={[styles.app, styles.crashInfo]}>
+                    <View style={styles.crashInfo}>
+            <AppInfo name="Crash Rate" data={this.props.crashPercent+'%'}/>
+            <AppInfo name="App Load" data={this.props.appLoads}/>
+            <AppInfo name="HTTP error rate" data='3.2%'/>
+          </View>
             <Summary what={'MAU'} timeFrame={'Last 24h'} figure={numeral(this.state.mau).format('0.0a')} change={0.5} />
             <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
           </View>
@@ -127,6 +132,18 @@ class CrashGraphs extends Component {
         <View style={styles.border}>
           <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='percent' />
         </View>
+      </View>
+    )
+  }
+}
+
+class AppInfo extends Component {
+  render (){
+    return (
+      <View>
+        <Text style={styles.dark13Text}>{this.props.name}</Text>
+        <Text style={styles.light11Text}>Last 24h</Text>
+        <Text style={styles.boldText}>{this.props.data}</Text>
       </View>
     )
   }

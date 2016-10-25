@@ -1,8 +1,8 @@
 
 var api = require('../library/api.js');
 let crashInfo;
-//Makes the api call to get a list of all apps as well as some basic crash info regarding each app
-combineData = function(callback){
+
+getAvaliableApps = function(callback){
   const appData = [];
   getAppsList((data) => {
     Object.keys(data).forEach(function(id){
@@ -10,16 +10,21 @@ combineData = function(callback){
       obj['id'] = id;
       obj['name'] = data[id]['appName'];
       obj['type'] = data[id]['appType'];
-
-      getCrashSummaries(id, (summary) => {
-        obj['crashPercent'] = summary.data['crashPercentage'];
-        obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
-        obj['crashCount'] = summary.data.periodicData[0]['crashes'];
-        appData.push(obj);
-        callback(appData);
-      })
+      appData.push(obj);
+      callback(appData);
     })
   })
+}
+
+getCrashSummaries = function(callback){
+  const crashData = [];
+  getCrashSummaries(id, (summary) => {
+    obj['crashPercent'] = summary.data['crashPercentage'];
+    obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
+    obj['crashCount'] = summary.data.periodicData[0]['crashes'];
+    crashData.push(obj);
+  })
+  callback(crashData);
 }
 
 crashRateGraph = function(id, callback){

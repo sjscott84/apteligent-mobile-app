@@ -190,9 +190,6 @@ module.exports = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgb(229,234,236)'
   },
-  head: {
-    flexDirection: 'row'
-  },
   logo: {
     height: 44,
     width: 44,
