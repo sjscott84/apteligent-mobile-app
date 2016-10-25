@@ -16,15 +16,13 @@ getAvaliableApps = function(callback){
   })
 }
 
-getCrashSummaries = function(callback){
-  const crashData = [];
-  getCrashSummaries(id, (summary) => {
-    obj['crashPercent'] = summary.data['crashPercentage'];
-    obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
-    obj['crashCount'] = summary.data.periodicData[0]['crashes'];
-    crashData.push(obj);
+getCrashSummaries = function(id, callback){
+  getCrashSummariesApi(id, (summary) => {
+    let crashPercent = summary.data['crashPercentage'];
+    //obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
+    let crashCount = summary.data.periodicData[0]['crashes'];
+    callback(crashPercent, crashCount);
   })
-  callback(crashData);
 }
 
 crashRateGraph = function(id, callback){
@@ -62,6 +60,13 @@ combineCrashData = function(id, callback){
 //Fetches the MAU for the last 24 hours from the api
 getMAU = function(id, callback){
   getMAUFromApi(id, (data) => {
+    callback(data['data']['series']['todayValue']);
+  })
+}
+
+//Fetches the MAU for the last 24 hours from the api
+getDAU = function(id, callback){
+  getDAUFromApi(id, (data) => {
     callback(data['data']['series']['todayValue']);
   })
 }
