@@ -12,7 +12,6 @@ import {
 import styles from './styleSheet';
 import getData from './getData';
 import Icon from 'react-native-vector-icons/FontAwesome';
-//import AvailableApps from './availableApps';
 
 //The Applist component displays each available app along with some basic data
 class AppList extends Component {
@@ -23,9 +22,9 @@ class AppList extends Component {
     }
   };
 
-  //This makes a call to the api and returns all apps, and some inital data
+  //This makes a call to the api and returns all apps
   componentWillMount(){
-    //combineData() is from getData.js
+    //getAvaliableApps() is from getData.js
       getAvaliableApps((data) => {
         this.setState({apps: data});
       });

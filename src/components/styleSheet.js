@@ -136,6 +136,13 @@ module.exports = StyleSheet.create({
     marginLeft: 6,
     color: 'rgb(122,143,147)'
   },
+  light13Text: {
+    fontFamily: 'AppleSDGothicNeo-Medium',
+    fontSize: 13,
+    lineHeight: 18,
+    marginLeft: 6,
+    color: 'rgb(122,143,147)'
+  },
   light14Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 14,
@@ -177,14 +184,13 @@ module.exports = StyleSheet.create({
   appDetailSummary: {
     flex: 2,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 5,
-    marginBottom: 0,
-    height: 74
+    justifyContent: 'space-between'
   },
   appDetailSummaryItem: {
-    flexGrow: 2,
-    justifyContent: 'flex-start'
+    flex: .5,
+    justifyContent: 'flex-start',
+    borderRightColor: 'rgb(255,255,255)',
+    borderTopColor: 'rgb(255,255,255)'
   },
   border: {
     borderWidth: 1,
@@ -196,14 +202,9 @@ module.exports = StyleSheet.create({
     borderRadius: 3,
     margin: 5
   },
-  nameAndType: {
-    flexDirection: 'column'
-  },
   crashInfo: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginRight: 6,
-    marginTop: 10
+    marginRight: 6
   },
   svg: {
     marginTop: 10,

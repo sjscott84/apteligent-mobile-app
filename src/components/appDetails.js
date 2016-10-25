@@ -24,27 +24,40 @@ class AppDetails extends Component {
     this.state = {
       apps: props,
       mau: 'mau',
+      dau: 'dau',
+      crashRateTotal: 0,
+      crashCountTotal: 0,
       crashRate: [1],
       crashRateStart: '',
       crashRateEnd: '',
-      httpErrorRate: [0.2, 0.3, 0.7, 0.6, 1.2, 0.75, 0.85, 1.1, 0.432, 0.3, 0.46, 1.4]
     }
   };
 
   componentWillMount(){
-    crashRateGraph(this.props.id, (data) =>{
-      this.setState({
-        crashRate: data['graph'],
-        crashRateStart: data['start'],
-        crashRateEnd: data['end']
-      });
-    })
     getMAU(this.props.id, (data) => {
       //console.log(data);
       this.setState({
         mau: data
       })
     })
+    getDAU(this.props.id, (data) =>{
+      this.setState({
+        dau: data
+      })
+    })
+    getCrashSummaries(this.props.id, (percent, count) => {
+      this.setState({
+        crashRateTotal: percent,
+        crashCountTotal: count
+      })
+    })
+    //crashRateGraph(this.props.id, (data) =>{
+      //this.setState({
+        //crashRate: data['graph'],
+        //crashRateStart: data['start'],
+        //crashRateEnd: data['end']
+      //});
+    //})
   }
   render(){
     return(
@@ -55,27 +68,28 @@ class AppDetails extends Component {
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
         <ScrollView>
-          <View style={[styles.app, {height: 90}]}>
-            <View style={styles.head}>
+          <View style={styles.app}>
+            <View style={{flexDirection: 'row'}}>
               <Image style={styles.logo} source={require('../images/logoTest.png')}/>
-              <View style={styles.nameAndType}>
+              <View>
                 <Text style={styles.largeText}>{this.props.name}</Text>
                 <Text style={styles.light14Text}>{this.props.type}</Text>
               </View>
             </View>
-            <Text style={styles.dark14Text}>Versions: All</Text>
+            <View style={[{borderColor: 'rgb(229,234,236)'}, {borderWidth: 1}]}>
+              <Text style={styles.dark14Text}>Versions: All</Text>
+            </View>
+            <View style={styles.crashInfo}>
+              <Summary what='DAU' timeFrame='Current 24h' figure={numeral(this.state.dau).format('0.0a')} change={.34} />
+              <Summary what='MAU' timeFrame='Current 30 days' figure={numeral(this.state.mau).format('0.0a')} change={-.34} />
+            </View>
           </View>
-          <View style={[styles.app, styles.crashInfo]}>
-                    <View style={styles.crashInfo}>
-            <AppInfo name="Crash Rate" data={this.props.crashPercent+'%'}/>
-            <AppInfo name="App Load" data={this.props.appLoads}/>
-            <AppInfo name="HTTP error rate" data='3.2%'/>
+          <View style={styles.app}>
+            <View style={styles.crashInfo}>
+              <Summary what='Crash rate' timeFrame='Current 24h' figure={numeral(this.state.crashRateTotal).format('0.00%')} change={.5} />
+              <Summary what='Crash count' timeFrame='Current 24h' figure={numeral(this.state.crashCountTotal).format('0.0a')} change={-.5} />
+            </View>
           </View>
-            <Summary what={'MAU'} timeFrame={'Last 24h'} figure={numeral(this.state.mau).format('0.0a')} change={0.5} />
-            <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
-          </View>
-          <CrashGraphs navigator={this.props.navigator} id={this.props.id} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} start={this.state.crashRateStart} end={this.state.crashRateEnd} />
-          <CrashGraphs name={this.props.name} graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7} start={this.state.crashRateStart} end={this.state.crashRateEnd} />
         </ScrollView>
       </View>
     )
@@ -92,7 +106,7 @@ class Summary extends Component {
     return(
       <View style={[styles.appDetailSummaryItem, styles.border]}>
         <Text style={styles.dark15Text}>{this.props.what}</Text>
-        <Text style={styles.light14Text}>{this.props.timeFrame}</Text>
+        <Text style={styles.light13Text}>{this.props.timeFrame}</Text>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.boldText}>{this.props.figure}</Text>
           <Triangle change={this.props.change}/>
