@@ -50,10 +50,10 @@ class CrashInfo extends Component {
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
         <ScrollView>
-          <Text style={[styles.light13Text, {justifyContent: 'flex-end'}]}>Current 24 hours</Text>
+          <Text style={[styles.bold13Text, {alignSelf: 'flex-end'}, {marginBottom: 1}, {marginTop: 6}, {marginRight: 6}]}>Current 24 hours</Text>
           <View style={[styles.app, styles.crashInfo]}>
-            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={numeral(this.props.crashPercent).format('0.00')+'%'} change={0.5} />
-            <Summary what={'Crash Count'} timeFrame={'Last 24h'} figure={numeral(this.props.crashCount).format('0.0a')} change={-0.34} />
+            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={numeral(this.props.crashPercent).format('0.00')+'%'} />
+            <Summary what={'Crash Count'} timeFrame={'Last 24h'} figure={numeral(this.props.crashCount).format('0.0a')} />
           </View>
           <View style={styles.app}>
             <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
@@ -181,11 +181,7 @@ class Summary extends Component {
       <View style={[styles.appDetailSummaryItem, styles.border]}>
         <Text style={styles.dark15Text}>{this.props.what}</Text>
         <Text style={styles.light14Text}>{this.props.timeFrame}</Text>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.boldText}>{this.props.figure}</Text>
-          <Triangle change={this.props.change}/>
-          <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
-        </View>
+        <Text style={styles.boldText}>{this.props.figure}</Text>
       </View>
     )
   }
@@ -197,24 +193,24 @@ class Symbols extends Component {
       <View>
         <View style={styles.crashInfoSymbels}>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="user" size={19} color='rgb(122,143,147)' backgroundColor='white'>
+            <Icon.Button name="user" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7}>
               <Text style={styles.light13Text}>{this.props.users}</Text>
             </Icon.Button>
           </View>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="bar-chart" size={19} color='rgb(122,143,147)' backgroundColor='white'>
+            <Icon.Button name="bar-chart" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7}>
               <Text style={styles.light13Text}>{this.props.occurances}</Text>
             </Icon.Button>
           </View>
         </View>
         <View style={styles.crashInfoSymbels}>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="calendar-o" size={19} color='rgb(122,143,147)' backgroundColor='white'>
+            <Icon.Button name="calendar-o" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7}>
               <Text style={styles.light13Text}>{this.props.firstOccured}</Text>
             </Icon.Button>
           </View>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="clock-o" size={19} color='rgb(122,143,147)' backgroundColor='white'>
+            <Icon.Button name="clock-o" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7}>
               <Text style={styles.light13Text}>{this.props.lastOccured}</Text>
             </Icon.Button>
           </View>
@@ -227,7 +223,7 @@ class Symbols extends Component {
 class Crashes extends Component {
   render(){
     return(
-      <View style={styles.app}>
+      <View style={[styles.app, {borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}, {marginTop: 0}, {marginBottom: 0}]}>
         <Text style={styles.smallLink} onPress={this._onPress.bind(this)}>{this.props.crashName}</Text>
         <Text style={styles.dark15Text}>{this.props.reason}</Text>
         <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment(this.props.firstOccured).fromNow()} lastOccured={moment(this.props.lastOccured).format('DD MMM YY h:mm:ss')} />

@@ -68,13 +68,6 @@ class AppDetails extends Component {
         crashCountTotalLive: crashCountTotal
       })
     })
-    //crashRateGraph(this.props.id, (data) =>{
-      //this.setState({
-        //crashRate: data['graph'],
-        //crashRateStart: data['start'],
-        //crashRateEnd: data['end']
-      //});
-    //})
   }
   render(){
     return(
@@ -97,14 +90,14 @@ class AppDetails extends Component {
               <Text style={styles.dark14Text}>Versions: All</Text>
             </View>
             <View style={styles.crashInfo}>
-              <Summary what='DAU' timeFrame='Current 24h' figure={numeral(this.state.dau).format('0.0a')} change={.34} />
-              <Summary what='MAU' timeFrame='Current 30 days' figure={numeral(this.state.mau).format('0.0a')} change={-.34} />
+              <Summary what='DAU' timeFrame='Current 24h' figure={numeral(this.state.dau).format('0.0a')} />
+              <Summary what='MAU' timeFrame='Current 30 days' figure={numeral(this.state.mau).format('0.0a')} />
             </View>
           </View>
           <View style={styles.app}>
             <View style={styles.crashInfo}>
-              <Summary what='Crash rate' timeFrame='Current 24h' figure={numeral(this.state.crashPercent).format('0.00')+'%'} change={.5} />
-              <Summary what='Crash count' timeFrame='Current 24h' figure={numeral(this.state.crashCountTotal).format('0.0a')} change={-.5} />
+              <Summary what='Crash rate' timeFrame='Current 24h' figure={numeral(this.state.crashPercent).format('0.00')+'%'} />
+              <Summary what='Crash count' timeFrame='Current 24h' figure={numeral(this.state.crashCountTotal).format('0.0a')} />
             </View>
           </View>
           <Button style={{margins: 6}} text={'VIEW CRASH SUMMARY'} onPress={this._onPress.bind(this)} />
@@ -116,14 +109,12 @@ class AppDetails extends Component {
             <CrashGraphs 
               graphName={'CRASH COUNT'}
               liveCount={this.state.crashCountTotalLive}
-              change={.3}
               data={this.state.crashRateArray}
               start={this.state.start}
               end={this.state.end} />
             <CrashGraphs 
               graphName={'APP LOAD COUNT'}
               liveCount={this.state.appLoadTotalLive}
-              change={.3}
               data={this.state.appLoadArray}
               start={this.state.start}
               end={this.state.end} />
@@ -161,11 +152,7 @@ class Summary extends Component {
       <View style={[styles.appDetailSummaryItem, styles.border]}>
         <Text style={styles.dark15Text}>{this.props.what}</Text>
         <Text style={styles.light13Text}>{this.props.timeFrame}</Text>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.boldText}>{this.props.figure}</Text>
-          <Triangle change={this.props.change}/>
-          <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
-        </View>
+        <Text style={styles.boldText}>{this.props.figure}</Text>
       </View>
     )
   }
@@ -178,11 +165,7 @@ class CrashGraphs extends Component {
         <View>
           <Text style={styles.dark15Text}>{this.props.graphName}</Text>
           <Text style={styles.light14Text}>Last 5min</Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.boldText}>{numeral(this.props.liveCount).format('0.0a')}</Text>
-            <Triangle change={this.props.change}/>
-            <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
-          </View>
+          <Text style={styles.boldText}>{numeral(this.props.liveCount).format('0.0a')}</Text>
         </View>
         <View>
           <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='number' />

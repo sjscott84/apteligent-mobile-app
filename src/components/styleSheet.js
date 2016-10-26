@@ -97,6 +97,13 @@ module.exports = StyleSheet.create({
     color: 'rgb(52,73,76)',
     marginLeft: 6
   },
+  bold13Text: {
+    fontFamily: 'AppleSDGothicNeo-Bold',
+    fontSize: 13,
+    lineHeight: 18,
+    color: 'rgb(52,73,76)',
+    marginLeft: 6
+  },
   bold14Text: {
     fontFamily: 'AppleSDGothicNeo-Bold',
     fontSize: 14,
