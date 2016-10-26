@@ -231,8 +231,25 @@ module.exports = StyleSheet.create({
   },
   crashInfoSymbels: {
     flex: 1,
+    marginLeft: 6,
     flexDirection: 'row',
-    justifyContent:'flex-start'
+    justifyContent:'space-between'
+  },
+  crashSortButtons: {
+    margin: 6,
+    borderColor:'rgb(122,143,147)',
+    borderWidth: 1,
+    padding: 3,
+    borderRadius: 2
+  },
+  iconButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    margin: 6,
+    padding: 6,
+    borderColor: 'rgb(122,143,147)',
+    borderWidth: 1,
+    borderRadius: 2
   },
   button: {
     justifyContent: 'center',

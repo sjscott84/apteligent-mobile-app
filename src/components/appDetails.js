@@ -30,10 +30,10 @@ class AppDetails extends Component {
       dau: 'dau',
       crashPercent: 0,
       crashCountTotal: 0,
-      crashRateArray: [0],
-      appLoadArray: [0],
-      start: 'start',
-      end: 'end',
+      crashRateArray: [1],
+      appLoadArray: [1],
+      start: '',
+      end: '',
       appLoadTotalLive: 0,
       crashCountTotalLive: 0
     }
@@ -52,7 +52,6 @@ class AppDetails extends Component {
       })
     })
     getCrashSummaries(this.props.id, (percent, count) => {
-      console.log(percent) 
       this.setState({
         crashPercent: percent,
         crashCountTotal: count
