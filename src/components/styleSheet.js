@@ -21,8 +21,9 @@ module.exports = StyleSheet.create({
   },
   input: {
     height: 40,
-    marginTop: 3,
+    margin: 6,
     marginBottom: 20,
+    paddingLeft: 5,
     borderColor: 'rgb(139, 157, 160)',
     borderWidth: 1,
     borderRadius: 2,
@@ -31,6 +32,7 @@ module.exports = StyleSheet.create({
   label: {
     fontSize: 15,
     lineHeight: 20,
+    marginLeft: 6,
     color: 'rgb(52, 73, 76)',
     alignSelf: 'flex-start',
     fontFamily: 'AppleSDGothicNeo-SemiBold'
@@ -39,10 +41,12 @@ module.exports = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-SemiBold',
     fontSize: 13,
     lineHeight: 18,
+    marginRight: 6,
     alignSelf: 'flex-end',
     color: 'rgb(54, 143, 175)'
   },
   disclaimer: {
+    marginLeft: 6,
     marginTop: 30,
     lineHeight: 18,
     fontSize: 13,
@@ -261,7 +265,7 @@ module.exports = StyleSheet.create({
     marginBottom: 0,
     //marginTop: 20,
     //marginBottom: 20,
-    //alignSelf: 'stretch',
+    alignSelf: 'stretch',
     backgroundColor: 'rgb(46,167,158)'
   },
   buttonText: {

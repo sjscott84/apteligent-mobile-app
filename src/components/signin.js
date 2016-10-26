@@ -28,9 +28,7 @@ class Signin extends Component{
   render(){
     return (
       <View style={styles.loginContainer}>
-        <Text style={styles.header}>Login to Apteligent</Text>
-        <Text style={styles.label}>Data location</Text>
-        <TextInput style={styles.input} />{/*By default TextInput has no default styling*/}
+        <Text style={styles.header}>Login to Apteligent account</Text>
         <Text style={styles.label}>Email</Text>
         <TextInput style={styles.input} onChangeText={(text) => this.setState({username: text})} value={this.state.username}/>{/*By default TextInput has no default styling*/}
         <Text style={styles.label}>Password</Text>
