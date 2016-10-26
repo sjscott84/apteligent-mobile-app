@@ -107,17 +107,29 @@ class BarChart extends Component {
       }
     };
 
-    return(
-      <G>
-        <Line x1={lowNumberForXAxis} y1={lowNumberForYAxis} x2={lowNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
-        <Line x1={lowNumberForXAxis} y1={highNumberForYAxis} x2={highNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
-        <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={lowNumberForXAxis} y={highNumberForYAxis + 5}>{start}</Text>
-        <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} textAnchor="end" x={highNumberForXAxis - 8} y={highNumberForYAxis + 5}>{end}</Text>
-        {textArray}
-        {tickLines}
-        {rectangles}
-      </G>
-    )
+    if(dataset.reduce((a,b) => a+b,0) !== 0){
+      return(
+        <G>
+          <Line x1={lowNumberForXAxis} y1={lowNumberForYAxis} x2={lowNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
+          <Line x1={lowNumberForXAxis} y1={highNumberForYAxis} x2={highNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
+          <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={lowNumberForXAxis} y={highNumberForYAxis + 5}>{start}</Text>
+          <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} textAnchor="end" x={highNumberForXAxis - 8} y={highNumberForYAxis + 5}>{end}</Text>
+          {textArray}
+          {tickLines}
+          {rectangles}
+        </G>
+      )
+    }else{
+      return(
+        <G>
+          <Line x1={lowNumberForXAxis} y1={lowNumberForYAxis} x2={lowNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
+          <Line x1={lowNumberForXAxis} y1={highNumberForYAxis} x2={highNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
+          <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={lowNumberForXAxis} y={highNumberForYAxis + 5}>{start}</Text>
+          <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} textAnchor="end" x={highNumberForXAxis - 8} y={highNumberForYAxis + 5}>{end}</Text>
+          <Text fontSize={15} strokeWidth={0.5} stroke={'rgb(122,143,147)'} x={lowNumberForXAxis + 20} y={highNumberForYAxis-(highNumberForYAxis/2)}>No data avaliable</Text>
+        </G>
+      )
+    }
   }
 }
 module.exports = BarChart;
