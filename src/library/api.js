@@ -53,7 +53,7 @@ getAppsList = function(callback){
 }
 
 //Get some very basic crash information regarding specific ids
-getCrashSummaries = function(id, callback){
+getCrashSummariesApi = function(id, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
   });
@@ -68,6 +68,29 @@ getCrashSummaries = function(id, callback){
       }
     })
     .then((json) => {
+      callback(json);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+getLiveStateData = function(id, time, callback){
+  const myHeaders = new Headers({
+    "Authorization": 'Bearer '+ACCESS_ID
+  });
+  var request = new Request('https://developers.crittercism.com:443/v2/liveStats/'+id+'/'+time, {
+    method: 'GET',
+    headers: myHeaders
+  })
+  fetch(request)
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      }
+    })
+    .then((json) => {
+      console.log(json);
       callback(json);
     })
     .catch((err) => {
@@ -150,6 +173,30 @@ getMAUFromApi = function(id, callback){
     "Authorization": 'Bearer '+ACCESS_ID
   });
   var request = new Request('https://developers.crittercism.com:443/v2/trends/mau/'+id, {
+    method: 'GET',
+    headers: myHeaders
+  })
+  fetch(request)
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      } else {
+        console.log('error');
+      }
+    })
+    .then((json) => {
+      callback(json);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+getDAUFromApi = function(id, callback){
+  const myHeaders = new Headers({
+    "Authorization": 'Bearer '+ACCESS_ID
+  });
+  var request = new Request('https://developers.crittercism.com:443/v2/trends/dau/'+id, {
     method: 'GET',
     headers: myHeaders
   })

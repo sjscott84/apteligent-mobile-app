@@ -17,34 +17,64 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
 import numeral from 'numeral';
 import moment from'moment';
+import Button from './button';
 
 class AppDetails extends Component {
   constructor(props){
     super(props);
     this.state = {
       apps: props,
+      time: 'PT5M',
+      displayTime: 'Last 5min',
       mau: 'mau',
-      crashRate: [1],
-      crashRateStart: '',
-      crashRateEnd: '',
-      httpErrorRate: [0.2, 0.3, 0.7, 0.6, 1.2, 0.75, 0.85, 1.1, 0.432, 0.3, 0.46, 1.4]
+      dau: 'dau',
+      crashPercent: 0,
+      crashCountTotal: 0,
+      crashRateArray: [1],
+      appLoadArray: [1],
+      start: '',
+      end: '',
+      appLoadTotalLive: 0,
+      crashCountTotalLive: 0
     }
   };
 
   componentWillMount(){
-    crashRateGraph(this.props.id, (data) =>{
-      this.setState({
-        crashRate: data['graph'],
-        crashRateStart: data['start'],
-        crashRateEnd: data['end']
-      });
-    })
     getMAU(this.props.id, (data) => {
       //console.log(data);
       this.setState({
         mau: data
       })
     })
+    getDAU(this.props.id, (data) =>{
+      this.setState({
+        dau: data
+      })
+    })
+    getCrashSummaries(this.props.id, (percent, count) => {
+      this.setState({
+        crashPercent: percent,
+        crashCountTotal: count
+      })
+    })
+    crashCountGraph(this.props.id, this.state.time, (rate, loads, start, end, appLoadTotal, crashCountTotal) => {
+      console.log(rate, loads, start, end, appLoadTotal, crashCountTotal);
+      this.setState({
+        crashRateArray: rate,
+        appLoadArray: loads,
+        start: start,
+        end: end,
+        appLoadTotalLive: appLoadTotal,
+        crashCountTotalLive: crashCountTotal
+      })
+    })
+    //crashRateGraph(this.props.id, (data) =>{
+      //this.setState({
+        //crashRate: data['graph'],
+        //crashRateStart: data['start'],
+        //crashRateEnd: data['end']
+      //});
+    //})
   }
   render(){
     return(
@@ -55,26 +85,69 @@ class AppDetails extends Component {
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
         <ScrollView>
-          <View style={[styles.app, {height: 90}]}>
-            <View style={styles.head}>
+          <View style={styles.app}>
+            <View style={{flexDirection: 'row'}}>
               <Image style={styles.logo} source={require('../images/logoTest.png')}/>
-              <View style={styles.nameAndType}>
+              <View>
                 <Text style={styles.largeText}>{this.props.name}</Text>
                 <Text style={styles.light14Text}>{this.props.type}</Text>
               </View>
             </View>
-            <Text style={styles.dark14Text}>Versions: All</Text>
+            <View style={[{borderColor: 'rgb(229,234,236)'}, {borderWidth: 1}]}>
+              <Text style={styles.dark14Text}>Versions: All</Text>
+            </View>
+            <View style={styles.crashInfo}>
+              <Summary what='DAU' timeFrame='Current 24h' figure={numeral(this.state.dau).format('0.0a')} change={.34} />
+              <Summary what='MAU' timeFrame='Current 30 days' figure={numeral(this.state.mau).format('0.0a')} change={-.34} />
+            </View>
           </View>
-          <View style={[styles.app, styles.crashInfo]}>
-            <Summary what={'MAU'} timeFrame={'Last 24h'} figure={numeral(this.state.mau).format('0.0a')} change={0.5} />
-            <Summary what={'App load'} timeFrame={'Last 24h'} figure={this.props.appLoads} change={-0.34} />
+          <View style={styles.app}>
+            <View style={styles.crashInfo}>
+              <Summary what='Crash rate' timeFrame='Current 24h' figure={numeral(this.state.crashPercent).format('0.00')+'%'} change={.5} />
+              <Summary what='Crash count' timeFrame='Current 24h' figure={numeral(this.state.crashCountTotal).format('0.0a')} change={-.5} />
+            </View>
           </View>
-          <CrashGraphs navigator={this.props.navigator} id={this.props.id} name={this.props.name} graphName={"CRASH RATE"} rate={this.props.crashPercent} count={this.props.crashCount} data={this.state.crashRate} change={0.72} start={this.state.crashRateStart} end={this.state.crashRateEnd} />
-          <CrashGraphs name={this.props.name} graphName={"HTTP ERROR RATE"} rate={"1.5"} data={this.state.httpErrorRate} change={-0.7} start={this.state.crashRateStart} end={this.state.crashRateEnd} />
+          <Button style={{margins: 6}} text={'VIEW CRASH SUMMARY'} onPress={this._onPress.bind(this)} />
+          <View style={styles.app}>
+            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {alignItems: 'center'}, {borderBottomColor: 'rgb(122,143,147)'}, {borderBottomWidth: 1}]}>
+              <Text style={styles.bold15Text}>LIVE STATS</Text>
+              <Icon.Button name="clock-o" size={15} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressChangeGraph.bind(this)} />
+            </View>
+            <CrashGraphs 
+              graphName={'CRASH COUNT'}
+              liveCount={this.state.crashCountTotalLive}
+              change={.3}
+              data={this.state.crashRateArray}
+              start={this.state.start}
+              end={this.state.end} />
+            <CrashGraphs 
+              graphName={'APP LOAD COUNT'}
+              liveCount={this.state.appLoadTotalLive}
+              change={.3}
+              data={this.state.appLoadArray}
+              start={this.state.start}
+              end={this.state.end} />
+          </View>
         </ScrollView>
       </View>
     )
   };
+
+  _onPress(){
+    this.props.navigator.push({
+      name: 'crashInfo',
+      passProps: {
+        id: this.props.id,
+        name: this.props.name,
+        crashPercent: this.state.crashPercent,
+        crashCount: this.state.crashCountTotal
+      }
+    });
+  }
+
+  _onPressChangeGraph(){
+    console.log('change');
+  }
 
   //This rerenders the appList component (as this component can be accessed from mulitple places it was not appropriate to use the 'pop' navigator method)
   _onPressBack(){
@@ -87,7 +160,7 @@ class Summary extends Component {
     return(
       <View style={[styles.appDetailSummaryItem, styles.border]}>
         <Text style={styles.dark15Text}>{this.props.what}</Text>
-        <Text style={styles.light14Text}>{this.props.timeFrame}</Text>
+        <Text style={styles.light13Text}>{this.props.timeFrame}</Text>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.boldText}>{this.props.figure}</Text>
           <Triangle change={this.props.change}/>
@@ -99,34 +172,33 @@ class Summary extends Component {
 };
 
 class CrashGraphs extends Component {
-  //This renders the CrashInfo component, providing more details about all the crashes
-  _onPressNext(){
-    this.props.navigator.push({
-      name: 'crashInfo',
-      passProps: {
-        id: this.props.id,
-        name: this.props.name,
-        crashPercent: this.props.rate,
-        crashCount: this.props.count
-      }
-    });
-  };
-
   render(){
     return(
-      <View style={[styles.app, {height: 234}]}>
-        <View style={styles.border}>
-          <Text onPress={this._onPressNext.bind(this)} style={styles.smallLink}>{this.props.graphName}</Text>
-          <Text style={styles.light14Text}>Last 30 days</Text>
+      <View style={[{borderBottomColor: 'rgb(244,246,247)'}, {borderBottomWidth: 1}]}>
+        <View>
+          <Text style={styles.dark15Text}>{this.props.graphName}</Text>
+          <Text style={styles.light14Text}>Last 5min</Text>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.boldText}>{this.props.rate+'%'}</Text>
+            <Text style={styles.boldText}>{numeral(this.props.liveCount).format('0.0a')}</Text>
             <Triangle change={this.props.change}/>
             <Text style={[styles.light11Text, {marginTop: 4.5}]}>{this.props.change}%</Text>
           </View>
         </View>
-        <View style={styles.border}>
-          <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='percent' />
+        <View>
+          <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='number' />
         </View>
+      </View>
+    )
+  }
+}
+
+class AppInfo extends Component {
+  render (){
+    return (
+      <View>
+        <Text style={styles.dark13Text}>{this.props.name}</Text>
+        <Text style={styles.light11Text}>Last 24h</Text>
+        <Text style={styles.boldText}>{this.props.data}</Text>
       </View>
     )
   }

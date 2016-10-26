@@ -7,7 +7,6 @@ import {
   Text,
   View,
   ScrollView,
-  Dimensions,
   TouchableHighlight
 } from 'react-native';
 import Svg,{

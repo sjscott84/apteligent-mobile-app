@@ -136,6 +136,13 @@ module.exports = StyleSheet.create({
     marginLeft: 6,
     color: 'rgb(122,143,147)'
   },
+  light13Text: {
+    fontFamily: 'AppleSDGothicNeo-Medium',
+    fontSize: 13,
+    lineHeight: 18,
+    marginLeft: 6,
+    color: 'rgb(122,143,147)'
+  },
   light14Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 14,
@@ -177,21 +184,17 @@ module.exports = StyleSheet.create({
   appDetailSummary: {
     flex: 2,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 5,
-    marginBottom: 0,
-    height: 74
+    justifyContent: 'space-between'
   },
   appDetailSummaryItem: {
-    flexGrow: 2,
-    justifyContent: 'flex-start'
+    flex: .5,
+    justifyContent: 'flex-start',
+    borderRightColor: 'rgb(255,255,255)',
+    borderTopColor: 'rgb(255,255,255)'
   },
   border: {
     borderWidth: 1,
     borderColor: 'rgb(229,234,236)'
-  },
-  head: {
-    flexDirection: 'row'
   },
   logo: {
     height: 44,
@@ -199,14 +202,9 @@ module.exports = StyleSheet.create({
     borderRadius: 3,
     margin: 5
   },
-  nameAndType: {
-    flexDirection: 'column'
-  },
   crashInfo: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginRight: 6,
-    marginTop: 10
+    marginRight: 6
   },
   svg: {
     marginTop: 10,
@@ -233,8 +231,25 @@ module.exports = StyleSheet.create({
   },
   crashInfoSymbels: {
     flex: 1,
+    marginLeft: 6,
     flexDirection: 'row',
-    justifyContent:'flex-start'
+    justifyContent:'space-between'
+  },
+  crashSortButtons: {
+    margin: 6,
+    borderColor:'rgb(122,143,147)',
+    borderWidth: 1,
+    padding: 3,
+    borderRadius: 2
+  },
+  iconButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    margin: 6,
+    padding: 6,
+    borderColor: 'rgb(122,143,147)',
+    borderWidth: 1,
+    borderRadius: 2
   },
   button: {
     justifyContent: 'center',
@@ -242,9 +257,11 @@ module.exports = StyleSheet.create({
     borderRadius: 2,
     height: 36,
     padding: 5,
-    marginTop: 20,
-    marginBottom: 20,
-    alignSelf: 'stretch',
+    margin: 6,
+    marginBottom: 0,
+    //marginTop: 20,
+    //marginBottom: 20,
+    //alignSelf: 'stretch',
     backgroundColor: 'rgb(46,167,158)'
   },
   buttonText: {

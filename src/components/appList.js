@@ -10,10 +10,8 @@ import {
 } from 'react-native';
 
 import styles from './styleSheet';
-import numeral from 'numeral'
 import getData from './getData';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AvailableApps from './availableApps';
 
 //The Applist component displays each available app along with some basic data
 class AppList extends Component {
@@ -24,10 +22,10 @@ class AppList extends Component {
     }
   };
 
-  //This makes a call to the api and returns all apps, and some inital data
+  //This makes a call to the api and returns all apps
   componentWillMount(){
-    //combineData() is from getData.js
-      combineData((data) => {
+    //getAvaliableApps() is from getData.js
+      getAvaliableApps((data) => {
         this.setState({apps: data});
       });
   };
@@ -65,7 +63,7 @@ class AppList extends Component {
     const app = this.state.apps;
     const nav = this.props.navigator;
     for(var i = 0; i < app.length; i ++){
-      appView.push(<AppsInfo navigator={nav} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} crashPercent={app[i]['crashPercent'].toFixed(2)} appLoads={numeral(app[i]['appLoads']).format('0.0a')} crashCount={app[i]['crashCount']} />);
+      appView.push(<AppsInfo navigator={nav} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
     }
     return appView;
   }
@@ -79,39 +77,20 @@ class AppsInfo extends Component {
       passProps: {
         id: this.props.id,
         name: this.props.name,
-        type: this.props.type,
-        crashPercent: this.props.crashPercent,
-        appLoads: this.props.appLoads,
-        crashCount: this.props.crashCount
+        type: this.props.type
       }});
   };
 
   render (){
     return (
-      <View style={[styles.app, {height: 185}]}>
-        <View style={styles.head}>
+      <View style={[styles.app, {height: 83}]}>
+        <View style={{flexDirection: 'row'}}>
           <Image style={styles.logo} source={require('../images/logoTest.png')}/>
-          <Text style={styles.largeLink} onPress={this._onPress.bind(this)}>{this.props.name}</Text>
-        </View>
-          <Text style={[styles.light14Text, {flexDirection: 'column'}]}>All Versions</Text>
-          <Text style={[styles.light14Text, {flexDirection: 'column'}]}>{this.props.type}</Text>
-          <View style={styles.crashInfo}>
-            <AppInfo name="Crash Rate" data={this.props.crashPercent+'%'}/>
-            <AppInfo name="App Load" data={this.props.appLoads}/>
-            <AppInfo name="HTTP error rate" data='3.2%'/>
+          <View>
+            <Text style={styles.largeLink} onPress={this._onPress.bind(this)}>{this.props.name}</Text>
+            <Text style={[styles.light14Text, {flexDirection: 'column'}]}>{this.props.type}</Text>
           </View>
-      </View>
-    )
-  }
-}
-
-class AppInfo extends Component {
-  render (){
-    return (
-      <View>
-        <Text style={styles.dark13Text}>{this.props.name}</Text>
-        <Text style={styles.light11Text}>Last 24h</Text>
-        <Text style={styles.boldText}>{this.props.data}</Text>
+        </View>
       </View>
     )
   }

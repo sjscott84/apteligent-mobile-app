@@ -6,7 +6,9 @@ import {
   Image,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -20,14 +22,22 @@ class CrashInfo extends Component {
   constructor(){
     super();
     this.state = {
-      crashes: {}
+      crashes: {},
+      crashesArray: [],
+      userPressed: true,
+      occurancesPressed: false,
+      firstSeenPressed: false,
+      lastSeenPressed: false
     }
   }
   //This makes a call to the api and retrieves a list of crash groups for a specific app
   componentWillMount(){
     //combineCrashData function is from getData.js
     combineCrashData(this.props.id, (data) => {
-      this.setState({crashes: data});
+      let sortedData = data.sort(function(a,b){return a.affectedUsers - b.affectedUsers});
+      console.log(sortedData);
+      this.setState({crashes: sortedData});
+      this._getCrashInfo(sortedData);
     });
   };
 
@@ -40,30 +50,110 @@ class CrashInfo extends Component {
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
         <ScrollView>
+          <Text style={[styles.light13Text, {justifyContent: 'flex-end'}]}>Current 24 hours</Text>
           <View style={[styles.app, styles.crashInfo]}>
-            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={this.props.crashPercent+'%'} change={0.5} />
+            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={numeral(this.props.crashPercent).format('0.00')+'%'} change={0.5} />
             <Summary what={'Crash Count'} timeFrame={'Last 24h'} figure={numeral(this.props.crashCount).format('0.0a')} change={-0.34} />
           </View>
           <View style={styles.app}>
             <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
-            <Text style={styles.light14Text}>Last 24 Hours</Text>
-            <Symbols users='Users Affected' occurances='Total Occurances' firstOccured='First Occured' lastOccured='Last Seen' />
+            <Text style={styles.light13Text}>Sorted By</Text>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity onPress={this._userPress.bind(this)}>
+                <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.userPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+                  <Icon name={'user'} size={19} color={this.state.userPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
+                  <Text style={[styles.light13Text, this.state.userPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Users Affected</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._occurancesPress.bind(this)}>
+                <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.occurancesPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+                  <Icon name={'bar-chart'} size={19} color={this.state.occurancesPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
+                  <Text style={[styles.light13Text, this.state.occurancesPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Total Occurances</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={{flexDirection:'row'}}>
+              <TouchableOpacity onPress={this._firstSeenPress.bind(this)}>
+                <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.firstSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+                  <Icon name={'calendar-o'} size={19} color={this.state.firstSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
+                  <Text style={[styles.light13Text, this.state.firstSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>First Occurred</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._lastSeenPress.bind(this)}>
+                <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.lastSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+                  <Icon name={'clock-o'} size={19} color={this.state.lastSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
+                  <Text style={[styles.light13Text, this.state.lastSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Last Seen</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
           <View>
-            {this._getCrashInfo()}
+            {this.state.crashesArray}
           </View>
         </ScrollView>
       </View>
     )
   };
 
-  _getCrashInfo(){
-    const crashesArray = [];
-    const crash = this.state.crashes;
+  _userPress(){
+    let data = this.state.crashes;
+    let sortedData = data.sort(function(a,b){return a.affectedUsers - b.affectedUsers});
+    this._getCrashInfo(sortedData);
+    this.setState({
+      crashes: sortedData,
+      userPressed: true,
+      occurancesPressed: false,
+      firstSeenPressed: false,
+      lastSeenPressed: false
+    });
+  }
+
+  _occurancesPress(){
+    let data = this.state.crashes;
+    let sortedData = data.sort(function(a,b){return a.totalOccurances - b.totalOccurances});
+    this._getCrashInfo(sortedData);
+    this.setState({
+      crashes: sortedData,
+      userPressed: false,
+      occurancesPressed: true,
+      firstSeenPressed: false,
+      lastSeenPressed: false
+    });
+  }
+
+  _firstSeenPress(){
+    let data = this.state.crashes;
+    let sortedData = data.sort(function(a,b){return new Date(a.firstOccured) - new Date(b.firstOccured)});
+    this._getCrashInfo(sortedData);
+    this.setState({
+      crashes: sortedData,
+      userPressed: false,
+      occurancesPressed: false,
+      firstSeenPressed: true,
+      lastSeenPressed: false
+    });
+  }
+
+  _lastSeenPress(){
+    let data = this.state.crashes;
+    let sortedData = data.sort(function(a,b){return new Date(b.lastOccured) - new Date(a.lastOccured)});
+    this._getCrashInfo(sortedData);
+    this.setState({
+      crashes: sortedData,
+      userPressed: false,
+      occurancesPressed: false,
+      firstSeenPressed: false,
+      lastSeenPressed: true
+    });
+  }
+
+  _getCrashInfo(data){
+    const thisCrashesArray = [];
+    const crash = data;
     const nav = this.props.navigator;
     for(var i = 0; i < crash.length; i ++){
-      crashesArray.push(<Crashes navigator={nav} 
-        key={crashesArray.length}
+      thisCrashesArray.push(<Crashes navigator={nav} 
+        key={i}
         name={this.props.name}
         id={this.props.id}
         hash={crash[i]['hash']}
@@ -76,7 +166,8 @@ class CrashInfo extends Component {
         status={crash[i]['status']}
         dailyOccurances={crash[i]['dailyOccurances']} />);
     }
-    return crashesArray;
+    //return crashesArray;
+    this.setState({crashesArray: thisCrashesArray});
   }
   //Rerenders the AppDetails component
   _onPressBack(){
@@ -106,25 +197,25 @@ class Symbols extends Component {
       <View>
         <View style={styles.crashInfoSymbels}>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="user" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-              <Text style={styles.light14Text}>{this.props.users}</Text>
+            <Icon.Button name="user" size={19} color='rgb(122,143,147)' backgroundColor='white'>
+              <Text style={styles.light13Text}>{this.props.users}</Text>
             </Icon.Button>
           </View>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="bar-chart" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-              <Text style={styles.light14Text}>{this.props.occurances}</Text>
+            <Icon.Button name="bar-chart" size={19} color='rgb(122,143,147)' backgroundColor='white'>
+              <Text style={styles.light13Text}>{this.props.occurances}</Text>
             </Icon.Button>
           </View>
         </View>
         <View style={styles.crashInfoSymbels}>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="calendar-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-              <Text style={styles.light14Text}>{this.props.firstOccured}</Text>
+            <Icon.Button name="calendar-o" size={19} color='rgb(122,143,147)' backgroundColor='white'>
+              <Text style={styles.light13Text}>{this.props.firstOccured}</Text>
             </Icon.Button>
           </View>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="clock-o" size={20} color='rgb(122,143,147)' backgroundColor='white'>
-              <Text style={styles.light14Text}>{this.props.lastOccured}</Text>
+            <Icon.Button name="clock-o" size={19} color='rgb(122,143,147)' backgroundColor='white'>
+              <Text style={styles.light13Text}>{this.props.lastOccured}</Text>
             </Icon.Button>
           </View>
         </View>
@@ -139,7 +230,7 @@ class Crashes extends Component {
       <View style={styles.app}>
         <Text style={styles.smallLink} onPress={this._onPress.bind(this)}>{this.props.crashName}</Text>
         <Text style={styles.dark15Text}>{this.props.reason}</Text>
-        <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment(this.props.firstOccured).fromNow()} lastOccured={moment(this.props.lastOccured).format('DD MMM YYYY h:mm')} />
+        <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment(this.props.firstOccured).fromNow()} lastOccured={moment(this.props.lastOccured).format('DD MMM YY h:mm:ss')} />
       </View>
     )
   }

@@ -1,8 +1,8 @@
 
 var api = require('../library/api.js');
 let crashInfo;
-//Makes the api call to get a list of all apps as well as some basic crash info regarding each app
-combineData = function(callback){
+
+getAvaliableApps = function(callback){
   const appData = [];
   getAppsList((data) => {
     Object.keys(data).forEach(function(id){
@@ -10,15 +10,36 @@ combineData = function(callback){
       obj['id'] = id;
       obj['name'] = data[id]['appName'];
       obj['type'] = data[id]['appType'];
-
-      getCrashSummaries(id, (summary) => {
-        obj['crashPercent'] = summary.data['crashPercentage'];
-        obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
-        obj['crashCount'] = summary.data.periodicData[0]['crashes'];
-        appData.push(obj);
-        callback(appData);
-      })
+      appData.push(obj);
+      callback(appData);
     })
+  })
+}
+
+getCrashSummaries = function(id, callback){
+  getCrashSummariesApi(id, (summary) => {
+    let crashPercent = summary.data['crashPercentage'];
+    //obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
+    let crashCount = summary.data.periodicData[0]['crashes'];
+    callback(crashPercent, crashCount);
+  })
+}
+
+crashCountGraph = function(id, time, callback){
+  getLiveStateData(id, time, data => {
+    let start = data['data']['periodicData'][0]['start'];
+    let end = data['data']['periodicData'][data['data']['periodicData'].length-1]['end']
+    let appLoadTotal = 0;
+    let crashCountTotal = 0;
+    let crashRateArray = [];
+    let appLoadsArray = [];
+    for(var i = 0; i < data['data']['periodicData'].length; i++){
+      crashRateArray.push(data['data']['periodicData'][i]['crashes']);
+      crashCountTotal = crashCountTotal + data['data']['periodicData'][i]['crashes'];
+      appLoadsArray.push(data['data']['periodicData'][i]['appLoads']);
+      appLoadTotal = appLoadTotal + data['data']['periodicData'][i]['appLoads']
+    }
+    callback(crashRateArray, appLoadsArray, start, end, appLoadTotal, crashCountTotal);
   })
 }
 
@@ -37,7 +58,7 @@ combineCrashData = function(id, callback){
   const crashSummaryData = [];
   getCrashInfoGeneral(id, (data) => {
     let crashArray = data['data']['errors'];
-    console.log(crashArray);
+    //console.log(crashArray);
     for(var i = 0; i < crashArray.length; i++){
       let obj = {};
       obj['crashName'] = crashArray[i]['name'];
@@ -50,13 +71,20 @@ combineCrashData = function(id, callback){
       obj['status'] = crashArray[i]['status'];
       obj['dailyOccurances'] = crashArray[i]['daily_occurrences'][1];
       crashSummaryData.push(obj);
-      callback(crashSummaryData);
     }
+    callback(crashSummaryData);
   })
 }
 //Fetches the MAU for the last 24 hours from the api
 getMAU = function(id, callback){
   getMAUFromApi(id, (data) => {
+    callback(data['data']['series']['todayValue']);
+  })
+}
+
+//Fetches the MAU for the last 24 hours from the api
+getDAU = function(id, callback){
+  getDAUFromApi(id, (data) => {
     callback(data['data']['series']['todayValue']);
   })
 }
