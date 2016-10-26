@@ -136,7 +136,7 @@ class CrashInfo extends Component {
 
   _lastSeenPress(){
     let data = this.state.crashes;
-    let sortedData = data.sort(function(a,b){return new Date(a.lastOccured) - new Date(b.lastOccured)});
+    let sortedData = data.sort(function(a,b){return new Date(b.lastOccured) - new Date(a.lastOccured)});
     this._getCrashInfo(sortedData);
     this.setState({
       crashes: sortedData,
@@ -230,7 +230,7 @@ class Crashes extends Component {
       <View style={styles.app}>
         <Text style={styles.smallLink} onPress={this._onPress.bind(this)}>{this.props.crashName}</Text>
         <Text style={styles.dark15Text}>{this.props.reason}</Text>
-        <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment(this.props.firstOccured).fromNow()} lastOccured={moment(this.props.lastOccured).format('DD MMM YYYY h:mm')} />
+        <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment(this.props.firstOccured).fromNow()} lastOccured={moment(this.props.lastOccured).format('DD MMM YY h:mm:ss')} />
       </View>
     )
   }
