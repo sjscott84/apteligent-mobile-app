@@ -58,7 +58,7 @@ combineCrashData = function(id, callback){
   const crashSummaryData = [];
   getCrashInfoGeneral(id, (data) => {
     let crashArray = data['data']['errors'];
-    console.log(crashArray);
+    //console.log(crashArray);
     for(var i = 0; i < crashArray.length; i++){
       let obj = {};
       obj['crashName'] = crashArray[i]['name'];
@@ -71,8 +71,8 @@ combineCrashData = function(id, callback){
       obj['status'] = crashArray[i]['status'];
       obj['dailyOccurances'] = crashArray[i]['daily_occurrences'][1];
       crashSummaryData.push(obj);
-      callback(crashSummaryData);
     }
+    callback(crashSummaryData);
   })
 }
 //Fetches the MAU for the last 24 hours from the api
