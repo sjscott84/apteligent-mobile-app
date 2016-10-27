@@ -26,7 +26,8 @@ class BreadcrumbDetails extends Component {
       breadcrumb: props,
       color: 'rgb(255,255,255)',
       number: '',
-      text: ''
+      text: '',
+      placement: []
     }
   }
 
@@ -39,7 +40,7 @@ class BreadcrumbDetails extends Component {
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
         <ScrollView>
-          <View style={styles.app}>
+          <View style={styles.app} onLayout={this._getHeight.bind(this)} >
             <Text style={styles.dark15Text}>BREADCRUMBS</Text>
             <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 6}]}>
               <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
@@ -157,7 +158,7 @@ class BreadcrumbDetails extends Component {
         </Svg>
       )
       crashDetails.push(
-        <Details key={i} color={color} number={i+1} text={text} background={background} />
+        <Details onLayout={this._getHeight.bind(this)} key={i} color={color} number={i+1} text={text} background={background} />
       )
     }
     return (<Crumbs 
@@ -168,6 +169,14 @@ class BreadcrumbDetails extends Component {
       network={summary[3]['network']}
       system={summary[4]['system']}
       crashDetails={crashDetails} />)
+  }
+
+  _getHeight(event){
+    let array = this.state.placement;
+    let {x,y,height,width} = event.nativeEvent.layout;
+    array.push(y);
+    array.sort((a,b) => {return a - b});
+    this.setState({placement: array});
   }
 
   _onPressBack(){
@@ -215,7 +224,7 @@ class Summary extends Component {
 class Details extends Component {
   render(){
     return(
-      <View style={[{flexDirection: 'row'}, {borderLeftColor: this.props.color}, {borderLeftWidth: 4}, {marginRight: 6}, {backgroundColor: this.props.background}]}>
+      <View onLayout={this.props.onLayout} style={[{flexDirection: 'row'}, {borderLeftColor: this.props.color}, {borderLeftWidth: 4}, {marginRight: 6}, {backgroundColor: this.props.background}]}>
           <Text style={styles.dark15Text}>{this.props.number}</Text>
           <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>{this.props.text}</Text>
       </View>
