@@ -27,7 +27,9 @@ class BreadcrumbDetails extends Component {
       color: 'rgb(255,255,255)',
       number: '',
       text: '',
-      placement: []
+      placement: [],
+      currentView: 0,
+      crumbsHeight: 0
     }
   }
 
@@ -39,8 +41,8 @@ class BreadcrumbDetails extends Component {
           <Text style={styles.dark18Text}>{this.props.name}</Text>
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         </View>
-        <ScrollView>
-          <View style={styles.app} onLayout={this._getHeight.bind(this)} >
+        <ScrollView contentOffset={{ x: 0, y: this.state.currentView }}>
+          <View style={styles.app} onLayout={this._getCrumbsHeight.bind(this)} >
             <Text style={styles.dark15Text}>BREADCRUMBS</Text>
             <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 6}]}>
               <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
@@ -89,6 +91,7 @@ class BreadcrumbDetails extends Component {
     let text;
     let background;
     for(var i = 0; i < crumbs.length; i++){
+      let placement = i;
       if(i % 2 === 0){
         background = 'rgb(255,255,255)';
       }else{
@@ -154,7 +157,7 @@ class BreadcrumbDetails extends Component {
       }
       squareArray.push(
         <Svg key={i} height={35} width={35}>
-          <Rect x={1} y={1} width={31} height={31} fill={color} onPress={() => {console.log(crumbs[i])}} />
+          <Rect x={1} y={1} width={31} height={31} fill={color} onPress={() => {this.setState({currentView: this.state.crumbsHeight + placement})}} />
         </Svg>
       )
       crashDetails.push(
@@ -177,6 +180,11 @@ class BreadcrumbDetails extends Component {
     array.push(y);
     array.sort((a,b) => {return a - b});
     this.setState({placement: array});
+  }
+
+  _getCrumbsHeight(event){
+    let {x,y,height,width} = event.nativeEvent.layout;
+    this.setState({crumbsHeight: height});
   }
 
   _onPressBack(){
