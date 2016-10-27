@@ -42,8 +42,8 @@ class BreadcrumbDetails extends Component {
           <View style={styles.app}>
             <Text style={styles.dark15Text}>BREADCRUMBS</Text>
             <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 6}]}>
-            <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
-            <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Changing date range does not filter breadcrumbs.</Text>
+              <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
+              <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Changing date range does not filter breadcrumbs.</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.dark15Text}>Username</Text>
@@ -153,7 +153,7 @@ class BreadcrumbDetails extends Component {
       }
       squareArray.push(
         <Svg key={i} height={35} width={35}>
-          <Rect x={1} y={1} width={31} height={31} fill={color} onPress={() => {console.log('click')}} />
+          <Rect x={1} y={1} width={31} height={31} fill={color} onPress={() => {console.log(crumbs[i])}} />
         </Svg>
       )
       crashDetails.push(
@@ -182,11 +182,15 @@ class Crumbs extends Component {
         <View style={[{flexDirection: 'row'}, {flexWrap: 'wrap'}]}>
           {this.props.squareArray}
         </View>
+        <View style={[{flexDirection: 'row'}, {justifyContent: 'flex-start'}]}>
           <Summary color={'rgb(208,2,27)'} what={'Crashes'} number={this.props.crashes} />
-          <Summary color={'rgb(252,200,148)'} what={'Handeled Exceptions'} number={this.props.handledException} />
           <Summary color={'rgb(205,220,57)'} what={'User Defined'} number={this.props.user} />
+         </View> 
+        <View style={[{flexDirection: 'row'}, {flexWrap: 'wrap'}]}>
           <Summary color={'rgb(10,61,72)'} what={'Network Events'} number={this.props.network} />
           <Summary color={'rgb(121,142,35)'} what={'System Events'} number={this.props.system} />
+        </View>
+          <Summary color={'rgb(252,200,148)'} what={'Handeled Exceptions'} number={this.props.handledException} />
         <View style={{marginTop: 10}}>
           {this.props.crashDetails}
         </View>
@@ -202,7 +206,7 @@ class Summary extends Component {
         <Svg height={17} width={17}>
           <Rect x={1} y={1} width={16} height={16} fill={this.props.color} />
         </Svg>
-        <Text style={styles.dark13Text}>{this.props.what} ({this.props.number})</Text>
+        <Text style={[styles.dark13Text, {flex: 1}]}>{this.props.what} ({this.props.number})</Text>
       </View>
     )
   }
