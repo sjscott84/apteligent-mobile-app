@@ -54,9 +54,9 @@ crashRateGraph = function(id, callback){
 }
 
 //Gets a list of all crash groups for a specific app
-combineCrashData = function(id, callback){
+combineCrashData = function(id, sort, callback){
   const crashSummaryData = [];
-  getCrashInfoGeneral(id, (data) => {
+  getCrashInfoGeneral(id, sort, (data) => {
     let crashArray = data['data']['errors'];
     //console.log(crashArray);
     for(var i = 0; i < crashArray.length; i++){
@@ -142,16 +142,18 @@ getCrashByDevice = function(callback){
 };
 
 //Gets the crash info (received by getCrashInfo) stacktrace
-getStacktrace = function(callback){
+getStacktrace = function(id, hash, callback){
   let crashByVersion = [];
-  const version = crashInfo['stacktrace'];
-  for(var i = 0; i < version.length; i++){
-    let obj = {};
-    obj['lineNumber'] = version[i]['line_number'];
-    obj['trace'] = version[i]['trace'];
-    crashByVersion.push(obj);
-  }
-  callback(crashByVersion);
+  getCrashInfoDetail(id, hash, (data) => {
+    const version = data['data']['stacktrace'];
+      for(var i = 0; i < version.length; i++){
+      let obj = {};
+      obj['lineNumber'] = version[i]['line_number'];
+      obj['trace'] = version[i]['trace'];
+      crashByVersion.push(obj);
+    }
+    callback(crashByVersion);
+  })
 }
 
 //Gets the crash info (received by getCrashInfo) breadcrumbs

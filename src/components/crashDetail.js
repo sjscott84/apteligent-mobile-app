@@ -21,6 +21,8 @@ import getData from './getData';
 import BarChart from './barChart';
 import PieChart from './pieChart'
 import Button from './button';
+import StacktraceSummary from './stacktraceSummary';
+import Breadcrumbs from './breadcrumbs';
 
 class CrashDetail extends Component {
   constructor(){
@@ -30,9 +32,14 @@ class CrashDetail extends Component {
         width: Dimensions.get('window').width,
         selectX1: 20,
         selectX2: Dimensions.get('window').width / 3 - 10,
+        selectedTraceX1: 0,
+        selectedTraceX2: (Dimensions.get('window').width - 10) / 2,
         appVersionText: styles.dark15Text,
         osVersionText: styles.light15Text,
-        deviceVersionText: styles.light15Text
+        deviceVersionText: styles.light15Text,
+        stacktraceText: styles.dark15Text,
+        breadcrumbsText: styles.light15Text,
+        display: 'stacktrace'
       }
   }
 
@@ -57,7 +64,7 @@ class CrashDetail extends Component {
             <Text style={[styles.dark15Text, {marginTop: 5}]}>CRASH DETAILS</Text>
             <Text style={styles.bold15Text}>{this.props.crashName}</Text>
             <Text style={styles.dark15Text}>{this.props.reason}</Text>
-            <View style={[{flexDirection: 'row'}, {marginTop: 5}]}>
+            <View style={[{flexDirection: 'row'}, {marginTop: 5}, {borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}]}>
               <Text style={[{flex: 0.4}, styles.dark15Text]}>Status</Text>
               <Text style={[{flex: 0.6}, styles.bold15Text]}>{this.props.status}</Text>
             </View>
@@ -77,10 +84,12 @@ class CrashDetail extends Component {
               <Text style={[{flex: 0.4}, styles.dark15Text]}>First Occured</Text>
               <Text style={[{flex: 0.6}, styles.bold15Text]}>{moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
             </View>
-            <Text style={[styles.dark15Text, {marginTop: 10}]}>OCCURANCES</Text>
-            <BarChart data={this.props.dailyOccurances} start={moment().subtract(30, 'days')} end={moment().format()} numberType='number' /> 
+            <View style={[{borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}]}>
+              <Text style={[styles.dark15Text, {marginTop: 10}]}>OCCURANCES</Text>
+              <BarChart data={this.props.dailyOccurances} start={moment().subtract(30, 'days')} end={moment().format()} numberType='number' /> 
+            </View>
           </View>
-          <View style={styles.app}>
+          <View style={[styles.app, {marginTop: 0}, {borderTopWidth: 1}, {borderTopColor: 'rgb(122,143,147)'}]}>
             <Svg height={8} width={Dimensions.get('window').width}>
               <Line x1={this.state.selectX1} y1={3} x2={this.state.selectX2} y2={3} stroke={'rgb(54,143,175)'} strokeWidth={3} />
             </Svg>
@@ -101,10 +110,16 @@ class CrashDetail extends Component {
               </View>
             </View>
             <CrashList data={this.state.version} />
-            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}]}>
-              <Button text={'STACKTRACE'} onPress={this._onPressStacktrace.bind(this)} />
-              <Button text={'BREADCRUMBS'} onPress={this._onPressBreadcrumbs.bind(this)} />
+          </View>
+          <View style={styles.app}>
+            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(122,143,147)'}]}>
+              <Text style={this.state.stacktraceText} onPress={this._onPressStacktrace.bind(this)}>STACKTRACE</Text>
+              <Text style={this.state.breadcrumbsText} onPress={this._onPressBreadcrumbs.bind(this)}>BREADCRUMBS</Text>
             </View>
+            <Svg height={8} width={Dimensions.get('window').width}>
+              <Line x1={this.state.selectedTraceX1} y1={1} x2={this.state.selectedTraceX2} y2={1} stroke={'rgb(54,143,175)'} strokeWidth={4} />
+            </Svg>
+            {this._displayComponent()}
           </View>
         </ScrollView>
       </View>
@@ -120,6 +135,14 @@ class CrashDetail extends Component {
         data: this.state.version
       }
     });
+  }
+
+  _displayComponent(){
+    if(this.state.display === 'stacktrace'){
+      return <StacktraceSummary id={this.props.id} hash={this.props.hash} name={this.props.name} navigator={this.props.navigator} crashName={this.props.crashName} reason={this.props.reason} />
+    }else{
+      return <Breadcrumbs name={this.props.name} navigator={this.props.navigator} />
+    }
   }
 
   //Display to two (or if only one, one) top crashes next to the bar chart
@@ -174,23 +197,23 @@ class CrashDetail extends Component {
 
   //Open the stacktrace screen
   _onPressStacktrace(){
-    this.props.navigator.push({
-      name: 'stacktrace',
-      passProps: {
-        name: this.props.name,
-        crashName: this.props.crashName,
-        reason: this.props.reason
-      }
+    this.setState({
+      display: 'stacktrace',
+      stacktraceText: styles.dark15Text,
+      breadcrumbsText: styles.light15Text,
+      selectedTraceX1: 0,
+      selectedTraceX2: (this.state.width - 10) / 2
     });
   };
 
   //Open the breadcrumbs screen
   _onPressBreadcrumbs(){
-    this.props.navigator.push({
-      name: 'breadcrumbs',
-      passProps: {
-        name: this.props.name
-      }
+    this.setState({
+      display: 'breadcrumbs',
+      stacktraceText: styles.light15Text,
+      breadcrumbsText: styles.dark15Text,
+      selectedTraceX1: (this.state.width - 10) / 2,
+      selectedTraceX2: this.state.width - 12
     });
   }
 };
@@ -211,7 +234,7 @@ class CrashList extends Component {
   render(){
     return(
       <View style={{marginTop: 31}}>
-      <View style={[{flex: 1}, {flexDirection: 'row'}, {justifyContent: 'flex-start'}]}>
+      <View style={[{flex: 1}, {flexDirection: 'row'},{marginTop: 4}, {justifyContent: 'flex-start'}, {borderBottomColor: 'rgb(122,143,147)'}, {borderBottomWidth: 1}]}>
         <Text style={[{flex: 0.5}, styles.bold14Text]}>Version</Text>
         <Text style={[{flex: 0.2}, styles.bold14Text]}>Crashes</Text>
         <Text style={[{flex: 0.3}, styles.bold14Text]}>Percentage</Text>
@@ -225,7 +248,7 @@ class CrashList extends Component {
 class CrashItem extends Component {
   render(){
     return(
-      <View style={[{flex: 1}, {flexDirection: 'row'}, {justifyContent: 'flex-start'}, {flexWrap:'wrap'}]}>
+      <View style={[{flex: 1}, {flexDirection: 'row'}, {justifyContent: 'flex-start'}, {flexWrap:'wrap'}, {borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}]}>
         <Text style={[{flex: 0.5}, styles.light14Text]}>{this.props.name}</Text>
         <Text style={[{flex: 0.2}, styles.light14Text]}>{this.props.value}</Text>
         <Text style={[{flex: 0.3}, styles.light14Text]}>{numeral(this.props.percent).format('0.00%')}</Text>

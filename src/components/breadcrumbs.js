@@ -50,17 +50,12 @@ class Breadcrumbs extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
-        <View style={styles.topLinks}>
-          <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-          <Text style={styles.dark18Text}>{this.props.name}</Text>
-          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
+      <View style={{marginTop: 0}}>
+        <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 6}]}>
+          <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
+          <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Changing date range does not filter breadcrumbs.</Text>
         </View>
-        <ScrollView>
-          <View style={styles.app}>
-            {this.state.breadcrumbs}
-          </View>
-        </ScrollView>
+        {this.state.breadcrumbs}
       </View>
     )
   }
@@ -73,7 +68,7 @@ class Breadcrumbs extends Component {
 class BreadcrumbItem extends Component {
   render(){
     return(
-      <View style={{marginTop: 0}}>
+      <View style={[{marginTop: 0}, {marginBottom: 6}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(244,246,247)'}]}>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.dark15Text}>Username</Text>
           <Text style={[styles.smallLink, {marginTop: 0}]}>{this.props.username}</Text>
@@ -90,8 +85,8 @@ class BreadcrumbItem extends Component {
           <Text style={styles.dark15Text}>Date & Time</Text>
           <Text style={styles.bold15Text}>{this.props.dateAndTime}</Text>
         </View>
-        <TouchableHighlight style={styles.button} underlayColor={'gray'} onPress={this._onPressViewDetails.bind(this)}>
-          <Text style={styles.buttonText}>VIEW DETAILS</Text>
+        <TouchableHighlight style={styles.breadcrumbButton} underlayColor={'gray'} onPress={this._onPressViewDetails.bind(this)}>
+          <Text style={styles.breadcrumbButtonText}>VIEW DETAILS</Text>
         </TouchableHighlight>
       </View>
     )

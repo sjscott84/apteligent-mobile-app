@@ -118,11 +118,11 @@ getCrashRateGraphInfo = function(id, callback){
 }
 
 //Get a list of all crash groups for a specic app
-getCrashInfoGeneral = function(id, callback){
+getCrashInfoGeneral = function(id, sort, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
   });
-  var request = new Request('https://developers.crittercism.com:443/v2/crash/paginatedtable/'+id+'?appVersion=all&period=30&sortBy=lastOccurred&sortOrder=descending', {
+  var request = new Request('https://developers.crittercism.com:443/v2/crash/paginatedtable/'+id+'?appVersion=all&period=30&sortBy='+sort+'&sortOrder=descending', {
     method: 'GET',
     headers: myHeaders
   })

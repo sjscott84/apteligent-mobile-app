@@ -275,12 +275,34 @@ module.exports = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: 'rgb(46,167,158)'
   },
+  breadcrumbButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
+    height: 36,
+    padding: 5,
+    margin: 6,
+    marginBottom: 0,
+    borderWidth: 1,
+    borderColor: 'rgb(229,234,236)',
+    //marginTop: 20,
+    //marginBottom: 20,
+    alignSelf: 'stretch',
+    backgroundColor: 'rgb(255,255,255)'
+  },
   buttonText: {
     fontSize: 14,
     lineHeight: 19,
     fontFamily: 'AppleSDGothicNeo-SemiBold',
     alignSelf: 'center',
     color: 'rgb(255,255,255)'
+  },
+  breadcrumbButtonText: {
+    fontSize: 14,
+    lineHeight: 19,
+    fontFamily: 'AppleSDGothicNeo-SemiBold',
+    alignSelf: 'center',
+    color: 'rgb(46,167,158)'
   },
   marginLeft: {
     marginLeft: 6

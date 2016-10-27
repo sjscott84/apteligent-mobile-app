@@ -33,11 +33,11 @@ class CrashInfo extends Component {
   //This makes a call to the api and retrieves a list of crash groups for a specific app
   componentWillMount(){
     //combineCrashData function is from getData.js
-    combineCrashData(this.props.id, (data) => {
-      let sortedData = data.sort(function(a,b){return a.affectedUsers - b.affectedUsers});
-      console.log(sortedData);
-      this.setState({crashes: sortedData});
-      this._getCrashInfo(sortedData);
+    combineCrashData(this.props.id, 'usersAffected', (data) => {
+      //let sortedData = data.sort(function(a,b){return a.affectedUsers - b.affectedUsers});
+      //console.log(sortedData);
+      this.setState({crashes: data});
+      this._getCrashInfo(data);
     });
   };
 
@@ -59,13 +59,13 @@ class CrashInfo extends Component {
             <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
             <Text style={styles.light13Text}>Sorted By</Text>
             <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity onPress={this._userPress.bind(this)}>
+              <TouchableOpacity onPress={this._sortData.bind(this, 'usersAffected')}>
                 <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.userPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
                   <Icon name={'user'} size={19} color={this.state.userPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
                   <Text style={[styles.light13Text, this.state.userPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Users Affected</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._occurancesPress.bind(this)}>
+              <TouchableOpacity onPress={this._sortData.bind(this, 'timesOccurred')}>
                 <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.occurancesPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
                   <Icon name={'bar-chart'} size={19} color={this.state.occurancesPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
                   <Text style={[styles.light13Text, this.state.occurancesPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Total Occurances</Text>
@@ -73,13 +73,13 @@ class CrashInfo extends Component {
               </TouchableOpacity>
             </View>
             <View style={{flexDirection:'row'}}>
-              <TouchableOpacity onPress={this._firstSeenPress.bind(this)}>
+              <TouchableOpacity onPress={this._sortData.bind(this, 'firstOccurred')}>
                 <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.firstSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
                   <Icon name={'calendar-o'} size={19} color={this.state.firstSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
                   <Text style={[styles.light13Text, this.state.firstSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>First Occurred</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._lastSeenPress.bind(this)}>
+              <TouchableOpacity onPress={this._sortData.bind(this, 'lastOccurred')}>
                 <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.lastSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
                   <Icon name={'clock-o'} size={19} color={this.state.lastSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
                   <Text style={[styles.light13Text, this.state.lastSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Last Seen</Text>
@@ -95,55 +95,44 @@ class CrashInfo extends Component {
     )
   };
 
-  _userPress(){
-    let data = this.state.crashes;
-    let sortedData = data.sort(function(a,b){return a.affectedUsers - b.affectedUsers});
-    this._getCrashInfo(sortedData);
-    this.setState({
-      crashes: sortedData,
-      userPressed: true,
-      occurancesPressed: false,
-      firstSeenPressed: false,
-      lastSeenPressed: false
-    });
-  }
-
-  _occurancesPress(){
-    let data = this.state.crashes;
-    let sortedData = data.sort(function(a,b){return a.totalOccurances - b.totalOccurances});
-    this._getCrashInfo(sortedData);
-    this.setState({
-      crashes: sortedData,
-      userPressed: false,
-      occurancesPressed: true,
-      firstSeenPressed: false,
-      lastSeenPressed: false
-    });
-  }
-
-  _firstSeenPress(){
-    let data = this.state.crashes;
-    let sortedData = data.sort(function(a,b){return new Date(a.firstOccured) - new Date(b.firstOccured)});
-    this._getCrashInfo(sortedData);
-    this.setState({
-      crashes: sortedData,
-      userPressed: false,
-      occurancesPressed: false,
-      firstSeenPressed: true,
-      lastSeenPressed: false
-    });
-  }
-
-  _lastSeenPress(){
-    let data = this.state.crashes;
-    let sortedData = data.sort(function(a,b){return new Date(b.lastOccured) - new Date(a.lastOccured)});
-    this._getCrashInfo(sortedData);
-    this.setState({
-      crashes: sortedData,
-      userPressed: false,
-      occurancesPressed: false,
-      firstSeenPressed: false,
-      lastSeenPressed: true
+  _sortData(sort){
+    switch (sort){
+      case 'usersAffected':
+        this.setState({
+          userPressed: true,
+          occurancesPressed: false,
+          firstSeenPressed: false,
+          lastSeenPressed: false
+        });
+        break;
+      case 'timesOccurred':
+        this.setState({
+          userPressed: false,
+          occurancesPressed: true,
+          firstSeenPressed: false,
+          lastSeenPressed: false
+        });
+        break;
+      case 'firstOccurred':
+        this.setState({
+          userPressed: false,
+          occurancesPressed: false,
+          firstSeenPressed: true,
+          lastSeenPressed: false
+        });
+        break;
+      case 'lastOccurred':
+        this.setState({
+          userPressed: false,
+          occurancesPressed: false,
+          firstSeenPressed: false,
+          lastSeenPressed: true
+        });
+      break;
+    }
+    combineCrashData(this.props.id, sort, (data) => {
+      this.setState({crashes: data});
+      this._getCrashInfo(data);
     });
   }
 

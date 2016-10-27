@@ -28,7 +28,7 @@ class Stacktrace extends Component {
   }
 
   componentWillMount(){
-    getStacktrace((data) => {
+    getStacktrace(this.props.id, this.props.hash, (data) => {
       let stackTraceText = [];
       let backgroundColor;
       for(var i = 0; i < data.length; i++){
