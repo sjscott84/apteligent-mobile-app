@@ -183,10 +183,13 @@ class BreadcrumbDetails extends Component {
 
   _getHeight(event){
     let array = this.state.placement;
-    let {x,y,height,width} = event.nativeEvent.layout;
+    let y = event.nativeEvent.layout.y;
     array.push(y);
     array.sort((a,b) => {return a - b});
-    this.setState({placement: array});
+    if(array.length === this.props.breadcrumbs.length){
+      //console.log(array);
+      this.setState({placement: array});
+    }
   }
 
   _onPressBack(){
