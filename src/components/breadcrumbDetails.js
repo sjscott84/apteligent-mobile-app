@@ -29,7 +29,7 @@ class BreadcrumbDetails extends Component {
       text: '',
       placement: [],
       currentView: 0,
-      crumbsHeight: 0
+      crumbsHeight: 65
     }
   }
 
@@ -157,7 +157,7 @@ class BreadcrumbDetails extends Component {
       }
       squareArray.push(
         <Svg key={i} height={35} width={35}>
-          <Rect x={1} y={1} width={31} height={31} fill={color} onPress={() => {this.setState({currentView: this.state.crumbsHeight + placement})}} />
+          <Rect x={1} y={1} width={31} height={31} fill={color} onPress={() => {this.setState({currentView: this.state.crumbsHeight + this.state.placement[placement]})}} />
         </Svg>
       )
       crashDetails.push(
@@ -174,17 +174,19 @@ class BreadcrumbDetails extends Component {
       crashDetails={crashDetails} />)
   }
 
+  _getCrumbsHeight(event){
+    let currentHeight = this.state.crumbsHeight;
+    let height = event.nativeEvent.layout.height;
+    let newHeight = currentHeight + height;
+    this.setState({crumbsHeight: newHeight}, () => {console.log(this.state.crumbsHeight)});
+  }
+
   _getHeight(event){
     let array = this.state.placement;
     let {x,y,height,width} = event.nativeEvent.layout;
     array.push(y);
     array.sort((a,b) => {return a - b});
     this.setState({placement: array});
-  }
-
-  _getCrumbsHeight(event){
-    let {x,y,height,width} = event.nativeEvent.layout;
-    this.setState({crumbsHeight: height});
   }
 
   _onPressBack(){
