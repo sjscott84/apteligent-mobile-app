@@ -40,32 +40,42 @@ class AppDetails extends Component {
   };
 
   componentWillMount(){
+    let mau;
+    let dau;
+    let crashPercent;
+    let crashCountTotal;
     getMAU(this.props.id, (data) => {
-      //console.log(data);
-      this.setState({
-        mau: data
-      })
+      mau = data;
+      //this.setState({
+        //mau: data
+      //})
     })
     getDAU(this.props.id, (data) =>{
-      this.setState({
-        dau: data
-      })
+      dau = data
+      //this.setState({
+        //dau: data
+      //})
     })
     getCrashSummaries(this.props.id, (percent, count) => {
-      this.setState({
-        crashPercent: percent,
-        crashCountTotal: count
-      })
+      crashPercent = percent;
+      crashCountTotal = count;
+      //this.setState({
+        //crashPercent: percent,
+        //crashCountTotal: count
+      //})
     })
     crashCountGraph(this.props.id, this.state.time, (rate, loads, start, end, appLoadTotal, crashCountTotal) => {
-      console.log(rate, loads, start, end, appLoadTotal, crashCountTotal);
       this.setState({
         crashRateArray: rate,
         appLoadArray: loads,
         start: start,
         end: end,
         appLoadTotalLive: appLoadTotal,
-        crashCountTotalLive: crashCountTotal
+        crashCountTotalLive: crashCountTotal,
+        mau: mau,
+        dau: dau,
+        crashPercent: crashPercent,
+        crashCountTotal: crashCountTotal
       })
     })
   }

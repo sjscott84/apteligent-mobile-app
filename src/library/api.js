@@ -90,7 +90,6 @@ getLiveStateData = function(id, time, callback){
       }
     })
     .then((json) => {
-      console.log(json);
       callback(json);
     })
     .catch((err) => {
@@ -160,7 +159,6 @@ getCrashInfoDetail = function(id, hash, callback){
       }
     })
     .then((json) => {
-      //console.log(json);
       callback(json);
     })
     .catch((err) => {

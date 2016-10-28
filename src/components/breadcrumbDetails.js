@@ -187,7 +187,6 @@ class BreadcrumbDetails extends Component {
     array.push(y);
     array.sort((a,b) => {return a - b});
     if(array.length === this.props.breadcrumbs.length){
-      //console.log(array);
       this.setState({placement: array});
     }
   }

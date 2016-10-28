@@ -22,7 +22,7 @@ class CrashInfo extends Component {
   constructor(){
     super();
     this.state = {
-      crashes: {},
+      //crashes: {},
       crashesArray: [],
       userPressed: true,
       occurancesPressed: false,
@@ -34,9 +34,6 @@ class CrashInfo extends Component {
   componentWillMount(){
     //combineCrashData function is from getData.js
     combineCrashData(this.props.id, 'usersAffected', (data) => {
-      //let sortedData = data.sort(function(a,b){return a.affectedUsers - b.affectedUsers});
-      //console.log(sortedData);
-      this.setState({crashes: data});
       this._getCrashInfo(data);
     });
   };
@@ -131,7 +128,6 @@ class CrashInfo extends Component {
       break;
     }
     combineCrashData(this.props.id, sort, (data) => {
-      this.setState({crashes: data});
       this._getCrashInfo(data);
     });
   }

@@ -93,7 +93,6 @@ getDAU = function(id, callback){
 getCrashInfo = function(id, hash, callback){
   getCrashInfoDetail(id, hash, (data) => {
     crashInfo = data['data'];
-    console.log(crashInfo);
     callback();
   })
 }
