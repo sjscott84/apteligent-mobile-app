@@ -29,6 +29,14 @@ module.exports = StyleSheet.create({
     borderRadius: 2,
     alignSelf: 'stretch'
   },
+  appInput: {
+    margin: 5,
+    paddingLeft: 5,
+    alignSelf: 'center',
+    height: 50,
+    width: 200,
+    paddingTop: 3
+  },
   label: {
     fontSize: 15,
     lineHeight: 20,
@@ -182,7 +190,8 @@ module.exports = StyleSheet.create({
     backgroundColor: 'rgb(255,255,255)',
     margin: 0,
     height: 60,
-    padding: 15
+    paddingLeft: 15,
+    paddingTop: 15
   },
   app: {
     backgroundColor: 'rgb(255,255,255)',

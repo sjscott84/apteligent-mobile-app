@@ -5,7 +5,8 @@ import {
   AppRegistry,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  TextInput
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -16,7 +17,9 @@ class AvailableApps extends Component {
   constructor(props){
     super(props);
     this.state = {
-      apps: props.data
+      apps: props.data,
+      text: 'Select or Type App Name',
+      searching: false
     }
   };
 
@@ -24,8 +27,8 @@ class AvailableApps extends Component {
     return(
       <View style={styles.container}>
         <View style={[styles.topLinks, {justifyContent: 'flex-start'}]}>
-          <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-          <Text style={styles.dark18Text}>Select App Name</Text>
+          <Icon style={{alignSelf: 'center'}} name="search" size={20} color='rgb(98,129,133)' backgroundColor='white' />
+          <TextInput style={styles.appInput} onFocus={() => this.setState({text: ''})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
         </View>
         <ScrollView>{this._getAppsInfo()}</ScrollView>
       </View>
@@ -41,7 +44,13 @@ class AvailableApps extends Component {
     const appView = [];
     const app = this.state.apps;
     for(var i = 0; i < app.length; i ++){
-      appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
+      if(!this.state.searching || this.state.text === ''){
+        appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
+      }else{
+        if ( app[i]['name'].indexOf( this.state.text ) > -1 ) {
+          appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
+        }
+      }
     }
     return appView;
   };
