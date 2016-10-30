@@ -6,7 +6,8 @@ import {
   Text,
   View,
   ScrollView,
-  TextInput
+  TextInput,
+  TouchableHighlight
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -26,7 +27,7 @@ class AvailableApps extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <View style={[styles.topLinks, {justifyContent: 'flex-start'}]}>
+        <View style={[styles.topLinks, {justifyContent: 'flex-start'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(12,143,147)'}]}>
           <Icon style={{alignSelf: 'center'}} name="search" size={20} color='rgb(98,129,133)' backgroundColor='white' />
           <TextInput style={styles.appInput} onFocus={() => this.setState({text: ''})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
         </View>
@@ -47,7 +48,7 @@ class AvailableApps extends Component {
       if(!this.state.searching || this.state.text === ''){
         appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
       }else{
-        if ( app[i]['name'].indexOf( this.state.text ) > -1 ) {
+        if (app[i]['name'].indexOf(this.state.text) > -1){
           appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
         }
       }
@@ -59,9 +60,9 @@ class AvailableApps extends Component {
 class AvailableAppsInfo extends Component {
   render(){
     return(
-      <View style={styles.availableApps}>
-        <Text style={styles.dark15Text} onPress={this._onPress.bind(this)} id={this.props.id} name={this.props.name} type={this.props.type}>{this.props.name}</Text>
-      </View>
+      <TouchableHighlight style={styles.availableApps} underlayColor={'gray'} onPress={this._onPress.bind(this)}>
+          <Text style={styles.dark15Text} id={this.props.id} name={this.props.name} type={this.props.type}>{this.props.name}</Text>
+      </TouchableHighlight>
     )
   };
   

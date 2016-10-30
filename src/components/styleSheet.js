@@ -245,8 +245,8 @@ module.exports = StyleSheet.create({
     height: 60,
     backgroundColor: 'rgb(255,255,255)',
     margin: 0,
-    borderWidth: 1,
-    borderColor: 'rgb(12,143,147)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgb(12,143,147)',
     paddingTop: 17
   },
   crashInfoSymbels: {
