@@ -44,7 +44,7 @@ class CrashInfo extends Component {
         <View style={styles.topLinks}>
           <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
           <Text style={styles.dark18Text}>{this.props.name}</Text>
-          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
+          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressSettings.bind(this)} />
         </View>
         <ScrollView>
           <Text style={[styles.bold13Text, {alignSelf: 'flex-end'}, {marginBottom: 1}, {marginTop: 6}, {marginRight: 6}]}>Current 24 hours</Text>
@@ -157,6 +157,16 @@ class CrashInfo extends Component {
   //Rerenders the AppDetails component
   _onPressBack(){
     this.props.navigator.pop();
+  }
+
+  _onPressSettings(){
+    this.props.navigator.push({
+      name: 'crashSettings',
+      passProps: {
+        name: this.props.name,
+        id: this.state.id
+      }
+    });
   }
 };
 

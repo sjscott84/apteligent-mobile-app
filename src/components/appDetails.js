@@ -114,7 +114,6 @@ class AppDetails extends Component {
           <View style={styles.app}>
             <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {alignItems: 'center'}, {borderBottomColor: 'rgb(122,143,147)'}, {borderBottomWidth: 1}]}>
               <Text style={styles.bold15Text}>LIVE STATS</Text>
-              <Icon.Button name="clock-o" size={15} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressChangeGraph.bind(this)} />
             </View>
             <CrashGraphs 
               graphName={'CRASH COUNT'}

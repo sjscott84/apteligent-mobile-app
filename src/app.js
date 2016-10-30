@@ -15,7 +15,8 @@ import CrashDetail from './components/crashDetail';
 import Stacktrace from './components/stacktrace';
 import Breadcrumbs from './components/breadcrumbs';
 import BreadcrumbDetails from './components/breadcrumbDetails';
-import InteractivePieChart from './components/interactivePieChart'
+import InteractivePieChart from './components/interactivePieChart';
+import CrashSettings from './components/crashSettings';
 
 const ROUTES = {
   signin: Signin,
@@ -27,7 +28,8 @@ const ROUTES = {
   stacktrace: Stacktrace,
   breadcrumbs: Breadcrumbs,
   breadcrumbDetails: BreadcrumbDetails,
-  interactivePieChart: InteractivePieChart
+  interactivePieChart: InteractivePieChart,
+  crashSettings: CrashSettings
 }
 
 export default class ApteligentMobileApp extends Component {
