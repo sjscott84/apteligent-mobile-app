@@ -47,32 +47,32 @@ class UserDetail extends Component {
         <View style={styles.app}>
           <Text style={styles.dark15Text}>APP USER</Text>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.dark15Text}>Username</Text>
-            <Text style={styles.bold15Text}>{this.props.username}</Text>
+            <Text style={[{flex: 1}, styles.dark15Text]}>Username</Text>
+            <Text style={[{flex: 2}, styles.bold15Text]}>{this.props.username}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.dark15Text}>Last Log In</Text>
-            <Text style={styles.bold15Text}>{moment.utc(this.state.lastLogIn).format('MM/DD/YYYY hh:mm:ss UTC')}</Text>
+            <Text style={[{flex: 1}, styles.dark15Text]}>Last Log In</Text>
+            <Text style={[{flex: 2}, styles.bold15Text]}>{moment.utc(this.state.lastLogIn).format('MM/DD/YYYY hh:mm:ss UTC')}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.dark15Text}>Last Crash</Text>
-            <Text style={styles.bold15Text}>{moment.utc(this.state.lastCrash).format('MM/DD/YYYY hh:mm:ss UTC')}</Text>
+            <Text style={[{flex: 1}, styles.dark15Text]}>Last Crash</Text>
+            <Text style={[{flex: 2}, styles.bold15Text]}>{moment.utc(this.state.lastCrash).format('MM/DD/YYYY hh:mm:ss UTC')}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.dark15Text}>Device</Text>
-            <Text style={styles.bold15Text}>{this.state.device}</Text>
+            <Text style={[{flex: 1}, styles.dark15Text]}>Device</Text>
+            <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.device}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.dark15Text}>App Version</Text>
-            <Text style={styles.bold15Text}>{this.state.appVersion}</Text>
+            <Text style={[{flex: 1}, styles.dark15Text]}>App Version</Text>
+            <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.appVersion}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.dark15Text}>OS</Text>
-            <Text style={styles.bold15Text}>{this.state.system}</Text>
+            <Text style={[{flex: 1}, styles.dark15Text]}>OS</Text>
+            <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.system}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.dark15Text}>Locale</Text>
-            <Text style={styles.bold15Text}>{this.state.locale}</Text>
+            <Text style={[{flex: 1}, styles.dark15Text]}>Locale</Text>
+            <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.locale}</Text>
           </View>
         </View>
       </View>
