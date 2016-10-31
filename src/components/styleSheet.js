@@ -203,6 +203,14 @@ module.exports = StyleSheet.create({
     paddingLeft: 15,
     paddingTop: 15
   },
+  footer: {
+    height: 50,
+    borderTopWidth: 1,
+    borderTopColor: 'rgb(122,143,147)',
+    backgroundColor: 'rgb(255,255,255)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   app: {
     backgroundColor: 'rgb(255,255,255)',
     justifyContent: 'flex-start',

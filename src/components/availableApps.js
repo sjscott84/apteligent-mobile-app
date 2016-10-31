@@ -32,9 +32,19 @@ class AvailableApps extends Component {
           <TextInput style={styles.appInput} onFocus={() => this.setState({text: ''})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
         </View>
         <ScrollView>{this._getAppsInfo()}</ScrollView>
+        <View style={styles.footer}>
+          <Icon style={{marginLeft: 15}} name="sign-out" size={15} color='rgb(122,143,147)' backgroundColor='white' onPress={this._onPressLogout.bind(this)} />
+          <Text style={styles.light13Text} onPress={this._onPressLogout.bind(this)}>Log Out</Text>
+        </View>
       </View>
     )
   };
+
+  _onPressLogout(){
+    this.props.navigator.push({
+      name: 'signin'
+    })
+  }
 
   //This rerenders the appList component
   _onPressBack(){

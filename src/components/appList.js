@@ -7,7 +7,8 @@ import {
   Text,
   View,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableHighlight
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -41,10 +42,12 @@ class AppList extends Component {
      (<ScrollView>{this._getAppsInfo()}</ScrollView>);
     return (
       <View style={styles.container}>
-        <View style={styles.topLinks}>
-          <Text style={styles.dark18Text} onPress={this._onPressJumpTo.bind(this)}>Jump to...</Text>
-          <Icon.Button name="chevron-down" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressJumpTo.bind(this)} />
-        </View>
+        <TouchableHighlight onPress={this._onPressJumpTo.bind(this)}>
+          <View style={styles.topLinks}>
+            <Text style={styles.dark18Text}>Jump to...</Text>
+            <Icon style={{marginRight: 10}} name="chevron-down" size={20} color='rgb(23,153,173)' backgroundColor='white' />
+          </View>
+        </TouchableHighlight>
         {spinner}
       </View>
     )
