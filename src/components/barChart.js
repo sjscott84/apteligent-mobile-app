@@ -42,7 +42,8 @@ class BarChart extends Component {
     const lowNumberForXAxis = 40;
     const lowNumberForYAxis = 0;
     const highNumberForYAxis = 115;
-    const highNumberForXAxis = Dimensions.get('window').width-20;//Screen width minus the margins
+    const margins = 30
+    const highNumberForXAxis = Dimensions.get('window').width-margins;
     const barPadding = 3;
 
     //Get max number from data set
@@ -126,7 +127,7 @@ class BarChart extends Component {
           <Line x1={lowNumberForXAxis} y1={highNumberForYAxis} x2={highNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
           <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={lowNumberForXAxis} y={highNumberForYAxis + 5}>{start}</Text>
           <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} textAnchor="end" x={highNumberForXAxis - 8} y={highNumberForYAxis + 5}>{end}</Text>
-          <Text fontSize={15} strokeWidth={0.5} stroke={'rgb(122,143,147)'} x={lowNumberForXAxis + 20} y={highNumberForYAxis-(highNumberForYAxis/2)}>No data avaliable</Text>
+          <Text fontSize={15} strokeWidth={0.5} stroke={'rgb(122,143,147)'} x={lowNumberForXAxis + margins} y={highNumberForYAxis-(highNumberForYAxis/2)}>No data avaliable</Text>
         </G>
       )
     }

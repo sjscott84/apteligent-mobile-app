@@ -6,7 +6,8 @@ import {
   Image,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -18,7 +19,9 @@ class AppList extends Component {
   constructor(){
     super();
     this.state ={
-      apps: []
+      apps: [],
+      animating: true,
+      isLoading: true
     }
   };
 
@@ -26,20 +29,23 @@ class AppList extends Component {
   componentWillMount(){
     //getAvaliableApps() is from getData.js
       getAvaliableApps((data) => {
-        this.setState({apps: data});
+        this.setState({
+          apps: data,
+          isLoading: false
+        });
       });
   };
 
   render (){
+    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
+     (<ScrollView>{this._getAppsInfo()}</ScrollView>);
     return (
       <View style={styles.container}>
         <View style={styles.topLinks}>
           <Text style={styles.dark18Text} onPress={this._onPressJumpTo.bind(this)}>Jump to...</Text>
           <Icon.Button name="chevron-down" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressJumpTo.bind(this)} />
         </View>
-        <ScrollView>
-          {this._getAppsInfo()}
-        </ScrollView>
+        {spinner}
       </View>
     )
   };
