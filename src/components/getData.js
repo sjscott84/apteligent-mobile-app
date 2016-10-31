@@ -3,16 +3,17 @@ var api = require('../library/api.js');
 let crashInfo;
 
 getAvaliableApps = function(callback){
-  const appData = [];
   getAppsList((data) => {
+    console.log(data);
+    const appData = [];
     Object.keys(data).forEach(function(id){
       var obj = {};
       obj['id'] = id;
       obj['name'] = data[id]['appName'];
       obj['type'] = data[id]['appType'];
       appData.push(obj);
-      callback(appData);
     })
+    callback(appData);
   })
 }
 

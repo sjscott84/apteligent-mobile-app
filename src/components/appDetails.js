@@ -45,32 +45,22 @@ class AppDetails extends Component {
     let crashCountTotal;
     getMAU(this.props.id, (data) => {
       mau = data;
-      //this.setState({
-        //mau: data
-      //})
     })
     getDAU(this.props.id, (data) =>{
       dau = data
-      //this.setState({
-        //dau: data
-      //})
     })
     getCrashSummaries(this.props.id, (percent, count) => {
       crashPercent = percent;
       crashCountTotal = count;
-      //this.setState({
-        //crashPercent: percent,
-        //crashCountTotal: count
-      //})
     })
-    crashCountGraph(this.props.id, this.state.time, (rate, loads, start, end, appLoadTotal, crashCountTotal) => {
+    crashCountGraph(this.props.id, this.state.time, (rate, loads, start, end, appLoadTotal, crashCountTotalLive) => {
       this.setState({
         crashRateArray: rate,
         appLoadArray: loads,
         start: start,
         end: end,
         appLoadTotalLive: appLoadTotal,
-        crashCountTotalLive: crashCountTotal,
+        crashCountTotalLive: crashCountTotalLive,
         mau: mau,
         dau: dau,
         crashPercent: crashPercent,
@@ -88,24 +78,24 @@ class AppDetails extends Component {
         </View>
         <ScrollView>
           <View style={styles.app}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={[{flexDirection: 'row'}, {borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}]}>
               <Image style={styles.logo} source={require('../images/logoTest.png')}/>
               <View>
                 <Text style={styles.largeText}>{this.props.name}</Text>
                 <Text style={styles.light14Text}>{this.props.type}</Text>
               </View>
             </View>
-            <View style={[{borderColor: 'rgb(229,234,236)'}, {borderWidth: 1}]}>
+            <View style={[{borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}]}>
               <Text style={styles.dark14Text}>Versions: All</Text>
             </View>
-            <View style={styles.crashInfo}>
-              <Summary what='DAU' timeFrame='Current 24h' figure={numeral(this.state.dau).format('0.0a')} />
+            <View style={{flexDirection: 'row'}}>
+              <Summary style={[{borderRightWidth: 1}, {borderRightColor: 'rgb(244,246,247)'}]} what='DAU' timeFrame='Current 24h' figure={numeral(this.state.dau).format('0.0a')} />
               <Summary what='MAU' timeFrame='Current 30 days' figure={numeral(this.state.mau).format('0.0a')} />
             </View>
           </View>
           <View style={styles.app}>
-            <View style={styles.crashInfo}>
-              <Summary what='Crash rate' timeFrame='Current 24h' figure={numeral(this.state.crashPercent).format('0.00')+'%'} />
+            <View style={{flexDirection: 'row'}}>
+              <Summary style={[{borderRightWidth: 1}, {borderRightColor: 'rgb(244,246,247)'}]} what='Crash rate' timeFrame='Current 24h' figure={numeral(this.state.crashPercent).format('0.00')+'%'} />
               <Summary what='Crash count' timeFrame='Current 24h' figure={numeral(this.state.crashCountTotal).format('0.0a')} />
             </View>
           </View>
@@ -158,7 +148,7 @@ class AppDetails extends Component {
 class Summary extends Component {
   render(){
     return(
-      <View style={[styles.appDetailSummaryItem, styles.border]}>
+      <View style={[styles.appDetailSummaryItem, this.props.style]}>
         <Text style={styles.dark15Text}>{this.props.what}</Text>
         <Text style={styles.light13Text}>{this.props.timeFrame}</Text>
         <Text style={styles.boldText}>{this.props.figure}</Text>

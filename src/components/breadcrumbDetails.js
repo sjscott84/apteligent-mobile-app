@@ -100,17 +100,17 @@ class BreadcrumbDetails extends Component {
         case 'crash':
           summary[0]['crashes']++;
           color = 'rgb(208,2,27)';
-          text = crumbs[i]['payload']['name']+': '+ crumbs[i]['payload']['reason'];
+          text = <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>{crumbs[i]['payload']['name']+': '+ crumbs[i]['payload']['reason']}</Text>
           break;
         case 'handledException':
           summary[1]['handledException']++;
           color = 'rgb(252,200,148)';
-          text = crumbs[i]['payload']['name']+': '+ crumbs[i]['payload']['reason'];
+          text = <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>{crumbs[i]['payload']['name']+': '+ crumbs[i]['payload']['reason']}</Text>
           break;
         case 'user':
           summary[2]['user']++;
           color = 'rgb(205,220,57)';
-          text = crumbs[i]['payload']['text'];
+          text = <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>{crumbs[i]['payload']['text']}</Text>
           break;
         case 'network':
           summary[3]['network']++;
@@ -132,27 +132,27 @@ class BreadcrumbDetails extends Component {
         case 'networkChange':
           summary[4]['system']++;
           color = 'rgb(121,142,35)';
-          text = 'Connection Up';
+          text = <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Connection Up</Text>
           break;
         case 'sessionStart':
           summary[4]['system']++;
           color = 'rgb(121,142,35)';
-          text = 'sessionStart';
+          text = <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>sessionStart</Text>
           break;
         case 'viewLoad':
           summary[4]['system']++;
           color = 'rgb(121,142,35)';
-          text = crumbs[i]['payload']['viewName']+': '+ crumbs[i]['payload']['event'];
+          text = <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>{crumbs[i]['payload']['viewName']+': '+ crumbs[i]['payload']['event']}</Text>
           break;
         case 'applicationEvent':
           summary[2]['user']++
           color = 'rgb(205,220,57)';
-          text = 'applicationEvent';
+          text = <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>applicationEvent</Text>
           break;
         default:
           summary[5]['unknown']++ ;
           color = 'rgb(223,217,229)';
-          text = 'Unknown event';
+          text = <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Unknown event</Text>
       }
       squareArray.push(
         <Svg key={i} height={35} width={35}>
@@ -177,7 +177,7 @@ class BreadcrumbDetails extends Component {
     let currentHeight = this.state.crumbsHeight;
     let height = event.nativeEvent.layout.height;
     let newHeight = currentHeight + height;
-    this.setState({crumbsHeight: newHeight}, () => {console.log(this.state.crumbsHeight)});
+    this.setState({crumbsHeight: newHeight});
   }
 
   _getHeight(event){
@@ -237,7 +237,7 @@ class Details extends Component {
     return(
       <View onLayout={this.props.onLayout} style={[{flexDirection: 'row'}, {borderLeftColor: this.props.color}, {borderLeftWidth: 4}, {marginRight: 6}, {backgroundColor: this.props.background}]}>
           <Text style={styles.dark15Text}>{this.props.number}</Text>
-          <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>{this.props.text}</Text>
+          {this.props.text}
       </View>
     )
   };

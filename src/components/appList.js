@@ -35,7 +35,7 @@ class AppList extends Component {
       <View style={styles.container}>
         <View style={styles.topLinks}>
           <Text style={styles.dark18Text} onPress={this._onPressJumpTo.bind(this)}>Jump to...</Text>
-          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressSettings.bind(this)} />
+          <Icon.Button name="chevron-down" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressJumpTo.bind(this)} />
         </View>
         <ScrollView>
           {this._getAppsInfo()}
@@ -83,9 +83,9 @@ class AppsInfo extends Component {
 
   render (){
     return (
-      <View style={[styles.app, {height: 83}]}>
-        <View style={{flexDirection: 'row'}}>
-          <Image style={styles.logo} source={require('../images/logoTest.png')}/>
+      <View style={[styles.app, {height: 83}, {justifyContent: 'center'}]}>
+        <View style={[{flexDirection: 'row'}]}>
+          <Image style={[styles.logo, {marginTop: 0}]} source={require('../images/logoTest.png')}/>
           <View>
             <Text style={styles.largeLink} onPress={this._onPress.bind(this)}>{this.props.name}</Text>
             <Text style={[styles.light14Text, {flexDirection: 'column'}]}>{this.props.type}</Text>

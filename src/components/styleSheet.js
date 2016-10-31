@@ -15,6 +15,7 @@ module.exports = StyleSheet.create({
     paddingBottom: 60,
     fontSize: 24,
     lineHeight: 33,
+    margin: 10,
     alignSelf: 'flex-start',
     color:'rgb(52, 73, 76)',
     fontFamily: 'AppleSDGothicNeo-Medium'
@@ -50,7 +51,7 @@ module.exports = StyleSheet.create({
   label: {
     fontSize: 15,
     lineHeight: 20,
-    marginLeft: 6,
+    marginLeft: 10,
     color: 'rgb(52, 73, 76)',
     alignSelf: 'flex-start',
     fontFamily: 'AppleSDGothicNeo-SemiBold'
@@ -59,12 +60,12 @@ module.exports = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-SemiBold',
     fontSize: 13,
     lineHeight: 18,
-    marginRight: 6,
+    marginRight: 10,
     alignSelf: 'flex-end',
     color: 'rgb(54, 143, 175)'
   },
   disclaimer: {
-    marginLeft: 6,
+    marginLeft: 10,
     marginTop: 30,
     lineHeight: 18,
     fontSize: 13,
@@ -79,23 +80,22 @@ module.exports = StyleSheet.create({
   },
   largeLink: {
     fontFamily: 'AppleSDGothicNeo-Medium',
-    marginLeft: 6,
+    marginLeft: 10,
     fontSize: 24,
     lineHeight: 33,
-    color: 'rgb(80,158,186)',
-    marginTop: 10
+    color: 'rgb(80,158,186)'
   },
   smallLink: {
     fontFamily: 'AppleSDGothicNeo-Medium',
-    marginLeft: 6,
+    marginLeft: 10,
     fontSize: 15,
     lineHeight: 24,
     color: 'rgb(80,158,186)',
-    marginTop: 5
+    marginTop: 10
   },
   largeText: {
     fontFamily: 'AppleSDGothicNeo-Medium',
-    marginLeft: 6,
+    marginLeft: 10,
     fontSize: 24,
     lineHeight: 33,
     color: 'rgb(52,73,76)',
@@ -106,55 +106,55 @@ module.exports = StyleSheet.create({
     fontSize: 19,
     lineHeight: 26,
     color: 'rgb(52,73,76)',
-    marginLeft: 6
+    marginLeft: 10
   },
   bold15Text: {
     fontFamily: 'AppleSDGothicNeo-Bold',
     fontSize: 15,
     lineHeight: 24,
     color: 'rgb(52,73,76)',
-    marginLeft: 6
+    marginLeft: 10
   },
   bold13Text: {
     fontFamily: 'AppleSDGothicNeo-Bold',
     fontSize: 13,
     lineHeight: 18,
     color: 'rgb(52,73,76)',
-    marginLeft: 6
+    marginLeft: 10
   },
   bold14Text: {
     fontFamily: 'AppleSDGothicNeo-Bold',
     fontSize: 14,
     lineHeight: 24,
     color: 'rgb(122,143,147)',
-    marginLeft: 6
+    marginLeft: 10
   },
   dark13Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 13,
     lineHeight: 18,
-    marginLeft: 6,
+    marginLeft: 10,
     color: 'rgb(52,73,76)'
   },
   dark14Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 14,
     lineHeight: 19,
-    marginLeft: 6,
+    marginLeft: 10,
     color: 'rgb(52,73,76)'
   },
   dark15Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 15,
     lineHeight: 24,
-    marginLeft: 6,
+    marginLeft: 10,
     color: 'rgb(52,73,76)'
   },
   dark18Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 18,
     lineHeight: 24,
-    marginLeft: 6,
+    marginLeft: 10,
     marginTop: 5,
     color: 'rgb(52,73,76)'
   },
@@ -169,28 +169,28 @@ module.exports = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 13,
     lineHeight: 18,
-    marginLeft: 6,
+    marginLeft: 10,
     color: 'rgb(122,143,147)'
   },
   light14Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 14,
     lineHeight: 18,
-    marginLeft: 6,
+    marginLeft: 10,
     color: 'rgb(122,143,147)'
   },
   light15Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 15,
     lineHeight: 24,
-    marginLeft: 6,
+    marginLeft: 10,
     color: 'rgb(122,143,147)'
   },
   light18Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 18,
     lineHeight: 26,
-    marginLeft: 6,
+    marginLeft: 10,
     color: 'rgb(122,143,147)'
   },
   topLinks:{
@@ -217,10 +217,8 @@ module.exports = StyleSheet.create({
     justifyContent: 'space-between'
   },
   appDetailSummaryItem: {
-    flex: .5,
-    justifyContent: 'flex-start',
-    borderRightColor: 'rgb(255,255,255)',
-    borderTopColor: 'rgb(255,255,255)'
+    flex: 1,
+    justifyContent: 'flex-start'
   },
   border: {
     borderWidth: 1,
@@ -230,16 +228,13 @@ module.exports = StyleSheet.create({
     height: 44,
     width: 44,
     borderRadius: 3,
-    margin: 5
-  },
-  crashInfo: {
-    flexDirection: 'row',
-    marginRight: 6
+    marginLeft: 10,
+    marginTop: 10
   },
   svg: {
     marginTop: 10,
-    marginLeft: 6,
-    marginRight: 6,
+    marginLeft: 10,
+    marginRight: 10,
     flex: 1,
     height: 138
   },
