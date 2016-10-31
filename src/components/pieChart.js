@@ -79,7 +79,7 @@ class PieChart extends Component{
                 fill={palette[i]}
                 stroke="#fff"
                 strokeWidth={ 0 } 
-                onPress={() => {this.props.onPress(d.label, d.value)}} />
+                onPress={() => {this.props.onPress(d.label, d.value, palette[i])}} />
             )
           }else{
             return (
@@ -101,7 +101,7 @@ class PieChart extends Component{
         <Svg height={this.props.height} width={this.props.width}>
           <G>
             {this._getSlices()}
-            <Circle cx={this.props.cx} cy={this.props.cy} r={45} fill={'white'} />
+            <Circle cx={this.props.cx} cy={this.props.cy} r={this.props.r} fill={'white'} />
           </G>
         </Svg>
     )

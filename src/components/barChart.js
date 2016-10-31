@@ -43,7 +43,7 @@ class BarChart extends Component {
     const lowNumberForYAxis = 0;
     const highNumberForYAxis = 115;
     const highNumberForXAxis = Dimensions.get('window').width-20;//Screen width minus the margins
-    const barPadding = 2;
+    const barPadding = 3;
 
     //Get max number from data set
     let max = function(){

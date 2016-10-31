@@ -101,7 +101,7 @@ class CrashDetail extends Component {
             <View style={[{flexDirection: 'row'}, {marginTop: 40}, {justifyContent: 'space-around'}]}>
               <TouchableHighlight onPress={this._openInteractiveChart.bind(this)}>
                 <View>
-                <PieChart data={this.state.version} height={'150'} width={'150'} cx={75} cy={75} interactive={false} />
+                <PieChart data={this.state.version} height={'150'} width={'150'} cx={75} cy={75} r={45} interactive={false} />
                 </View>
               </TouchableHighlight>
               <View>

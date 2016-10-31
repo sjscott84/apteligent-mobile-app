@@ -139,6 +139,7 @@ class AppDetails extends Component {
       passProps: {
         id: this.props.id,
         name: this.props.name,
+        type: this.props.type,
         time: '1',
         version: 'all'
       }

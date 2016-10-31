@@ -165,7 +165,14 @@ class CrashInfo extends Component {
   }
   //Rerenders the AppDetails component
   _onPressBack(){
-    this.props.navigator.pop();
+    //this.props.navigator.pop();
+    this.props.navigator.push({
+      name: 'appDetails',
+      passProps: {
+        id: this.props.id,
+        name: this.props.name,
+        type: this.props.type
+      }});
   }
 
   _onPressSettings(){
@@ -224,6 +231,7 @@ class Crashes extends Component {
   }
 
   _onPress(){
+    console.log(this.props.dailyOccurances)
     this.props.navigator.push({
       name: 'crashDetail',
       passProps: {
