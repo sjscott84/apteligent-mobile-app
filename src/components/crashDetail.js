@@ -141,7 +141,7 @@ class CrashDetail extends Component {
     if(this.state.display === 'stacktrace'){
       return <StacktraceSummary id={this.props.id} hash={this.props.hash} name={this.props.name} navigator={this.props.navigator} crashName={this.props.crashName} reason={this.props.reason} />
     }else{
-      return <Breadcrumbs name={this.props.name} navigator={this.props.navigator} />
+      return <Breadcrumbs id={this.props.id} hash={this.props.hash} name={this.props.name} navigator={this.props.navigator} />
     }
   }
 

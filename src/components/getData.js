@@ -184,3 +184,22 @@ getBreadcrumbs = function(callback){
   callback(crashByVersion);
 }
 
+//get available data for user
+getUserDetails = function(id, hash, user, callback){
+  getUserDetailsApi(id, hash, (data) => {
+    let obj = {};
+    for(var i = 0; i < data['data'].length; i++){
+      if(data['data'][i]['username'] === user){
+        obj['appVersion'] = data['data'][i]['app_version'];
+        obj['system'] = data['data'][i]['system'];
+        obj['locale'] = data['data'][i]['locale'];
+        obj['device'] = data['data'][i]['model'];
+        obj['carrier'] = data['data'][i]['carrier'];
+        obj['lastLogIn'] = data['data'][i]['last_login_time_iso'];
+        obj['lastCrash'] = data['data'][i]['crash_last_occurred_iso'];
+      }
+    }
+    callback(obj);
+  })
+}
+

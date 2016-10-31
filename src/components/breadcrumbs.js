@@ -35,6 +35,8 @@ class Breadcrumbs extends Component {
         breadcrumbArray.push(<BreadcrumbItem 
           name={this.props.name}
           navigator={nav}
+          id={this.props.id}
+          hash={this.props.hash}
           key={[i]} 
           username={data[i]['username']} 
           appVersion={data[i]['appVersion']} 
@@ -71,7 +73,7 @@ class BreadcrumbItem extends Component {
       <View style={[{marginTop: 0}, {marginBottom: 6}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(244,246,247)'}]}>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.dark15Text}>Username</Text>
-          <Text style={[styles.smallLink, {marginTop: 0}]}>{this.props.username}</Text>
+          <Text style={[styles.smallLink, {marginTop: 0}]} onPress={this._onPressUser.bind(this)}>{this.props.username}</Text>
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.dark15Text}>App Version</Text>
@@ -106,7 +108,19 @@ class BreadcrumbItem extends Component {
         breadcrumbs: this.props.breadcrumbs
       }
     })
-  }
+  };
+
+  _onPressUser(){
+    this.props.navigator.push({
+      name: 'userDetail',
+      passProps: {
+        id: this.props.id,
+        name: this.props.name,
+        username: this.props.username,
+        hash: this.props.hash
+      }
+    })
+  };
 }
 
 module.exports = Breadcrumbs;

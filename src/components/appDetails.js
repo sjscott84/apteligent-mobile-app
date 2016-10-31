@@ -16,7 +16,6 @@ import Triangle from './triangle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
 import numeral from 'numeral';
-import moment from'moment';
 import Button from './button';
 
 class AppDetails extends Component {

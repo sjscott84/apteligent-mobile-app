@@ -215,10 +215,34 @@ getDAUFromApi = function(id, callback){
 }
 
 getAppVersions = function(callback){
-    const myHeaders = new Headers({
+  const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
   });
   var request = new Request('https://developers.crittercism.com:443/v2/apps?attributes=appVersions', {
+    method: 'GET',
+    headers: myHeaders
+  })
+  fetch(request)
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      } else {
+        console.log('error');
+      }
+    })
+    .then((json) => {
+      callback(json);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+getUserDetailsApi = function(id, hash, callback){
+  const myHeaders = new Headers({
+    "Authorization": 'Bearer '+ACCESS_ID
+  });
+  var request = new Request('https://developers.crittercism.com:443/v2/crash/userData/'+id+'/'+hash, {
     method: 'GET',
     headers: myHeaders
   })
