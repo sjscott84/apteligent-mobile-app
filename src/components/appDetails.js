@@ -139,8 +139,8 @@ class AppDetails extends Component {
       passProps: {
         id: this.props.id,
         name: this.props.name,
-        crashPercent: this.state.crashPercent,
-        crashCount: this.state.crashCountTotal
+        time: '1',
+        version: 'all'
       }
     });
   }

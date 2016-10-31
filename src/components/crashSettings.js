@@ -26,14 +26,17 @@ class CrashSummary extends Component {
       fill: 'rgb(255,255,255)',
       appVersions: [],
       text: 'Select or Type App Version',
-      searching: false
+      searching: false,
+      selectedTime: null,
+      selectedVersion: null
     }
   };
 
   componentWillMount(){
     appVersions(this.props.id, (data) => {
       let allVersions = data;
-      console.log(allVersions);
+      allVersions.unshift('all');
+      //console.log(allVersions);
       this.setState({appVersions: allVersions})
     })
   };
@@ -48,26 +51,32 @@ class CrashSummary extends Component {
         </View>
         <ScrollView>
         <View style={styles.app}>
-          <Text style={styles.dark15Text}>SETTINGS</Text>
+          <Text style={styles.dark15Text}>DATE SETTINGS</Text>
           <Text style={styles.dark15Text}>Please select a time range</Text>
-          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={this.state.fill} />
-            </Svg>
-            <Text style={styles.dark15Text}>Last day</Text>
-          </View>
-          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={this.state.fill} />
-            </Svg>
-            <Text style={styles.dark15Text}>Last 7 days</Text>
-          </View>
-          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={this.state.fill} />
-            </Svg>
-            <Text style={styles.dark15Text}>Last 30 days</Text>
-          </View>
+          <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '1')}>
+            <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
+              <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
+                <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '1') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
+              </Svg>
+              <Text style={styles.dark15Text}>Last day</Text>
+           </View>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '7')}>
+            <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
+              <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
+                <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '7') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
+              </Svg>
+              <Text style={styles.dark15Text}>Last 7 days</Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '30')}>
+            <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
+              <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
+                <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '30') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
+              </Svg>
+              <Text style={styles.dark15Text}>Last 30 days</Text>
+            </View>
+          </TouchableHighlight>
         </View>
         <View style={styles.app}>
           <Text style={styles.dark15Text}>VERSION SETTINGS</Text>
@@ -84,31 +93,51 @@ class CrashSummary extends Component {
     const appVersions = [];
     for(var i = 0; i < this.state.appVersions.length; i ++){
       if(!this.state.searching || this.state.text === ''){
-        appVersions.push(<Versions key={i} version={this.state.appVersions[i]} fill={this.state.fill} />);
+        appVersions.push(<Versions key={i} onPress={this._onPressSelectVersion.bind(this, this.state.appVersions[i])} version={this.state.appVersions[i]} fill={(this.state.selectedVersion === this.state.appVersions[i]) ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />);
       }else{
         if (this.state.appVersions[i].indexOf(this.state.text) > -1){
-        appVersions.push(<Versions key={i} version={this.state.appVersions[i]} fill={this.state.fill} />);
+        appVersions.push(<Versions key={i} onPress={this._onPressSelectVersion.bind(this, this.state.appVersions[i])} version={this.state.appVersions[i]} fill={(this.state.selectedVersion === this.state.appVersions[i]) ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />);
         }
       }
     }
     return appVersions;
   };
 
+  _onPressSelect(selected){
+    this.setState({selectedTime: selected}, () => {console.log(this.state.selected)})
+  }
+
+  _onPressSelectVersion(selected){
+    this.setState({selectedVersion: selected});
+  }
+
     //Go back to previous screen
   _onPressBack(){
-    this.props.navigator.pop();
+      this.props.navigator.push({
+      name: 'crashInfo',
+      passProps: {
+        id: this.props.id,
+        name: this.props.name,
+        time: this.state.selectedTime,
+        version: this.state.selectedVersion
+        //crashPercent: this.state.crashPercent,
+        //crashCount: this.state.crashCountTotal
+      }
+    });
   };
 };
 
 class Versions extends Component{
   render(){
     return(
-      <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-        <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-          <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={this.props.fill} />
-        </Svg>
-        <Text style={styles.dark15Text}>{this.props.version}</Text>
-      </View>
+    <TouchableHighlight underlayColor={'gray'} onPress={this.props.onPress}>
+        <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
+          <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
+            <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={this.props.fill} />
+          </Svg>
+          <Text style={styles.dark15Text}>{this.props.version}</Text>
+        </View>
+      </TouchableHighlight>
     )
   }
 }

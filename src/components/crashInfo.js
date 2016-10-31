@@ -33,7 +33,7 @@ class CrashInfo extends Component {
   //This makes a call to the api and retrieves a list of crash groups for a specific app
   componentWillMount(){
     //combineCrashData function is from getData.js
-    combineCrashData(this.props.id, 'usersAffected', (data) => {
+    combineCrashData(this.props.id, this.props.time, this.props.version, 'usersAffected', (data) => {
       this._getCrashInfo(data);
     });
   };
@@ -47,11 +47,7 @@ class CrashInfo extends Component {
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressSettings.bind(this)} />
         </View>
         <ScrollView>
-          <Text style={[styles.bold13Text, {alignSelf: 'flex-end'}, {marginBottom: 1}, {marginTop: 6}, {marginRight: 6}]}>Current 24 hours</Text>
-          <View style={[styles.app, styles.crashInfo]}>
-            <Summary what={'Crash Rate'} timeFrame={'Last 24h'} figure={numeral(this.props.crashPercent).format('0.00')+'%'} />
-            <Summary what={'Crash Count'} timeFrame={'Last 24h'} figure={numeral(this.props.crashCount).format('0.0a')} />
-          </View>
+          <Text style={[styles.bold13Text, {alignSelf: 'flex-end'}, {marginBottom: 1}, {marginTop: 6}, {marginRight: 6}]}>{this._getTime()}</Text>
           <View style={styles.app}>
             <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
             <Text style={styles.light13Text}>Sorted By</Text>
@@ -92,6 +88,19 @@ class CrashInfo extends Component {
     )
   };
 
+  _getTime(){
+    switch(this.props.time){
+      case '1':
+        return 'Current 24 hours';
+        break;
+      case '7':
+        return 'Last 7 days';
+        break;
+      case '30':
+        return 'Last 30 days'
+    }
+  }
+
   _sortData(sort){
     switch (sort){
       case 'usersAffected':
@@ -127,7 +136,7 @@ class CrashInfo extends Component {
         });
       break;
     }
-    combineCrashData(this.props.id, sort, (data) => {
+    combineCrashData(this.props.id, this.props.time, this.props.version, sort, (data) => {
       this._getCrashInfo(data);
     });
   }
@@ -167,18 +176,6 @@ class CrashInfo extends Component {
         id: this.props.id
       }
     });
-  }
-};
-
-class Summary extends Component {
-  render(){
-    return(
-      <View style={[styles.appDetailSummaryItem, styles.border]}>
-        <Text style={styles.dark15Text}>{this.props.what}</Text>
-        <Text style={styles.light14Text}>{this.props.timeFrame}</Text>
-        <Text style={styles.boldText}>{this.props.figure}</Text>
-      </View>
-    )
   }
 };
 

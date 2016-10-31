@@ -65,9 +65,9 @@ crashRateGraph = function(id, callback){
 }
 
 //Gets a list of all crash groups for a specific app
-combineCrashData = function(id, sort, callback){
+combineCrashData = function(id, time, version, sort, callback){
   const crashSummaryData = [];
-  getCrashInfoGeneral(id, sort, (data) => {
+  getCrashInfoGeneral(id, time, version, sort, (data) => {
     let crashArray = data['data']['errors'];
     //console.log(crashArray);
     for(var i = 0; i < crashArray.length; i++){
