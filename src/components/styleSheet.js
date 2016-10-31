@@ -37,6 +37,16 @@ module.exports = StyleSheet.create({
     width: 200,
     paddingTop: 3
   },
+  versionInput: {
+    margin: 5,
+    paddingLeft: 5,
+    borderColor: 'rgb(122,143,147)',
+    borderWidth: 1,
+    borderRadius: 2,
+    alignSelf: 'center',
+    height: 33,
+    alignSelf: 'stretch',
+  },
   label: {
     fontSize: 15,
     lineHeight: 20,

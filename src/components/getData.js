@@ -43,6 +43,17 @@ crashCountGraph = function(id, time, callback){
   })
 }
 
+appVersions = function(id, callback){
+  getAppVersions((data) => {
+    console.log(data['data']);
+    Object.keys(data['data']).forEach(function(key){
+      if(key === id){
+        callback(data['data'][key]['appVersions']);
+      }
+    })
+  })
+}
+
 crashRateGraph = function(id, callback){
   const crashRate = {};
   getCrashRateGraphInfo(id, (data) => {
