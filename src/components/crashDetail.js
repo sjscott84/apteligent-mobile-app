@@ -78,15 +78,15 @@ class CrashDetail extends Component {
             </View>
             <View style={{flexDirection: 'row'}}>
               <Text style={[{flex: 0.4}, styles.dark15Text]}>Last Occured</Text>
-              <Text style={[{flex: 0.6}, styles.bold15Text]}>{moment(this.props.lastOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
+              <Text style={[{flex: 0.6}, styles.bold15Text]}>{moment.utc(this.props.lastOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
               <Text style={[{flex: 0.4}, styles.dark15Text]}>First Occured</Text>
-              <Text style={[{flex: 0.6}, styles.bold15Text]}>{moment(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
+              <Text style={[{flex: 0.6}, styles.bold15Text]}>{moment.utc(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
             </View>
             <View style={[{borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}]}>
               <Text style={[styles.dark15Text, {marginTop: 10}]}>OCCURANCES</Text>
-              <BarChart data={this.props.dailyOccurances} start={moment().subtract(30, 'days')} end={moment().format()} numberType='number' /> 
+              <BarChart data={this.props.dailyOccurances} start={moment.utc().subtract(30, 'days')} end={moment.utc().format()} numberType='number' /> 
             </View>
           </View>
           <View style={[styles.app, {marginTop: 0}, {borderTopWidth: 1}, {borderTopColor: 'rgb(122,143,147)'}]}>

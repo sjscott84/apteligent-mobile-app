@@ -16,7 +16,6 @@ import Svg,{
 
 import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import moment from 'moment';
 import getData from './getData';
 
 class Stacktrace extends Component {

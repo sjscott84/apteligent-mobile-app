@@ -40,7 +40,7 @@ class Breadcrumbs extends Component {
           key={[i]} 
           username={data[i]['username']} 
           appVersion={data[i]['appVersion']} 
-          dateAndTime={moment(data[i]['dateAndTime']).format('MM/DD/YYYY hh:mm:ss UTC')} 
+          dateAndTime={moment.utc(data[i]['dateAndTime']).format('MM/DD/YYYY hh:mm:ss UTC')} 
           noOfBreadcrumbs={data[i]['noOfBreadcrumbs']}
           device={data[i]['device']}
           os={data[i]['os']}
