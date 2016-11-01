@@ -178,7 +178,7 @@ class CrashInfo extends Component {
   }
 
   _onPressSettings(){
-    this.props.navigator.push({
+    this.props.navigator.replace({
       name: 'crashSettings',
       passProps: {
         name: this.props.name,

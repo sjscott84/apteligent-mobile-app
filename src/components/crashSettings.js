@@ -27,8 +27,8 @@ class CrashSummary extends Component {
       appVersions: [],
       text: 'Select or Type App Version',
       searching: false,
-      selectedTime: null,
-      selectedVersion: null
+      selectedTime: '1',
+      selectedVersion: 'all'
     }
   };
 
@@ -44,9 +44,9 @@ class CrashSummary extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <View style={[styles.topLinks, {justifyContent: 'space-around'}]}>
+        <View style={[styles.topLinks, {justifyContent: 'flex-start'}]}>
           <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-          <Text style={styles.dark18Text}>{this.props.name}</Text>
+          <Text style={styles.dark18Text}>Apply Settings</Text>
         </View>
         <ScrollView>
         <View style={styles.app}>
@@ -112,7 +112,7 @@ class CrashSummary extends Component {
 
     //Go back to previous screen
   _onPressBack(){
-      this.props.navigator.push({
+      this.props.navigator.replace({
       name: 'crashInfo',
       passProps: {
         id: this.props.id,
@@ -129,7 +129,7 @@ class CrashSummary extends Component {
 class Versions extends Component{
   render(){
     return(
-    <TouchableHighlight underlayColor={'gray'} onPress={this.props.onPress}>
+    <TouchableHighlight underlayColor={'gray'} onPress={this.props.onPress} style={{marginLeft: 6}}>
         <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
           <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
             <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={this.props.fill} />
