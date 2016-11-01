@@ -14,7 +14,9 @@ import Svg,{
 
 import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import PieChart from './pieChart'
+import PieChart from './pieChart';
+import AppHeader from './appHeader';
+import AppFooter from './appFooter';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -33,11 +35,7 @@ class InteractivePieChart extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <View style={styles.topLinks}>
-          <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-          <Text style={styles.dark18Text}>{this.props.name}</Text>
-          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-        </View>
+        <AppHeader navigator={this.props.navigator} name={this.props.name}/>
         <View style={styles.app}>
           <ScrollView>
             <View style={[{marginTop: 6}, {alignItems: 'center'}]}>
@@ -55,6 +53,7 @@ class InteractivePieChart extends Component {
             </View>
               <CrashList data={this.props.data} />
           </ScrollView>
+          <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
         </View>
       </View>
     )

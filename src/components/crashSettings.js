@@ -44,10 +44,9 @@ class CrashSummary extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <View style={styles.topLinks}>
+        <View style={[styles.topLinks, {justifyContent: 'space-around'}]}>
           <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
           <Text style={styles.dark18Text}>{this.props.name}</Text>
-          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' />
         </View>
         <ScrollView>
         <View style={styles.app}>

@@ -15,13 +15,22 @@ import numeral from 'numeral'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class AvailableApps extends Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
-      apps: props.data,
-      text: 'Select or Type App Name',
-      searching: false
+      apps: [],
+      text: 'Select or Type App Name'
     }
+  };
+
+    //This makes a call to the api and returns all apps
+  componentWillMount(){
+    //getAvaliableApps() is from getData.js
+      getAvaliableApps((data) => {
+        this.setState({
+          apps: data
+        });
+      });
   };
 
   render(){

@@ -18,6 +18,7 @@ import getData from './getData';
 import numeral from 'numeral';
 import Button from './button';
 import AppFooter from './appFooter';
+import AppHeader from './appHeader';
 
 class AppDetails extends Component {
   constructor(props){
@@ -72,11 +73,7 @@ class AppDetails extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <View style={styles.topLinks}>
-          <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-          <Text style={styles.dark18Text}>{this.props.name}</Text>
-          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-        </View>
+        <AppHeader navigator={this.props.navigator} name={this.props.name}/>
         <ScrollView>
           <View style={styles.app}>
             <View style={[{flexDirection: 'row'}, {borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}]}>

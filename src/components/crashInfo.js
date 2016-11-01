@@ -18,6 +18,7 @@ import numeral from 'numeral';
 import moment from 'moment';
 import getData from './getData';
 import AppFooter from './appFooter';
+import AppHeader from './appHeader';
 
 class CrashInfo extends Component {
   constructor(){
@@ -42,13 +43,12 @@ class CrashInfo extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <View style={styles.topLinks}>
-          <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-          <Text style={styles.dark18Text}>{this.props.name}</Text>
-          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressSettings.bind(this)} />
-        </View>
+        <AppHeader navigator={this.props.navigator} name={this.props.name}/>
         <ScrollView>
-          <Text style={[styles.bold13Text, {alignSelf: 'flex-end'}, {marginBottom: 1}, {marginTop: 6}, {marginRight: 6}]}>{this._getTime()}</Text>
+          <View style={[{flexDirection: 'row'}, {justifyContent: 'flex-end'}, {alignItems: 'center'}]}>
+            <Text style={[styles.bold13Text, {marginBottom: 1}, {marginTop: 6}, {marginRight: 6}]}>{this._getTime()}</Text>
+            <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='rgb(229,234,236)' onPress={this._onPressSettings.bind(this)} />
+          </View>
           <View style={styles.app}>
             <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
             <Text style={styles.light13Text}>Sorted By</Text>

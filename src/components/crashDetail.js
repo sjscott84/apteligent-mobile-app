@@ -24,6 +24,7 @@ import Button from './button';
 import StacktraceSummary from './stacktraceSummary';
 import Breadcrumbs from './breadcrumbs';
 import AppFooter from './appFooter';
+import AppHeader from './appHeader';
 
 class CrashDetail extends Component {
   constructor(){
@@ -55,11 +56,7 @@ class CrashDetail extends Component {
   render(){
     return(
       <View style={styles.container}>
-        <View style={styles.topLinks}>
-          <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-          <Text style={styles.dark18Text}>{this.props.name}</Text>
-          <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-        </View>
+        <AppHeader navigator={this.props.navigator} name={this.props.name} />
         <ScrollView>
           <View style={styles.app}>
             <Text style={[styles.dark15Text, {marginTop: 5}]}>CRASH DETAILS</Text>
@@ -129,12 +126,12 @@ class CrashDetail extends Component {
   };
 
   _openInteractiveChart(){
-    console.log(this.state.version);
     this.props.navigator.push({
       name: 'interactivePieChart',
       passProps: {
         name: this.props.name,
-        data: this.state.version
+        data: this.state.version,
+        id: this.props.id
       }
     });
   }
