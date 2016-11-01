@@ -7,7 +7,8 @@ import {
   View,
   Image,
   Dimensions,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -24,6 +25,8 @@ class AppDetails extends Component {
   constructor(props){
     super(props);
     this.state = {
+      isLoading: true,
+      animating: true,
       apps: props,
       time: 'PT5M',
       displayTime: 'Last 5min',
@@ -41,40 +44,38 @@ class AppDetails extends Component {
   };
 
   componentWillMount(){
-    let mau;
-    let dau;
-    let crashPercent;
-    let crashCountTotal;
+    let mau, dau, crashPercent, crashCountTotal;;
     getMAU(this.props.id, (data) => {
       mau = data;
-    })
-    getDAU(this.props.id, (data) =>{
-      dau = data
-    })
-    getCrashSummaries(this.props.id, (percent, count) => {
-      crashPercent = percent;
-      crashCountTotal = count;
-    })
-    crashCountGraph(this.props.id, this.state.time, (rate, loads, start, end, appLoadTotal, crashCountTotalLive) => {
-      this.setState({
-        crashRateArray: rate,
-        appLoadArray: loads,
-        start: start,
-        end: end,
-        appLoadTotalLive: appLoadTotal,
-        crashCountTotalLive: crashCountTotalLive,
-        mau: mau,
-        dau: dau,
-        crashPercent: crashPercent,
-        crashCountTotal: crashCountTotal
+      getDAU(this.props.id, (data) => {
+        dau = data;
+        getCrashSummaries(this.props.id, (percent, count) => {
+          crashPercent = percent;
+          crashCountTotal = count;
+          crashCountGraph(this.props.id, this.state.time, (rate, loads, start, end, appLoadTotal, crashCountTotalLive) => {
+            //console.log(mau, dau, crashPercent, crashCountTotal, rate, loads, start, end, appLoadTotal, crashCountTotalLive)
+            this.setState({
+              crashRateArray: rate,
+              appLoadArray: loads,
+              start: start,
+              end: end,
+              appLoadTotalLive: appLoadTotal,
+              crashCountTotalLive: crashCountTotalLive,
+              mau: mau,
+              dau: dau,
+              crashPercent: crashPercent,
+              crashCountTotal: crashCountTotal,
+              isLoading: false
+            })
+          })
+        })
       })
     })
-  }
+  };
+
   render(){
-    return(
-      <View style={styles.container}>
-        <AppHeader navigator={this.props.navigator} name={this.props.name}/>
-        <ScrollView>
+    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
+     (  <View>
           <View style={styles.app}>
             <View style={[{flexDirection: 'row'}, {borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}]}>
               <Image style={styles.logo} source={require('../images/logoTest.png')}/>
@@ -115,6 +116,12 @@ class AppDetails extends Component {
               start={this.state.start}
               end={this.state.end} />
           </View>
+        </View> );
+    return(
+      <View style={styles.container}>
+        <AppHeader navigator={this.props.navigator} name={this.props.name}/>
+        <ScrollView>
+          {spinner}
         </ScrollView>
         <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
@@ -166,7 +173,7 @@ class CrashGraphs extends Component {
           <Text style={styles.boldText}>{numeral(this.props.liveCount).format('0.0a')}</Text>
         </View>
         <View>
-          <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='number' />
+          <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='number' graphName={this.props.graphName} />
         </View>
       </View>
     )
