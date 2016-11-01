@@ -7,7 +7,8 @@ import {
   View,
   ScrollView,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -50,9 +51,12 @@ class AvailableApps extends Component {
   };
 
   _onPressLogout(){
-    this.props.navigator.push({
-      name: 'signin'
-    })
+    AsyncStorage.removeItem('AccessToken')
+      .then(() => {
+        this.props.navigator.push({
+          name: 'signin'
+        })
+      })
   }
 
   //This rerenders the appList component

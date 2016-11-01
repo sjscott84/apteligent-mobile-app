@@ -23,9 +23,14 @@ getAccessToken = function(password, username, clientId, grantType, callback){
     })
     .then((json) => {
       ACCESS_ID = json.access_token;
-      callback();
+      callback(json.access_token);
     })
 }
+
+provideAccessToken = function(token, callback){
+  ACCESS_ID = token;
+  callback();
+};
 
 //Get a list of available apps
 getAppsList = function(callback){

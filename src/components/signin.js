@@ -7,9 +7,11 @@ import {
   View,
   TextInput,
   Alert,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 
+import getData from './getData';
 import base64 from 'base-64';
 import SignInButton from './/button'
 import styles from './styleSheet';
@@ -25,6 +27,19 @@ class Signin extends Component{
       password: 'A228kp3jT!'
     }
   };
+
+  componentWillMount(){
+    AsyncStorage.getItem('AccessToken')
+      .then((value) =>{
+        if(value){
+          provideAccessToken(value, () => {
+            this.props.navigator.push({
+              name: 'appList'
+            })
+          })
+        }
+      })
+  }
 
   render(){
     return (
@@ -57,7 +72,8 @@ class Signin extends Component{
       Alert.alert('Error', 'Please enter a valid username and password');
     }else{
       //Call the API to get the access token and render AppList component
-       getAccessToken(password, username, clientId, grantType, () => {
+       getAccessToken(password, username, clientId, grantType, (data) => {
+        AsyncStorage.setItem('AccessToken', data);
         nav.push({
           name: 'appList'
         });
