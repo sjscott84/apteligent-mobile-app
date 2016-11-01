@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
 import numeral from 'numeral';
 import Button from './button';
+import AppFooter from './appFooter';
 
 class AppDetails extends Component {
   constructor(props){
@@ -118,6 +119,7 @@ class AppDetails extends Component {
               end={this.state.end} />
           </View>
         </ScrollView>
+        <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
     )
   };

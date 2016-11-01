@@ -98,6 +98,7 @@ class BreadcrumbItem extends Component {
     this.props.navigator.push({
       name: 'breadcrumbDetails',
       passProps: {
+        id: this.props.id,
         name: this.props.name,
         username: this.props.username,
         appVersion: this.props.appVersion,

@@ -17,6 +17,7 @@ import Svg,{
 import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
+import AppFooter from './appFooter';
 
 class BreadcrumbDetails extends Component {
   constructor(props){
@@ -77,6 +78,7 @@ class BreadcrumbDetails extends Component {
             {this._getSquares()}
           </View>
         </ScrollView>
+        <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
     )
   }

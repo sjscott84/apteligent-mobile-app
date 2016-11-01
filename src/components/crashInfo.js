@@ -17,6 +17,7 @@ import Triangle from './triangle';
 import numeral from 'numeral';
 import moment from 'moment';
 import getData from './getData';
+import AppFooter from './appFooter';
 
 class CrashInfo extends Component {
   constructor(){
@@ -84,6 +85,7 @@ class CrashInfo extends Component {
             {this.state.crashesArray}
           </View>
         </ScrollView>
+        <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
     )
   };

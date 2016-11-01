@@ -23,6 +23,7 @@ import PieChart from './pieChart'
 import Button from './button';
 import StacktraceSummary from './stacktraceSummary';
 import Breadcrumbs from './breadcrumbs';
+import AppFooter from './appFooter';
 
 class CrashDetail extends Component {
   constructor(){
@@ -122,6 +123,7 @@ class CrashDetail extends Component {
             {this._displayComponent()}
           </View>
         </ScrollView>
+        <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
     )
   };

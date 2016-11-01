@@ -13,6 +13,7 @@ import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
 import moment from 'moment';
+import AppFooter from './appFooter';
 
 class UserDetail extends Component {
   constructor(){
@@ -44,37 +45,40 @@ class UserDetail extends Component {
           <Text style={styles.dark18Text}>{this.props.name}</Text>
           <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='white' />
         </View>
-        <View style={styles.app}>
-          <Text style={styles.dark15Text}>APP USER</Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[{flex: 1}, styles.dark15Text]}>Username</Text>
-            <Text style={[{flex: 2}, styles.bold15Text]}>{this.props.username}</Text>
+        <ScrollView>
+          <View style={styles.app}>
+            <Text style={styles.dark15Text}>APP USER</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 1}, styles.dark15Text]}>Username</Text>
+              <Text style={[{flex: 2}, styles.bold15Text]}>{this.props.username}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 1}, styles.dark15Text]}>Last Log In</Text>
+              <Text style={[{flex: 2}, styles.bold15Text]}>{moment.utc(this.state.lastLogIn).format('MM/DD/YYYY hh:mm:ss UTC')}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 1}, styles.dark15Text]}>Last Crash</Text>
+              <Text style={[{flex: 2}, styles.bold15Text]}>{moment.utc(this.state.lastCrash).format('MM/DD/YYYY hh:mm:ss UTC')}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 1}, styles.dark15Text]}>Device</Text>
+              <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.device}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 1}, styles.dark15Text]}>App Version</Text>
+              <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.appVersion}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 1}, styles.dark15Text]}>OS</Text>
+              <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.system}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{flex: 1}, styles.dark15Text]}>Locale</Text>
+              <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.locale}</Text>
+            </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[{flex: 1}, styles.dark15Text]}>Last Log In</Text>
-            <Text style={[{flex: 2}, styles.bold15Text]}>{moment.utc(this.state.lastLogIn).format('MM/DD/YYYY hh:mm:ss UTC')}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[{flex: 1}, styles.dark15Text]}>Last Crash</Text>
-            <Text style={[{flex: 2}, styles.bold15Text]}>{moment.utc(this.state.lastCrash).format('MM/DD/YYYY hh:mm:ss UTC')}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[{flex: 1}, styles.dark15Text]}>Device</Text>
-            <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.device}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[{flex: 1}, styles.dark15Text]}>App Version</Text>
-            <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.appVersion}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[{flex: 1}, styles.dark15Text]}>OS</Text>
-            <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.system}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[{flex: 1}, styles.dark15Text]}>Locale</Text>
-            <Text style={[{flex: 2}, styles.bold15Text]}>{this.state.locale}</Text>
-          </View>
-        </View>
+        </ScrollView>
+        <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
     )
   };
