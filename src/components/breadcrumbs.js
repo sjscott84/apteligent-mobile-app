@@ -3,16 +3,11 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Image,
   Text,
   View,
   ScrollView,
   TouchableHighlight
 } from 'react-native';
-import Svg,{
-    Circle,
-    Line
-} from 'react-native-svg';
 
 import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,7 +21,7 @@ class Breadcrumbs extends Component {
       breadcrumbs: []
     }
   }
-
+  //Get breadcrumbs from the api
   componentWillMount(){
     getBreadcrumbs((data) => {
       let breadcrumbArray = [];
@@ -61,10 +56,6 @@ class Breadcrumbs extends Component {
       </View>
     )
   }
-
-  _onPressBack(){
-    this.props.navigator.pop();
-  };
 }
 
 class BreadcrumbItem extends Component {
@@ -94,6 +85,7 @@ class BreadcrumbItem extends Component {
     )
   };
 
+  //View more details about the breadcrumb
   _onPressViewDetails(){
     this.props.navigator.push({
       name: 'breadcrumbDetails',
@@ -111,6 +103,7 @@ class BreadcrumbItem extends Component {
     })
   };
 
+  //View some basic data about the user
   _onPressUser(){
     this.props.navigator.push({
       name: 'userDetail',

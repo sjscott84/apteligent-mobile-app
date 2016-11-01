@@ -3,12 +3,10 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Image,
   Text,
   View,
   ScrollView,
   Dimensions,
-  TouchableHighlight
 } from 'react-native';
 import Svg,{
     Rect
@@ -80,6 +78,7 @@ class BreadcrumbDetails extends Component {
     )
   }
 
+  //Create the breadcrumb squares
   _getSquares(){
     let squareArray = [];
     let crashDetails = [];
@@ -172,6 +171,7 @@ class BreadcrumbDetails extends Component {
       crashDetails={crashDetails} />)
   }
 
+  //Measure the height of the summary component, this enables the contentOffset on click
   _getCrumbsHeight(event){
     let currentHeight = this.state.crumbsHeight;
     let height = event.nativeEvent.layout.height;
@@ -179,6 +179,7 @@ class BreadcrumbDetails extends Component {
     this.setState({crumbsHeight: newHeight});
   }
 
+  //Measure the y position of each breadcrumb Detail component, this enables the contentOffset on click
   _getHeight(event){
     let array = this.state.placement;
     let y = event.nativeEvent.layout.y;
@@ -188,10 +189,6 @@ class BreadcrumbDetails extends Component {
       this.setState({placement: array});
     }
   }
-
-  _onPressBack(){
-    this.props.navigator.pop();
-  };
 }
 
 class Crumbs extends Component {

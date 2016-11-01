@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import styles from './styleSheet';
-import numeral from 'numeral'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class AvailableApps extends Component {
@@ -24,7 +23,7 @@ class AvailableApps extends Component {
     }
   };
 
-    //This makes a call to the api and returns all apps
+  //This makes a call to the api and returns all apps
   componentWillMount(){
     //getAvaliableApps() is from getData.js
       getAvaliableApps((data) => {
@@ -50,6 +49,7 @@ class AvailableApps extends Component {
     )
   };
 
+  //Logout of the app
   _onPressLogout(){
     AsyncStorage.removeItem('AccessToken')
       .then(() => {
@@ -59,11 +59,7 @@ class AvailableApps extends Component {
       })
   }
 
-  //This rerenders the appList component
-  _onPressBack(){
-    this.props.navigator.pop();
-  }
-
+  //Create the components for each of the apps
   _getAppsInfo(){
     const appView = [];
     const app = this.state.apps;

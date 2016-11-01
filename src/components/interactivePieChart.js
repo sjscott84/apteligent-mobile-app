@@ -87,11 +87,6 @@ class InteractivePieChart extends Component {
       return (height - 24) / 2;
     }
   }
-
-  //Go back to previous screen
-  _onPressBack(){
-    this.props.navigator.pop();
-  };
 };
 
 class CrashList extends Component {

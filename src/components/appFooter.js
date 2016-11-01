@@ -33,6 +33,7 @@ class AppFooter extends Component {
     )
   };
 
+  //Go to either crashInfo or appDetails depending on what is clicked, if user is currently on that page the click event will do nothing
   _onPressNewRoute(newRoute, props){
     let currentRoute = this.props.navigator.state.routeStack[this.props.navigator.state.routeStack.length - 1];
     if(currentRoute.name !== newRoute){

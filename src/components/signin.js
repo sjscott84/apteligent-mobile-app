@@ -28,6 +28,7 @@ class Signin extends Component{
     }
   };
 
+  //Checks to see if there is already an access token in local storage so user does not have to log in each time
   componentWillMount(){
     AsyncStorage.getItem('AccessToken')
       .then((value) =>{

@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Image,
   Text,
   View,
   ScrollView,
@@ -13,8 +12,6 @@ import {
 
 import styles from './styleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Triangle from './triangle';
-import numeral from 'numeral';
 import moment from 'moment';
 import getData from './getData';
 import AppFooter from './appFooter';
@@ -24,7 +21,6 @@ class CrashInfo extends Component {
   constructor(){
     super();
     this.state = {
-      //crashes: {},
       crashesArray: [],
       userPressed: true,
       occurancesPressed: false,
@@ -90,6 +86,7 @@ class CrashInfo extends Component {
     )
   };
 
+  //Display correct time period based on settings
   _getTime(){
     switch(this.props.time){
       case '1':
@@ -103,6 +100,7 @@ class CrashInfo extends Component {
     }
   }
 
+  //Sort crashes, makes a new call to api for each sort
   _sortData(sort){
     switch (sort){
       case 'usersAffected':
@@ -143,6 +141,7 @@ class CrashInfo extends Component {
     });
   }
 
+  //Creates a new component for each crash returned by the api
   _getCrashInfo(data){
     const thisCrashesArray = [];
     const crash = data;
@@ -164,27 +163,6 @@ class CrashInfo extends Component {
     }
     //return crashesArray;
     this.setState({crashesArray: thisCrashesArray});
-  }
-  //Rerenders the AppDetails component
-  _onPressBack(){
-    //this.props.navigator.pop();
-    this.props.navigator.push({
-      name: 'appDetails',
-      passProps: {
-        id: this.props.id,
-        name: this.props.name,
-        type: this.props.type
-      }});
-  }
-
-  _onPressSettings(){
-    this.props.navigator.replace({
-      name: 'crashSettings',
-      passProps: {
-        name: this.props.name,
-        id: this.props.id
-      }
-    });
   }
 };
 
@@ -228,6 +206,7 @@ class Crashes extends Component {
     )
   }
 
+  //Opens up more info about a particular crash
   _onPress(){
     console.log(this.props.dailyOccurances)
     this.props.navigator.push({

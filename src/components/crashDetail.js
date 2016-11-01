@@ -15,12 +15,10 @@ import Svg,{
 } from 'react-native-svg';
 
 import styles from './styleSheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import getData from './getData';
 import BarChart from './barChart';
 import PieChart from './pieChart'
-import Button from './button';
 import StacktraceSummary from './stacktraceSummary';
 import Breadcrumbs from './breadcrumbs';
 import AppFooter from './appFooter';
@@ -45,6 +43,7 @@ class CrashDetail extends Component {
       }
   }
 
+  //Retreives more info about a crash from the api
   componentWillMount(){
     getCrashInfo(this.props.id, this.props.hash, () => {
       getCrashByAppVersion((data) => {
@@ -125,6 +124,7 @@ class CrashDetail extends Component {
     )
   };
 
+  //Opens an interactive pie chart in a new page (so as to make it bigger) to get more information
   _openInteractiveChart(){
     this.props.navigator.push({
       name: 'interactivePieChart',
@@ -136,6 +136,7 @@ class CrashDetail extends Component {
     });
   }
 
+  //Chooses which component to display on click of 'stacktrace' or 'breadcrumbs'
   _displayComponent(){
     if(this.state.display === 'stacktrace'){
       return <StacktraceSummary id={this.props.id} hash={this.props.hash} name={this.props.name} navigator={this.props.navigator} crashName={this.props.crashName} reason={this.props.reason} />
@@ -144,7 +145,7 @@ class CrashDetail extends Component {
     }
   }
 
-  //Display to two (or if only one, one) top crashes next to the bar chart
+  //Display top two (or if only one, one) top crashes next to the bar chart
   _getTopCrashes(){
     if(this.state.version.length > 1){
       return (<TopCrashInfo color={'rgb(10,61,72)'} data={this.state.version} index={1} />);
@@ -189,12 +190,7 @@ class CrashDetail extends Component {
     })
   };
 
-  //Go back to previous screen
-  _onPressBack(){
-    this.props.navigator.pop();
-  };
-
-  //Open the stacktrace screen
+  //Change formatting when stacktrace is clicked (_displayComponent() actually opens the new component)
   _onPressStacktrace(){
     this.setState({
       display: 'stacktrace',
@@ -205,7 +201,7 @@ class CrashDetail extends Component {
     });
   };
 
-  //Open the breadcrumbs screen
+  //Change formatting when breadcrumbs is clicked (_displayComponent() actually opens the new component)
   _onPressBreadcrumbs(){
     this.setState({
       display: 'breadcrumbs',
@@ -270,6 +266,7 @@ class TopCrashInfo extends Component {
     )
   };
 
+  //Get the top crash text to display next to the pie chart
   _getText(){
     let data = this.props.data;
     let index = this.props.index;

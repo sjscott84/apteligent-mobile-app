@@ -15,7 +15,6 @@ import Svg,{
 
 import styles from './styleSheet';
 import getData from './getData';
-import Button from './button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -32,11 +31,11 @@ class CrashSummary extends Component {
     }
   };
 
+  //Retrieves all the versions for an app from the api
   componentWillMount(){
     appVersions(this.props.id, (data) => {
       let allVersions = data;
       allVersions.unshift('all');
-      //console.log(allVersions);
       this.setState({appVersions: allVersions})
     })
   };
@@ -88,6 +87,7 @@ class CrashSummary extends Component {
     )
   };
 
+  //Creates the component for each version, including when the versions are being filtered
   _getAppVersions(){
     const appVersions = [];
     for(var i = 0; i < this.state.appVersions.length; i ++){
@@ -102,10 +102,12 @@ class CrashSummary extends Component {
     return appVersions;
   };
 
+  //Sets the state of the slected time period
   _onPressSelect(selected){
-    this.setState({selectedTime: selected}, () => {console.log(this.state.selected)})
+    this.setState({selectedTime: selected});
   }
 
+  //Sets the state of the selected version
   _onPressSelectVersion(selected){
     this.setState({selectedVersion: selected});
   }
@@ -119,8 +121,6 @@ class CrashSummary extends Component {
         name: this.props.name,
         time: this.state.selectedTime,
         version: this.state.selectedVersion
-        //crashPercent: this.state.crashPercent,
-        //crashCount: this.state.crashCountTotal
       }
     });
   };

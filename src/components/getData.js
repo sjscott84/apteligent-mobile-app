@@ -2,6 +2,7 @@
 var api = require('../library/api.js');
 let crashInfo;
 
+//Get a list of all apps from the api
 getAvaliableApps = function(callback){
   getAppsList((data) => {
     console.log(data);
@@ -17,6 +18,7 @@ getAvaliableApps = function(callback){
   })
 }
 
+//Get crash rate and crash count for the last 24 hours from api
 getCrashSummaries = function(id, callback){
   getCrashSummariesApi(id, (summary) => {
     let crashPercent = summary.data['crashPercentage'];
@@ -26,6 +28,7 @@ getCrashSummaries = function(id, callback){
   })
 }
 
+//Get data for crash count bar chart from api
 crashCountGraph = function(id, time, callback){
   getLiveStateData(id, time, data => {
     let start = data['data']['periodicData'][0]['start'];
@@ -44,6 +47,7 @@ crashCountGraph = function(id, time, callback){
   })
 }
 
+//Get a list of all versions of an app from api
 appVersions = function(id, callback){
   getAppVersions((data) => {
     console.log(data['data']);
@@ -55,6 +59,7 @@ appVersions = function(id, callback){
   })
 }
 
+//Currently this is not in use
 crashRateGraph = function(id, callback){
   const crashRate = {};
   getCrashRateGraphInfo(id, (data) => {

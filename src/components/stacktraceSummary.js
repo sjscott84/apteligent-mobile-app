@@ -3,20 +3,12 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Image,
   Text,
   View,
   ScrollView,
-  Dimensions,
-  TouchableHighlight
 } from 'react-native';
-import Svg,{
-    Circle,
-    Line
-} from 'react-native-svg';
 
 import styles from './styleSheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
 
 class StacktraceSummary extends Component {
@@ -27,6 +19,7 @@ class StacktraceSummary extends Component {
     }
   }
 
+  //Gets the stacktrace from the api
   componentWillMount(){
     getStacktrace(this.props.id, this.props.hash, (data) => {
       let stackTraceText = [];
@@ -57,14 +50,6 @@ class StacktraceSummary extends Component {
       </View>
     )
   }
-
-  _onPressExpand(){
-    console.log('expand');
-  }
-
-  _onPressBack(){
-    this.props.navigator.pop();
-  };
 }
 
 class StackTraceItem extends Component{

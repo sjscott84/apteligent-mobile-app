@@ -3,14 +3,12 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Image,
   Text,
   View,
   ScrollView
 } from 'react-native';
 
 import styles from './styleSheet';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
 import moment from 'moment';
 import AppFooter from './appFooter';
@@ -23,7 +21,7 @@ class UserDetail extends Component {
 
     }
   }
-
+  //Get user information from the api
   componentWillMount(){
     getUserDetails(this.props.id, this.props.hash, this.props.username, (data) =>{
       this.setState({
@@ -78,10 +76,6 @@ class UserDetail extends Component {
         <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
     )
-  };
-
-  _onPressBack(){
-    this.props.navigator.pop();
   };
 }
 

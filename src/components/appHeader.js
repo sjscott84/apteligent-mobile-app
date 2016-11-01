@@ -24,10 +24,12 @@ class AppHeader extends Component {
     )
   };
 
+  //Go back to last route on stack
   _onPressBack(){
     this.props.navigator.pop();
   };
 
+  //Open available apps route
   _onPressApps(){
     this.props.navigator.push({
       name: 'availableApps'

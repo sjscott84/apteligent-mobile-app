@@ -6,15 +6,12 @@ import {
   Text,
   View,
   Image,
-  Dimensions,
   ScrollView,
   ActivityIndicator
 } from 'react-native';
 
 import styles from './styleSheet';
 import BarChart from './barChart';
-import Triangle from './triangle';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import getData from './getData';
 import numeral from 'numeral';
 import Button from './button';
@@ -43,6 +40,7 @@ class AppDetails extends Component {
     }
   };
 
+  //Retrieves all the data needed for this page from the api, using callbacks to ensure all data retrieved
   componentWillMount(){
     let mau, dau, crashPercent, crashCountTotal;;
     getMAU(this.props.id, (data) => {
@@ -53,7 +51,6 @@ class AppDetails extends Component {
           crashPercent = percent;
           crashCountTotal = count;
           crashCountGraph(this.props.id, this.state.time, (rate, loads, start, end, appLoadTotal, crashCountTotalLive) => {
-            //console.log(mau, dau, crashPercent, crashCountTotal, rate, loads, start, end, appLoadTotal, crashCountTotalLive)
             this.setState({
               crashRateArray: rate,
               appLoadArray: loads,
@@ -128,6 +125,7 @@ class AppDetails extends Component {
     )
   };
 
+  //Opens crashInfo page
   _onPress(){
     this.props.navigator.push({
       name: 'crashInfo',
@@ -140,15 +138,6 @@ class AppDetails extends Component {
       }
     });
   }
-
-  _onPressChangeGraph(){
-    console.log('change');
-  }
-
-  //This rerenders the appList component (as this component can be accessed from mulitple places it was not appropriate to use the 'pop' navigator method)
-  _onPressBack(){
-    this.props.navigator.replace({name: 'appList'});
-  };
 };
 
 class Summary extends Component {

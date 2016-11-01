@@ -53,7 +53,7 @@ class AppList extends Component {
     )
   };
 
-  //This opens the avaliableApps component which is a simple clickable list of apps for easy searching (rather then having to scroll through all details)
+  //This opens the avaliableApps component which is a simple clickable list and autocomplete search of apps for easy searching (rather then having to scroll through all details)
   _onPressJumpTo(){
     this.props.navigator.push({
       name: 'availableApps',
@@ -62,11 +62,8 @@ class AppList extends Component {
         navigator: this.props.navigator
       }});
   }
-  //TODO: Create actual settings
-  _onPressSettings(){
-    console.log("Settings");
-  }
 
+  //Renders all avaliable apps into their own component
   _getAppsInfo(){
     const appView = [];
     const app = this.state.apps;
