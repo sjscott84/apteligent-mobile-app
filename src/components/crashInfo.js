@@ -192,28 +192,24 @@ class Symbols extends Component {
   render(){
     return(
       <View>
-        <View style={styles.crashInfoSymbels}>
+        <View style={[styles.crashInfoSymbels, {marginBottom: 10}, {marginTop: 10}]}>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="user" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7}>
-              <Text style={styles.light13Text}>{this.props.users}</Text>
-            </Icon.Button>
+            <Icon name="user" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
+            <Text style={styles.light13Text}>{this.props.users}</Text>
           </View>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="bar-chart" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7}>
-              <Text style={styles.light13Text}>{this.props.occurances}</Text>
-            </Icon.Button>
+            <Icon name="bar-chart" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
+            <Text style={styles.light13Text}>{this.props.occurances}</Text>
           </View>
         </View>
-        <View style={styles.crashInfoSymbels}>
+        <View style={[styles.crashInfoSymbels, {marginBottom: 10}]}>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="calendar-o" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7}>
-              <Text style={styles.light13Text}>{this.props.firstOccured}</Text>
-            </Icon.Button>
+            <Icon name="calendar-o" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
+            <Text style={styles.light13Text}>{this.props.firstOccured}</Text>
           </View>
           <View style={styles.crashInfoSymbels}>
-            <Icon.Button name="clock-o" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7}>
-              <Text style={styles.light13Text}>{this.props.lastOccured}</Text>
-            </Icon.Button>
+            <Icon name="clock-o" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
+            <Text style={styles.light13Text}>{this.props.lastOccured}</Text>
           </View>
         </View>
       </View>

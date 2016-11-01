@@ -264,9 +264,9 @@ module.exports = StyleSheet.create({
   },
   crashInfoSymbels: {
     flex: 1,
-    marginLeft: 6,
+    marginLeft: 10,
     flexDirection: 'row',
-    justifyContent:'space-between'
+    justifyContent:'flex-start'
   },
   crashSortButtons: {
     margin: 6,

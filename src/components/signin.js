@@ -6,7 +6,8 @@ import {
   Text,
   View,
   TextInput,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 
 import base64 from 'base-64';
@@ -27,16 +28,18 @@ class Signin extends Component{
 
   render(){
     return (
-      <View style={styles.loginContainer}>
-        <Text style={styles.header}>Login to Apteligent account</Text>
-        <Text style={styles.label}>Email</Text>
-        <TextInput style={styles.input} onChangeText={(text) => this.setState({username: text})} value={this.state.username}/>{/*By default TextInput has no default styling*/}
-        <Text style={styles.label}>Password</Text>
-        <TextInput secureTextEntry={true} style={styles.input} onChangeText={(text) => this.setState({password: text})} value={this.state.password}/>
-        <Text style={styles.forgotPassword}>Forgot Pasword?</Text>
-        <SignInButton text={'LOGIN'} onPress={this._onPress.bind(this)} />
-        <Text style={styles.disclaimer}>Possibly disclaimer - tbd</Text>
-      </View>
+      <ScrollView>
+        <View style={styles.loginContainer}>
+          <Text style={styles.header}>Login to Apteligent account</Text>
+          <Text style={styles.label}>Email</Text>
+          <TextInput style={styles.input} onChangeText={(text) => this.setState({username: text})} value={this.state.username}/>{/*By default TextInput has no default styling*/}
+          <Text style={styles.label}>Password</Text>
+          <TextInput secureTextEntry={true} style={styles.input} onChangeText={(text) => this.setState({password: text})} value={this.state.password}/>
+          <Text style={styles.forgotPassword}>Forgot Pasword?</Text>
+          <SignInButton text={'LOGIN'} onPress={this._onPress.bind(this)} />
+          <Text style={styles.disclaimer}>Possibly disclaimer - tbd</Text>
+        </View>
+      </ScrollView>
     )
   };
 
@@ -54,7 +57,7 @@ class Signin extends Component{
       Alert.alert('Error', 'Please enter a valid username and password');
     }else{
       //Call the API to get the access token and render AppList component
-       getAccessToken(password, username, clientId, grantType, function(){
+       getAccessToken(password, username, clientId, grantType, () => {
         nav.push({
           name: 'appList'
         });
