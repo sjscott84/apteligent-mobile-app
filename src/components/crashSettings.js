@@ -7,7 +7,8 @@ import {
   View,
   ScrollView,
   TouchableHighlight,
-  TextInput
+  TextInput,
+  ActivityIndicator
 } from 'react-native';
 import Svg,{
     Rect
@@ -27,7 +28,9 @@ class CrashSummary extends Component {
       text: 'Select or Type App Version',
       searching: false,
       selectedTime: '1',
-      selectedVersion: 'all'
+      selectedVersion: 'all',
+      animating: true,
+      isLoading: true
     }
   };
 
@@ -36,11 +39,51 @@ class CrashSummary extends Component {
     appVersions(this.props.id, (data) => {
       let allVersions = data;
       allVersions.unshift('all');
-      this.setState({appVersions: allVersions})
+      this.setState({
+        appVersions: allVersions,
+        isLoading: false
+      })
     })
   };
 
   render(){
+    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
+    (<View>
+      <View style={styles.app}>
+        <Text style={styles.dark15Text}>DATE SETTINGS</Text>
+        <Text style={styles.dark15Text}>Please select a time range</Text>
+        <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '1')}>
+          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
+            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
+              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '1') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
+            </Svg>
+            <Text style={styles.dark15Text}>Last day</Text>
+         </View>
+        </TouchableHighlight>
+        <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '7')}>
+          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
+            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
+              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '7') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
+            </Svg>
+            <Text style={styles.dark15Text}>Last 7 days</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '30')}>
+          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
+            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
+              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '30') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
+            </Svg>
+            <Text style={styles.dark15Text}>Last 30 days</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+      <View style={styles.app}>
+        <Text style={styles.dark15Text}>VERSION SETTINGS</Text>
+        <Text style={styles.dark15Text}>Please select version</Text>
+        <TextInput style={[styles.versionInput, styles.light15Text]} onFocus={() => this.setState({text: ''})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
+        {this._getAppVersions()}
+      </View>
+    </View>)
     return(
       <View style={styles.container}>
         <View style={[styles.topLinks, {justifyContent: 'flex-start'}]}>
@@ -48,40 +91,7 @@ class CrashSummary extends Component {
           <Text style={styles.dark18Text}>Apply Settings</Text>
         </View>
         <ScrollView>
-        <View style={styles.app}>
-          <Text style={styles.dark15Text}>DATE SETTINGS</Text>
-          <Text style={styles.dark15Text}>Please select a time range</Text>
-          <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '1')}>
-            <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-              <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-                <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '1') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
-              </Svg>
-              <Text style={styles.dark15Text}>Last day</Text>
-           </View>
-          </TouchableHighlight>
-          <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '7')}>
-            <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-              <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-                <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '7') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
-              </Svg>
-              <Text style={styles.dark15Text}>Last 7 days</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '30')}>
-            <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-              <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-                <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '30') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
-              </Svg>
-              <Text style={styles.dark15Text}>Last 30 days</Text>
-            </View>
-          </TouchableHighlight>
-        </View>
-        <View style={styles.app}>
-          <Text style={styles.dark15Text}>VERSION SETTINGS</Text>
-          <Text style={styles.dark15Text}>Please select version</Text>
-          <TextInput style={[styles.versionInput, styles.light15Text]} onFocus={() => this.setState({text: ''})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
-          {this._getAppVersions()}
-        </View>
+          {spinner}
         </ScrollView>
       </View>
     )

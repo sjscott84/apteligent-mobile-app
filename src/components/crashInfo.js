@@ -7,7 +7,8 @@ import {
   View,
   ScrollView,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -25,7 +26,9 @@ class CrashInfo extends Component {
       userPressed: true,
       occurancesPressed: false,
       firstSeenPressed: false,
-      lastSeenPressed: false
+      lastSeenPressed: false,
+      isLoading: true,
+      animating: true,
     }
   }
   //This makes a call to the api and retrieves a list of crash groups for a specific app
@@ -33,53 +36,58 @@ class CrashInfo extends Component {
     //combineCrashData function is from getData.js
     combineCrashData(this.props.id, this.props.time, this.props.version, 'usersAffected', (data) => {
       this._getCrashInfo(data);
+      this.setState({isLoading: false});
     });
   };
 
   render(){
+    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
+    (<View>
+      <View style={[{flexDirection: 'row'}, {justifyContent: 'flex-end'}, {alignItems: 'center'}]}>
+        <Text style={[styles.bold13Text, {marginBottom: 1}, {marginTop: 6}, {marginRight: 6}]}>{this._getTime()}</Text>
+        <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='rgb(229,234,236)' onPress={this._onPressSettings.bind(this)} />
+      </View>
+      <View style={styles.app}>
+        <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
+        <Text style={styles.light13Text}>Sorted By</Text>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity onPress={this._sortData.bind(this, 'usersAffected')}>
+            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.userPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+              <Icon name={'user'} size={19} color={this.state.userPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
+              <Text style={[styles.light13Text, this.state.userPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Users Affected</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this._sortData.bind(this, 'timesOccurred')}>
+            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.occurancesPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+              <Icon name={'bar-chart'} size={19} color={this.state.occurancesPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
+              <Text style={[styles.light13Text, this.state.occurancesPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Total Occurances</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{flexDirection:'row'}}>
+          <TouchableOpacity onPress={this._sortData.bind(this, 'firstOccurred')}>
+            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.firstSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+              <Icon name={'calendar-o'} size={19} color={this.state.firstSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
+              <Text style={[styles.light13Text, this.state.firstSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>First Occurred</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this._sortData.bind(this, 'lastOccurred')}>
+            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.lastSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+              <Icon name={'clock-o'} size={19} color={this.state.lastSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
+              <Text style={[styles.light13Text, this.state.lastSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Last Seen</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View>
+        {this.state.crashesArray}
+      </View>
+    </View>)
     return(
       <View style={styles.container}>
         <AppHeader navigator={this.props.navigator} name={this.props.name}/>
         <ScrollView>
-          <View style={[{flexDirection: 'row'}, {justifyContent: 'flex-end'}, {alignItems: 'center'}]}>
-            <Text style={[styles.bold13Text, {marginBottom: 1}, {marginTop: 6}, {marginRight: 6}]}>{this._getTime()}</Text>
-            <Icon.Button name="cog" size={20} color='rgb(98,129,133)' backgroundColor='rgb(229,234,236)' onPress={this._onPressSettings.bind(this)} />
-          </View>
-          <View style={styles.app}>
-            <Text style={styles.dark18Text}>NEW CRASH GROUPS IN ALL VERSIONS</Text>
-            <Text style={styles.light13Text}>Sorted By</Text>
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity onPress={this._sortData.bind(this, 'usersAffected')}>
-                <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.userPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
-                  <Icon name={'user'} size={19} color={this.state.userPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
-                  <Text style={[styles.light13Text, this.state.userPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Users Affected</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this._sortData.bind(this, 'timesOccurred')}>
-                <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.occurancesPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
-                  <Icon name={'bar-chart'} size={19} color={this.state.occurancesPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
-                  <Text style={[styles.light13Text, this.state.occurancesPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Total Occurances</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={{flexDirection:'row'}}>
-              <TouchableOpacity onPress={this._sortData.bind(this, 'firstOccurred')}>
-                <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.firstSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
-                  <Icon name={'calendar-o'} size={19} color={this.state.firstSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
-                  <Text style={[styles.light13Text, this.state.firstSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>First Occurred</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this._sortData.bind(this, 'lastOccurred')}>
-                <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.lastSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
-                  <Icon name={'clock-o'} size={19} color={this.state.lastSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
-                  <Text style={[styles.light13Text, this.state.lastSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Last Seen</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            {this.state.crashesArray}
-          </View>
+          {spinner}
         </ScrollView>
         <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
@@ -164,6 +172,17 @@ class CrashInfo extends Component {
     //return crashesArray;
     this.setState({crashesArray: thisCrashesArray});
   }
+
+  //Opens up the crash settings page where user can choose timeframe and version
+  _onPressSettings(){
+    this.props.navigator.replace({
+      name: 'crashSettings',
+      passProps: {
+        name: this.props.name,
+        id: this.props.id
+      }
+    });
+  }
 };
 
 class Symbols extends Component {
@@ -206,7 +225,6 @@ class Crashes extends Component {
     )
   }
 
-  //Opens up more info about a particular crash
   _onPress(){
     console.log(this.props.dailyOccurances)
     this.props.navigator.push({

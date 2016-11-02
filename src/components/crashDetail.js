@@ -7,7 +7,8 @@ import {
   View,
   ScrollView,
   Dimensions,
-  TouchableHighlight
+  TouchableHighlight,
+  ActivityIndicator
 } from 'react-native';
 import Svg,{
     Circle,
@@ -39,7 +40,9 @@ class CrashDetail extends Component {
         deviceVersionText: styles.light15Text,
         stacktraceText: styles.dark15Text,
         breadcrumbsText: styles.light15Text,
-        display: 'stacktrace'
+        display: 'stacktrace',
+        animating: true,
+        isLoading: true
       }
   }
 
@@ -48,11 +51,47 @@ class CrashDetail extends Component {
     getCrashInfo(this.props.id, this.props.hash, () => {
       getCrashByAppVersion((data) => {
         this._summariseData(data);
+        this.setState({isLoading: false});
       })
     })
   }
 
   render(){
+    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
+    (<View>
+      <View style={[styles.app, {marginTop: 0}, {borderTopWidth: 1}, {borderTopColor: 'rgb(122,143,147)'}]}>
+        <Svg height={8} width={Dimensions.get('window').width}>
+          <Line x1={this.state.selectX1} y1={3} x2={this.state.selectX2} y2={3} stroke={'rgb(54,143,175)'} strokeWidth={3} />
+        </Svg>
+        <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}]}>
+          <Text style={[this.state.appVersionText, {marginLeft: 0}]} onPress={this._onPressApp.bind(this)}>App Versions</Text>
+          <Text style={[this.state.osVersionText, {marginLeft: 0}]} onPress={this._onPressOS.bind(this)}>OS Versions</Text>
+          <Text style={[this.state.deviceVersionText, {marginLeft: 0}]} onPress={this._onPressDevice.bind(this)}>Devices</Text>
+        </View>
+        <View style={[{flexDirection: 'row'}, {marginTop: 40}, {justifyContent: 'space-around'}]}>
+          <TouchableHighlight onPress={this._openInteractiveChart.bind(this)}>
+            <View>
+            <PieChart data={this.state.version} height={'150'} width={'150'} cx={75} cy={75} r={45} interactive={false} />
+            </View>
+          </TouchableHighlight>
+          <View>
+            <TopCrashInfo color={'rgb(18,111,126)'} data={this.state.version} index={0} />
+            {this._getTopCrashes()}
+          </View>
+        </View>
+        <CrashList data={this.state.version} />
+      </View>
+      <View style={styles.app}>
+        <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(122,143,147)'}]}>
+          <Text style={this.state.stacktraceText} onPress={this._onPressStacktrace.bind(this)}>STACKTRACE</Text>
+          <Text style={this.state.breadcrumbsText} onPress={this._onPressBreadcrumbs.bind(this)}>BREADCRUMBS</Text>
+        </View>
+        <Svg height={8} width={Dimensions.get('window').width}>
+          <Line x1={this.state.selectedTraceX1} y1={1} x2={this.state.selectedTraceX2} y2={1} stroke={'rgb(54,143,175)'} strokeWidth={4} />
+        </Svg>
+        {this._displayComponent()}
+      </View>
+    </View>)
     return(
       <View style={styles.container}>
         <AppHeader navigator={this.props.navigator} name={this.props.name} />
@@ -86,38 +125,7 @@ class CrashDetail extends Component {
               <BarChart data={this.props.dailyOccurances} start={moment.utc().subtract(30, 'days')} end={moment.utc().format()} numberType='number' /> 
             </View>
           </View>
-          <View style={[styles.app, {marginTop: 0}, {borderTopWidth: 1}, {borderTopColor: 'rgb(122,143,147)'}]}>
-            <Svg height={8} width={Dimensions.get('window').width}>
-              <Line x1={this.state.selectX1} y1={3} x2={this.state.selectX2} y2={3} stroke={'rgb(54,143,175)'} strokeWidth={3} />
-            </Svg>
-            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}]}>
-              <Text style={[this.state.appVersionText, {marginLeft: 0}]} onPress={this._onPressApp.bind(this)}>App Versions</Text>
-              <Text style={[this.state.osVersionText, {marginLeft: 0}]} onPress={this._onPressOS.bind(this)}>OS Versions</Text>
-              <Text style={[this.state.deviceVersionText, {marginLeft: 0}]} onPress={this._onPressDevice.bind(this)}>Devices</Text>
-            </View>
-            <View style={[{flexDirection: 'row'}, {marginTop: 40}, {justifyContent: 'space-around'}]}>
-              <TouchableHighlight onPress={this._openInteractiveChart.bind(this)}>
-                <View>
-                <PieChart data={this.state.version} height={'150'} width={'150'} cx={75} cy={75} r={45} interactive={false} />
-                </View>
-              </TouchableHighlight>
-              <View>
-                <TopCrashInfo color={'rgb(18,111,126)'} data={this.state.version} index={0} />
-                {this._getTopCrashes()}
-              </View>
-            </View>
-            <CrashList data={this.state.version} />
-          </View>
-          <View style={styles.app}>
-            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(122,143,147)'}]}>
-              <Text style={this.state.stacktraceText} onPress={this._onPressStacktrace.bind(this)}>STACKTRACE</Text>
-              <Text style={this.state.breadcrumbsText} onPress={this._onPressBreadcrumbs.bind(this)}>BREADCRUMBS</Text>
-            </View>
-            <Svg height={8} width={Dimensions.get('window').width}>
-              <Line x1={this.state.selectedTraceX1} y1={1} x2={this.state.selectedTraceX2} y2={1} stroke={'rgb(54,143,175)'} strokeWidth={4} />
-            </Svg>
-            {this._displayComponent()}
-          </View>
+          {spinner}
         </ScrollView>
         <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
