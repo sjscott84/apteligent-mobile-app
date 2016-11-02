@@ -37,6 +37,7 @@ class AvailableApps extends Component {
     return(
       <View style={styles.container}>
         <View style={[styles.topLinks, {justifyContent: 'flex-start'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(12,143,147)'}]}>
+          <Icon.Button style={{alignSelf: 'center'}} name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
           <Icon style={{alignSelf: 'center'}} name="search" size={20} color='rgb(98,129,133)' backgroundColor='white' />
           <TextInput style={styles.appInput} onFocus={() => this.setState({text: ''})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
         </View>
@@ -48,6 +49,10 @@ class AvailableApps extends Component {
       </View>
     )
   };
+
+  _onPressBack(){
+    this.props.navigator.pop();
+  }
 
   //Logout of the app
   _onPressLogout(){
