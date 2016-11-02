@@ -8,6 +8,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  TouchableHighlight,
   ActivityIndicator
 } from 'react-native';
 
@@ -217,11 +218,13 @@ class Symbols extends Component {
 class Crashes extends Component {
   render(){
     return(
-      <View style={[styles.app, {borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}, {marginTop: 0}, {marginBottom: 0}]}>
-        <Text style={styles.smallLink} onPress={this._onPress.bind(this)}>{this.props.crashName}</Text>
-        <Text style={styles.dark15Text}>{this.props.reason}</Text>
-        <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment.utc(this.props.firstOccured).fromNow()} lastOccured={moment.utc(this.props.lastOccured).format('DD MMM YY h:mm:ss')} />
-      </View>
+      <TouchableHighlight underlayColor={'gray'} onPress={this._onPress.bind(this)}> 
+        <View style={[styles.app, {borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}, {marginTop: 0}, {marginBottom: 0}]}>
+          <Text style={styles.smallLink}>{this.props.crashName}</Text>
+          <Text style={styles.dark15Text}>{this.props.reason}</Text>
+          <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment.utc(this.props.firstOccured).fromNow()} lastOccured={moment.utc(this.props.lastOccured).format('DD MMM YY h:mm:ss')} />
+        </View>
+      </TouchableHighlight>
     )
   }
 
