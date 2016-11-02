@@ -83,8 +83,12 @@ class CrashDetail extends Component {
       </View>
       <View style={styles.app}>
         <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(122,143,147)'}]}>
-          <Text style={this.state.stacktraceText} onPress={this._onPressStacktrace.bind(this)}>STACKTRACE</Text>
-          <Text style={this.state.breadcrumbsText} onPress={this._onPressBreadcrumbs.bind(this)}>BREADCRUMBS</Text>
+          <TouchableHighlight underlayColor={'gray'} onPress={this._onPressStacktrace.bind(this)}>
+            <Text style={this.state.stacktraceText}>STACKTRACE</Text>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor={'gray'} onPress={this._onPressBreadcrumbs.bind(this)}>
+            <Text style={this.state.breadcrumbsText}>BREADCRUMBS</Text>
+          </TouchableHighlight>
         </View>
         <Svg height={8} width={Dimensions.get('window').width}>
           <Line x1={this.state.selectedTraceX1} y1={1} x2={this.state.selectedTraceX2} y2={1} stroke={'rgb(54,143,175)'} strokeWidth={4} />

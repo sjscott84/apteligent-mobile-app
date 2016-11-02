@@ -29,7 +29,7 @@ class CrashInfo extends Component {
       firstSeenPressed: false,
       lastSeenPressed: false,
       isLoading: true,
-      animating: true,
+      animating: true
     }
   }
   //This makes a call to the api and retrieves a list of crash groups for a specific app
