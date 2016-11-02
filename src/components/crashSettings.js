@@ -52,30 +52,9 @@ class CrashSummary extends Component {
       <View style={styles.app}>
         <Text style={styles.dark15Text}>DATE SETTINGS</Text>
         <Text style={styles.dark15Text}>Please select a time range</Text>
-        <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '1')}>
-          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '1') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
-            </Svg>
-            <Text style={styles.dark15Text}>Last day</Text>
-         </View>
-        </TouchableHighlight>
-        <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '7')}>
-          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '7') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
-            </Svg>
-            <Text style={styles.dark15Text}>Last 7 days</Text>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight underlayColor={'gray'} onPress={this._onPressSelect.bind(this, '30')}>
-          <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-            <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-              <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={(this.state.selectedTime === '30') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
-            </Svg>
-            <Text style={styles.dark15Text}>Last 30 days</Text>
-          </View>
-        </TouchableHighlight>
+        <Versions onPress={this._onPressSelect.bind(this, '1')} version={'Last Day'} fill={(this.state.selectedTime === '1') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
+        <Versions onPress={this._onPressSelect.bind(this, '7')} version={'Last 7 Days'} fill={(this.state.selectedTime === '7') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
+        <Versions onPress={this._onPressSelect.bind(this, '30')} version={'Last 30 Days'} fill={(this.state.selectedTime === '30') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
       </View>
       <View style={styles.app}>
         <Text style={styles.dark15Text}>VERSION SETTINGS</Text>
@@ -88,7 +67,7 @@ class CrashSummary extends Component {
       <View style={styles.container}>
         <View style={[styles.topLinks, {justifyContent: 'flex-start'}]}>
           <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
-          <Text style={styles.dark18Text}>Apply Settings</Text>
+          <Text style={styles.dark15Text}>Apply Settings</Text>
         </View>
         <ScrollView>
           {spinner}
@@ -141,10 +120,10 @@ class Versions extends Component{
     return(
     <TouchableHighlight underlayColor={'gray'} onPress={this.props.onPress} style={{marginLeft: 6}}>
         <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
-          <Svg style={{marginLeft: 6}} height={'15'} width={'15'}>
-            <Rect x={'0'} y={'0'} width={'15'} height={'15'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={this.props.fill} />
+          <Svg style={{marginLeft: 6}} height={'20'} width={'20'}>
+            <Rect x={'0'} y={'0'} width={'20'} height={'20'} stroke={'rgb(52,73,76)'} strokeWidth={'1'} fill={this.props.fill} />
           </Svg>
-          <Text style={styles.dark15Text}>{this.props.version}</Text>
+          <Text style={[styles.dark15Text, {lineHeight: 30}]}>{this.props.version}</Text>
         </View>
       </TouchableHighlight>
     )

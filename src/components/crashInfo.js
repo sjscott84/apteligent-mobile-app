@@ -226,7 +226,6 @@ class Crashes extends Component {
   }
 
   _onPress(){
-    console.log(this.props.dailyOccurances)
     this.props.navigator.push({
       name: 'crashDetail',
       passProps: {
