@@ -48,7 +48,7 @@ class Breadcrumbs extends Component {
   render(){
     return(
       <View style={{marginTop: 0}}>
-        <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 6}]}>
+        <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 10}]}>
           <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
           <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Changing date range does not filter breadcrumbs.</Text>
         </View>

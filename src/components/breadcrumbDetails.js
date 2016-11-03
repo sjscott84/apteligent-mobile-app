@@ -39,7 +39,7 @@ class BreadcrumbDetails extends Component {
         <ScrollView contentOffset={{ x: 0, y: this.state.currentView }}>
           <View style={styles.app} onLayout={this._getCrumbsHeight.bind(this)} >
             <Text style={styles.dark15Text}>BREADCRUMBS</Text>
-            <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 6}]}>
+            <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 10}]}>
               <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
               <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Changing date range does not filter breadcrumbs.</Text>
             </View>
@@ -70,7 +70,9 @@ class BreadcrumbDetails extends Component {
           </View>
           <View style={styles.app}>
             <Text style={styles.dark15Text}>CRASH STACK</Text>
-            {this._getSquares()}
+            <View style={[{marginLeft: 4}, {marginRight: 4}]}>
+              {this._getSquares()}
+            </View>
           </View>
         </ScrollView>
         <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />

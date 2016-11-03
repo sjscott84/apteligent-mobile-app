@@ -278,7 +278,7 @@ module.exports = StyleSheet.create({
   iconButton: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    margin: 6,
+    margin: 10,
     padding: 6,
     borderColor: 'rgb(122,143,147)',
     borderWidth: 1,
@@ -303,7 +303,8 @@ module.exports = StyleSheet.create({
     borderRadius: 2,
     height: 36,
     padding: 5,
-    margin: 6,
+    marginLeft: 10,
+    marginRight: 10,
     marginBottom: 0,
     borderWidth: 1,
     borderColor: 'rgb(229,234,236)',

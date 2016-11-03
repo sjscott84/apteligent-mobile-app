@@ -71,13 +71,13 @@ class CrashInfo extends Component {
         <Text style={styles.light13Text}>Sorted By</Text>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={this._sortData.bind(this, 'usersAffected')}>
-            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.userPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 50)/2}, this.state.userPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
               <Icon name={'user'} size={19} color={this.state.userPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
               <Text style={[styles.light13Text, this.state.userPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Users Affected</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this._sortData.bind(this, 'timesOccurred')}>
-            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.occurancesPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 50)/2}, this.state.occurancesPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
               <Icon name={'bar-chart'} size={19} color={this.state.occurancesPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
               <Text style={[styles.light13Text, this.state.occurancesPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Total Occurances</Text>
             </View>
@@ -85,13 +85,13 @@ class CrashInfo extends Component {
         </View>
         <View style={{flexDirection:'row'}}>
           <TouchableOpacity onPress={this._sortData.bind(this, 'firstOccurred')}>
-            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.firstSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 50)/2}, this.state.firstSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
               <Icon name={'calendar-o'} size={19} color={this.state.firstSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
               <Text style={[styles.light13Text, this.state.firstSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>First Occurred</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this._sortData.bind(this, 'lastOccurred')}>
-            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 40)/2}, this.state.lastSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
+            <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 50)/2}, this.state.lastSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
               <Icon name={'clock-o'} size={19} color={this.state.lastSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
               <Text style={[styles.light13Text, this.state.lastSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Last Seen</Text>
             </View>
