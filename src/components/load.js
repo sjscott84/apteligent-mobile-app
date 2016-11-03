@@ -25,8 +25,16 @@ class Load extends Component {
       .then((value) =>{
         if(value){
           provideAccessToken(value, () => {
-            this.props.navigator.push({
-              name: 'appList'
+            getAppsList((data) => {
+              if(data){
+                this.props.navigator.push({
+                  name: 'appList'
+                })
+              }else{
+                this.props.navigator.push({
+                  name: 'signin'
+                })
+              }
             })
           })
         }else{
@@ -39,7 +47,7 @@ class Load extends Component {
 
   render (){
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {marginTop: 20}]}>
         <ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>
       </View>
     )
