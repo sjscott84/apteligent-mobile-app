@@ -8,7 +8,8 @@ import {
   ScrollView,
   TouchableHighlight,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from 'react-native';
 import Svg,{
     Rect
@@ -103,13 +104,15 @@ class CrashSummary extends Component {
 
     //Go back to previous screen
   _onPressBack(){
-      this.props.navigator.replace({
+    AsyncStorage.setItem('crashTime', this.state.selectedTime);
+    AsyncStorage.setItem('crashVersion', this.state.selectedVersion);
+    this.props.navigator.replace({
       name: 'crashInfo',
       passProps: {
         id: this.props.id,
         name: this.props.name,
-        time: this.state.selectedTime,
-        version: this.state.selectedVersion
+        //time: this.state.selectedTime,
+        //version: this.state.selectedVersion
       }
     });
   };

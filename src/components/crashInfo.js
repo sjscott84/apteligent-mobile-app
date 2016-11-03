@@ -9,7 +9,8 @@ import {
   Dimensions,
   TouchableOpacity,
   TouchableHighlight,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -29,16 +30,33 @@ class CrashInfo extends Component {
       firstSeenPressed: false,
       lastSeenPressed: false,
       isLoading: true,
-      animating: true
+      animating: true,
+      time: '1',
+      version: 'all'
     }
   }
   //This makes a call to the api and retrieves a list of crash groups for a specific app
   componentWillMount(){
-    //combineCrashData function is from getData.js
-    combineCrashData(this.props.id, this.props.time, this.props.version, 'usersAffected', (data) => {
-      this._getCrashInfo(data);
-      this.setState({isLoading: false});
-    });
+    let time;
+    let version;
+    AsyncStorage.getItem('crashTime')
+      .then((value) => {
+        time = value;
+        return AsyncStorage.getItem('crashVersion')
+        })
+        .then((value) => {
+          version = value;
+          if(value && version){
+            this.setState({time: time, version: version});
+          }
+        })
+        .then(() => {
+        //combineCrashData function is from getData.js
+        combineCrashData(this.props.id, this.state.time, this.state.version, 'usersAffected', (data) => {
+          this._getCrashInfo(data);
+          this.setState({isLoading: false});
+        });
+      })
   };
 
   render(){
@@ -97,7 +115,7 @@ class CrashInfo extends Component {
 
   //Display correct time period based on settings
   _getTime(){
-    switch(this.props.time){
+    switch(this.state.time){
       case '1':
         return 'Current 24 hours';
         break;
