@@ -125,7 +125,7 @@ class CrashDetail extends Component {
               <Text style={[{flex: 0.6}, styles.bold15Text]}>{moment.utc(this.props.firstOccured).format('DD MMM YYYY h:mm:ss a')}</Text>
             </View>
             <View style={[{borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}]}>
-              <Text style={[styles.dark15Text, {marginTop: 10}]}>OCCURANCES</Text>
+              <Text style={[styles.dark15Text, {marginTop: 10}]}>OCCURRENCES</Text>
               <BarChart data={this.props.dailyOccurances} start={moment.utc().subtract(30, 'days')} end={moment.utc().format()} numberType='number' /> 
             </View>
           </View>

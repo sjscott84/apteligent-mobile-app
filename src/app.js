@@ -7,6 +7,8 @@ import {
   Navigator,
   AsyncStorage
 } from 'react-native';
+
+import Load from './components/load';
 import Signin from './components/signin';
 import AppList from './components/appList';
 import AppDetails from './components/appDetails';
@@ -21,6 +23,7 @@ import CrashSettings from './components/crashSettings';
 import UserDetail from './components/userDetail';
 
 const ROUTES = {
+  load: Load,
   signin: Signin,
   appList: AppList,
   appDetails: AppDetails,
@@ -38,7 +41,7 @@ const ROUTES = {
 export default class ApteligentMobileApp extends Component {
   render() {
     return (
-      <Navigator style={styles.container} initialRoute={{name:'signin'}} renderScene={this._renderScene} configureScene={() => {return Navigator.SceneConfigs.FloatFromRight}}/>
+      <Navigator style={styles.container} initialRoute={{name:'load'}} renderScene={this._renderScene} configureScene={() => {return Navigator.SceneConfigs.FloatFromRight}}/>
     );
   };
 
