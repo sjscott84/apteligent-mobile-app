@@ -172,6 +172,7 @@ getCrashInfoDetail = function(id, hash, callback){
       callback(json);
     })
     .catch((err) => {
+      callback("Error");
       console.log(err);
     })
 }

@@ -49,16 +49,20 @@ class CrashDetail extends Component {
 
   //Retreives more info about a crash including the stacktrace from the api
   componentWillMount(){
-    getCrashInfo(this.props.id, this.props.hash, () => {
-      getCrashByAppVersion((data) => {
-        this._summariseData(data);
-        getStacktrace(this.props.id, this.props.hash, (data) => {
-          this.setState({
-            isLoading: false,
-            stacktrace: data
+    getCrashInfo(this.props.id, this.props.hash, (data) => {
+      if(data === "Error"){
+        this.props.navigator.push({name: 'errorScreen'});
+      }else{
+        getCrashByAppVersion((data) => {
+          this._summariseData(data);
+          getStacktrace(this.props.id, this.props.hash, (data) => {
+            this.setState({
+              isLoading: false,
+              stacktrace: data
+            })
           })
         })
-      })
+      }
     })
   }
 

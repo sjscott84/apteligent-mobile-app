@@ -136,8 +136,12 @@ getDAU = function(id, callback){
 //Returns all data avaliable for a particular crash hash
 getCrashInfo = function(id, hash, callback){
   getCrashInfoDetail(id, hash, (data) => {
-    crashInfo = data['data'];
-    callback();
+    if(data === "Error"){
+      callback("Error");
+    }else{
+      crashInfo = data['data'];
+      callback();
+    }
   })
 }
 
