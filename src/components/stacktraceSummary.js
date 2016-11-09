@@ -19,21 +19,19 @@ class StacktraceSummary extends Component {
     }
   }
 
-  //Gets the stacktrace from the api
+  //Creates a list of stacktraces from the data passed through as props
   componentWillMount(){
-    getStacktrace(this.props.id, this.props.hash, (data) => {
-      let stackTraceText = [];
-      let backgroundColor;
-      for(var i = 0; i < data.length; i++){
-        if(i % 2 === 0){
-          backgroundColor = 'rgb(255,255,255)';
-        }else{
-          backgroundColor = 'rgb(244,246,247)';
-        }
-        stackTraceText.push(<StackTraceItem key={[i]} backgroundColor={backgroundColor} lineNumber={data[i]['lineNumber']} trace={data[i]['trace']} />)
+    let stackTraceText = [];
+    let backgroundColor;
+    for(var i = 0; i < this.props.data.length; i++){
+      if(i % 2 === 0){
+        backgroundColor = 'rgb(255,255,255)';
+      }else{
+        backgroundColor = 'rgb(244,246,247)';
       }
-      this.setState({stacktrace: stackTraceText});
-    })
+      stackTraceText.push(<StackTraceItem key={[i]} backgroundColor={backgroundColor} lineNumber={this.props.data[i]['lineNumber']} trace={this.props.data[i]['trace']} />)
+    }
+    this.setState({stacktrace: stackTraceText});
   }
 
   render(){

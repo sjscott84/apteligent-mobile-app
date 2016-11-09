@@ -40,18 +40,24 @@ class CrashDetail extends Component {
         deviceVersionText: styles.light15Text,
         stacktraceText: styles.dark15Text,
         breadcrumbsText: styles.light15Text,
+        stacktrace: null,
         display: 'stacktrace',
         animating: true,
         isLoading: true
       }
   }
 
-  //Retreives more info about a crash from the api
+  //Retreives more info about a crash including the stacktrace from the api
   componentWillMount(){
     getCrashInfo(this.props.id, this.props.hash, () => {
       getCrashByAppVersion((data) => {
         this._summariseData(data);
-        this.setState({isLoading: false});
+        getStacktrace(this.props.id, this.props.hash, (data) => {
+          this.setState({
+            isLoading: false,
+            stacktrace: data
+          })
+        })
       })
     })
   }
@@ -151,7 +157,7 @@ class CrashDetail extends Component {
   //Chooses which component to display on click of 'stacktrace' or 'breadcrumbs'
   _displayComponent(){
     if(this.state.display === 'stacktrace'){
-      return <StacktraceSummary id={this.props.id} hash={this.props.hash} name={this.props.name} navigator={this.props.navigator} crashName={this.props.crashName} reason={this.props.reason} />
+      return <StacktraceSummary data={this.state.stacktrace} name={this.props.name} navigator={this.props.navigator} crashName={this.props.crashName} reason={this.props.reason} />
     }else{
       return <Breadcrumbs id={this.props.id} hash={this.props.hash} name={this.props.name} navigator={this.props.navigator} />
     }
