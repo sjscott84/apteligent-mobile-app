@@ -27,9 +27,13 @@ class AvailableApps extends Component {
   componentWillMount(){
     //getAvaliableApps() is from getData.js
       getAvaliableApps((data) => {
-        this.setState({
-          apps: data
-        });
+        if(data === "Error"){
+          this.props.navigator.push({name: 'errorScreen'});
+        }else{
+          this.setState({
+            apps: data
+          });
+        }
       });
   };
 

@@ -13,7 +13,7 @@ import {
 
 import getData from './getData';
 import base64 from 'base-64';
-import SignInButton from './/button'
+import SignInButton from './/button';
 import styles from './styleSheet';
 var api = require('../library/api.js');
 

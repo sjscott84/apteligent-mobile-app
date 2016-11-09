@@ -5,45 +5,60 @@ let crashInfo;
 //Get a list of all apps from the api
 getAvaliableApps = function(callback){
   getAppsList((data) => {
-    console.log(data);
-    const appData = [];
-    Object.keys(data).forEach(function(id){
-      var obj = {};
-      obj['id'] = id;
-      obj['name'] = data[id]['appName'];
-      obj['type'] = data[id]['appType'];
-      appData.push(obj);
-    })
-    callback(appData);
+    if(data === "Error"){
+      callback(data);
+    }else{
+      console.log(data);
+      const appData = [];
+      Object.keys(data).forEach(function(id){
+        var obj = {};
+        obj['id'] = id;
+        obj['name'] = data[id]['appName'];
+        obj['type'] = data[id]['appType'];
+        appData.push(obj);
+      })
+      callback(appData);
+    }
   })
 }
 
 //Get crash rate and crash count for the last 24 hours from api
 getCrashSummaries = function(id, callback){
+  let crashSummary = {}
   getCrashSummariesApi(id, (summary) => {
-    let crashPercent = summary.data['crashPercentage'];
-    //obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
-    let crashCount = summary.data.periodicData[0]['crashes'];
-    callback(crashPercent, crashCount);
+    if(summary === "Error"){
+      callback(summary);
+    }else{
+      crashSummary['crashPercent'] = summary['data']['crashPercentage'];
+      //obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
+      crashSummary['crashCount'] = summary['data']['periodicData'][0]['crashes'];
+      callback(crashSummary);
+    }
   })
 }
 
 //Get data for crash count bar chart from api
 crashCountGraph = function(id, time, callback){
-  getLiveStateData(id, time, data => {
-    let start = data['data']['periodicData'][0]['start'];
-    let end = data['data']['periodicData'][data['data']['periodicData'].length-1]['end']
-    let appLoadTotal = 0;
-    let crashCountTotal = 0;
-    let crashRateArray = [];
-    let appLoadsArray = [];
-    for(var i = 0; i < data['data']['periodicData'].length; i++){
-      crashRateArray.push(data['data']['periodicData'][i]['crashes']);
-      crashCountTotal = crashCountTotal + data['data']['periodicData'][i]['crashes'];
-      appLoadsArray.push(data['data']['periodicData'][i]['appLoads']);
-      appLoadTotal = appLoadTotal + data['data']['periodicData'][i]['appLoads']
+  let crash = {};
+  getLiveStateData(id, time, (data) => {
+    if(data === "Error"){
+      callback(data);
+    }else{
+      crash['start'] = data['data']['periodicData'][0]['start'];
+      crash['end'] = data['data']['periodicData'][data['data']['periodicData'].length-1]['end']
+      crash['appLoadTotal'] = 0;
+      crash['crashCountTotal'] = 0;
+      crash['crashRateArray'] = [];
+      crash['appLoadsArray'] = [];
+      for(var i = 0; i < data['data']['periodicData'].length; i++){
+        crash['crashRateArray'].push(data['data']['periodicData'][i]['crashes']);
+        crash['crashCountTotal'] = crash['crashCountTotal'] + data['data']['periodicData'][i]['crashes'];
+        crash['appLoadsArray'].push(data['data']['periodicData'][i]['appLoads']);
+        crash['appLoadTotal'] = crash['appLoadTotal'] + data['data']['periodicData'][i]['appLoads']
+      }
+      //callback(crashRateArray, appLoadsArray, start, end, appLoadTotal, crashCountTotal);
+      callback(crash);
     }
-    callback(crashRateArray, appLoadsArray, start, end, appLoadTotal, crashCountTotal);
   })
 }
 
@@ -74,35 +89,47 @@ crashRateGraph = function(id, callback){
 combineCrashData = function(id, time, version, sort, callback){
   const crashSummaryData = [];
   getCrashInfoGeneral(id, time, version, sort, (data) => {
-    let crashArray = data['data']['errors'];
-    //console.log(crashArray);
-    for(var i = 0; i < crashArray.length; i++){
-      let obj = {};
-      obj['crashName'] = crashArray[i]['name'];
-      obj['crashReason'] = crashArray[i]['reason'];
-      obj['hash'] = crashArray[i]['hash'];
-      obj['totalOccurances'] = crashArray[i]['total_occurrences'];
-      obj['firstOccured'] = crashArray[i]['first_occurred_time'];
-      obj['lastOccured'] = crashArray[i]['last_occurred_time'];
-      obj['affectedUsers'] = crashArray[i]['num_unique_sessions'];
-      obj['status'] = crashArray[i]['status'];
-      obj['dailyOccurances'] = crashArray[i]['daily_occurrences'][1];
-      crashSummaryData.push(obj);
+    if(data === "Error"){
+      callback(data);
+    }else{
+      let crashArray = data['data']['errors'];
+      //console.log(crashArray);
+      for(var i = 0; i < crashArray.length; i++){
+        let obj = {};
+        obj['crashName'] = crashArray[i]['name'];
+        obj['crashReason'] = crashArray[i]['reason'];
+        obj['hash'] = crashArray[i]['hash'];
+        obj['totalOccurances'] = crashArray[i]['total_occurrences'];
+        obj['firstOccured'] = crashArray[i]['first_occurred_time'];
+        obj['lastOccured'] = crashArray[i]['last_occurred_time'];
+        obj['affectedUsers'] = crashArray[i]['num_unique_sessions'];
+        obj['status'] = crashArray[i]['status'];
+        obj['dailyOccurances'] = crashArray[i]['daily_occurrences'][1];
+        crashSummaryData.push(obj);
+      }
+      callback(crashSummaryData);
     }
-    callback(crashSummaryData);
   })
 }
 //Fetches the MAU for the last 24 hours from the api
 getMAU = function(id, callback){
   getMAUFromApi(id, (data) => {
+    if(data === "Error"){
+      callback(data);
+    }else{
     callback(data['data']['series']['todayValue']);
+  }
   })
 }
 
 //Fetches the MAU for the last 24 hours from the api
 getDAU = function(id, callback){
   getDAUFromApi(id, (data) => {
-    callback(data['data']['series']['todayValue']);
+    if(data === "Error"){
+      callback(data);
+    }else{
+      callback(data['data']['series']['todayValue']);
+    }
   })
 }
 
@@ -193,19 +220,23 @@ getBreadcrumbs = function(callback){
 //get available data for user
 getUserDetails = function(id, hash, user, callback){
   getUserDetailsApi(id, hash, (data) => {
-    let obj = {};
-    for(var i = 0; i < data['data'].length; i++){
-      if(data['data'][i]['username'] === user){
-        obj['appVersion'] = data['data'][i]['app_version'];
-        obj['system'] = data['data'][i]['system'];
-        obj['locale'] = data['data'][i]['locale'];
-        obj['device'] = data['data'][i]['model'];
-        obj['carrier'] = data['data'][i]['carrier'];
-        obj['lastLogIn'] = data['data'][i]['last_login_time_iso'];
-        obj['lastCrash'] = data['data'][i]['crash_last_occurred_iso'];
+    if(data === "Error"){
+      callback(data);
+    }else{
+      let obj = {};
+      for(var i = 0; i < data['data'].length; i++){
+        if(data['data'][i]['username'] === user){
+          obj['appVersion'] = data['data'][i]['app_version'];
+          obj['system'] = data['data'][i]['system'];
+          obj['locale'] = data['data'][i]['locale'];
+          obj['device'] = data['data'][i]['model'];
+          obj['carrier'] = data['data'][i]['carrier'];
+          obj['lastLogIn'] = data['data'][i]['last_login_time_iso'];
+          obj['lastCrash'] = data['data'][i]['crash_last_occurred_iso'];
+        }
       }
+      callback(obj);
     }
-    callback(obj);
   })
 }
 

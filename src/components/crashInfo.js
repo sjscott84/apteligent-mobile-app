@@ -53,8 +53,12 @@ class CrashInfo extends Component {
         .then(() => {
         //combineCrashData function is from getData.js
         combineCrashData(this.props.id, this.state.time, this.state.version, 'usersAffected', (data) => {
-          this._getCrashInfo(data);
-          this.setState({isLoading: false});
+          if(data === "Error"){
+            this.props.navigator.push({name: 'errorScreen'});
+          }else{
+            this._getCrashInfo(data);
+            this.setState({isLoading: false});
+          }
         });
       })
   };
@@ -163,7 +167,7 @@ class CrashInfo extends Component {
         });
       break;
     }
-    combineCrashData(this.props.id, this.props.time, this.props.version, sort, (data) => {
+    combineCrashData(this.props.id, this.state.time, this.state.version, sort, (data) => {
       this._getCrashInfo(data);
     });
   }

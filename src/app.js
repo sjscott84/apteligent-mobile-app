@@ -21,6 +21,7 @@ import BreadcrumbDetails from './components/breadcrumbDetails';
 import InteractivePieChart from './components/interactivePieChart';
 import CrashSettings from './components/crashSettings';
 import UserDetail from './components/userDetail';
+import ErrorScreen from './components/errorScreen';
 
 const ROUTES = {
   load: Load,
@@ -35,7 +36,8 @@ const ROUTES = {
   breadcrumbDetails: BreadcrumbDetails,
   interactivePieChart: InteractivePieChart,
   crashSettings: CrashSettings,
-  userDetail: UserDetail
+  userDetail: UserDetail,
+  errorScreen: ErrorScreen
 }
 
 export default class ApteligentMobileApp extends Component {

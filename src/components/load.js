@@ -11,7 +11,7 @@ import {
 import styles from './styleSheet';
 import getData from './getData';
 
-//The Applist component displays each available app along with some basic data
+//Displays loading symbol while checking if a working authentication token already exists in local storage, if not will load the sign in screen 
 class Load extends Component {
   constructor(){
     super();

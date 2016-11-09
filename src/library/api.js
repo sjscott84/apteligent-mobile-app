@@ -53,6 +53,7 @@ getAppsList = function(callback){
       callback(json.data);
     })
     .catch((err) => {
+      callback("Error");
       console.log(err);
     })
 }
@@ -76,6 +77,7 @@ getCrashSummariesApi = function(id, callback){
       callback(json);
     })
     .catch((err) => {
+      callback("Error");
       console.log(err)
     })
 }
@@ -98,6 +100,7 @@ getLiveStateData = function(id, time, callback){
       callback(json);
     })
     .catch((err) => {
+      callback("Error");
       console.log(err)
     })
 }
@@ -135,6 +138,7 @@ getCrashInfoGeneral = function(id, time, version, sort, callback){
       if(res.ok){
         return res.json();
       } else {
+        //callback("Error");
         console.log('error');
       }
     })
@@ -142,6 +146,7 @@ getCrashInfoGeneral = function(id, time, version, sort, callback){
       callback(json);
     })
     .catch((err) => {
+      callback("Error");
       console.log(err);
     })
 }
@@ -192,6 +197,7 @@ getMAUFromApi = function(id, callback){
     })
     .catch((err) => {
       console.log(err);
+      callback("Error");
     })
 }
 
@@ -215,6 +221,7 @@ getDAUFromApi = function(id, callback){
       callback(json);
     })
     .catch((err) => {
+      callback("Error");
       console.log(err);
     })
 }
@@ -263,6 +270,7 @@ getUserDetailsApi = function(id, hash, callback){
       callback(json);
     })
     .catch((err) => {
+      callback("Error");
       console.log(err);
     })
 }

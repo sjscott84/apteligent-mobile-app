@@ -24,15 +24,19 @@ class UserDetail extends Component {
   //Get user information from the api
   componentWillMount(){
     getUserDetails(this.props.id, this.props.hash, this.props.username, (data) =>{
-      this.setState({
-        appVersion: data['appVersion'],
-        system: data['system'],
-        locale: data['locale'],
-        device: data['device'],
-        carrier: data['carrier'],
-        lastLogIn: data['lastLogIn'],
-        lastCrash: data['lastCrash']
-      })
+      if(data === "Error"){
+        this.props.navigator.push({name: 'errorScreen'});
+      }else{
+        this.setState({
+          appVersion: data['appVersion'],
+          system: data['system'],
+          locale: data['locale'],
+          device: data['device'],
+          carrier: data['carrier'],
+          lastLogIn: data['lastLogIn'],
+          lastCrash: data['lastCrash']
+        })
+      }
     })
   }
 
