@@ -8,7 +8,8 @@ import {
   View,
   ScrollView,
   ActivityIndicator,
-  TouchableHighlight
+  TouchableHighlight,
+  ListView
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -19,8 +20,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 class AppList extends Component {
   constructor(){
     super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state ={
-      apps: [],
+      dataSource: ds.cloneWithRows([]),
       animating: true,
       isLoading: true
     }
@@ -34,7 +36,7 @@ class AppList extends Component {
           this.props.navigator.push({name: 'errorScreen'});
         }else{
           this.setState({
-            apps: data,
+            dataSource: this.state.dataSource.cloneWithRows(data),
             isLoading: false
           });
         }
@@ -43,7 +45,7 @@ class AppList extends Component {
 
   render (){
     var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
-     (<ScrollView>{this._getAppsInfo()}</ScrollView>);
+     (<ListView dataSource={this.state.dataSource} renderRow={(data) => <AppsInfo navigator={this.props.navigator} id={data['id']} name={data['name']} type={data['type']} />} />);
     return (
       <View style={styles.container}>
         <TouchableHighlight onPress={this._onPressJumpTo.bind(this)}>
@@ -65,17 +67,6 @@ class AppList extends Component {
         data: this.state.apps,
         navigator: this.props.navigator
       }});
-  }
-
-  //Renders all avaliable apps into their own component
-  _getAppsInfo(){
-    const appView = [];
-    const app = this.state.apps;
-    const nav = this.props.navigator;
-    for(var i = 0; i < app.length; i ++){
-      appView.push(<AppsInfo navigator={nav} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
-    }
-    return appView;
   }
 };
 
