@@ -73,7 +73,7 @@ class AppDetails extends Component {
                 start: data['start'],
                 end: data['end'],
                 appLoadTotalLive: data['appLoadTotal'],
-                crashCountTotalLive: data['crashCountTotalLive'],
+                crashCountTotalLive: data['crashCountTotal'],
                 mau: mau,
                 dau: dau,
                 crashPercent: crashPercent,
