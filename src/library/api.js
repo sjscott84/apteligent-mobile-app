@@ -27,6 +27,7 @@ getAccessToken = function(password, username, clientId, grantType, callback){
     })
 }
 
+//Save the access token as variable
 provideAccessToken = function(token, callback){
   ACCESS_ID = token;
   callback();
@@ -82,6 +83,7 @@ getCrashSummariesApi = function(id, callback){
     })
 }
 
+//Get info from the livestats api
 getLiveStateData = function(id, time, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
@@ -105,7 +107,7 @@ getLiveStateData = function(id, time, callback){
     })
 }
 
-getCrashRateGraphInfo = function(id, callback){
+/*getCrashRateGraphInfo = function(id, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
   });
@@ -122,7 +124,7 @@ getCrashRateGraphInfo = function(id, callback){
     .then((json) => {
       callback(json);
     })
-}
+}*/
 
 //Get a list of all crash groups for a specic app
 getCrashInfoGeneral = function(id, time, version, sort, callback){
@@ -177,6 +179,7 @@ getCrashInfoDetail = function(id, hash, callback){
     })
 }
 
+//Get Monthly Active Users from api
 getMAUFromApi = function(id, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
@@ -202,6 +205,7 @@ getMAUFromApi = function(id, callback){
     })
 }
 
+//Get daily active users from api
 getDAUFromApi = function(id, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
@@ -227,6 +231,7 @@ getDAUFromApi = function(id, callback){
     })
 }
 
+//Get all app versions from api
 getAppVersions = function(callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
@@ -251,6 +256,7 @@ getAppVersions = function(callback){
     })
 }
 
+//Get user details from the api
 getUserDetailsApi = function(id, hash, callback){
   const myHeaders = new Headers({
     "Authorization": 'Bearer '+ACCESS_ID
