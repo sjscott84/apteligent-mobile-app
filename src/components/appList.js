@@ -15,6 +15,7 @@ import {
 import styles from './styleSheet';
 import getData from './getData';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import numeral from 'numeral';
 
 //The Applist component displays each available app along with some basic data
 class AppList extends Component {
@@ -71,7 +72,28 @@ class AppList extends Component {
 };
 
 class AppsInfo extends Component {
-  //When the name of the app is pressed the appDetails component renders, which displays more info regarding the specific app
+  constructor(){
+    super();
+    this.state = {
+      crashRate: 0,
+      crashCount: 0,
+      appLoads: 0
+    }
+  }
+  componentWillMount(){
+    getCrashSummaries(this.props.id, (data) => {
+      if(data === "Error"){
+        this.props.navigator.push({name: 'errorScreen'});
+      }else{
+        this.setState({
+          crashRate: data['crashPercent'],
+          crashCount: data['crashCount'],
+          appLoads: data['appLoads']
+        })
+      }
+    })
+  }
+
   _onPress(){
     this.props.navigator.push({
       name: 'appDetails',
@@ -84,14 +106,31 @@ class AppsInfo extends Component {
 
   render (){
     return (
-      <View style={[styles.app, {height: 83}, {justifyContent: 'center'}]}>
-        <View style={[{flexDirection: 'row'}]}>
-          <Image style={[styles.logo, {marginTop: 0}]} source={require('../images/logoTest.png')}/>
+      <View style={[styles.app, {justifyContent: 'center'}]}>
+        <View style={[{flexDirection: 'row'}, {marginTop: 10}]}>
+          <Image style={[styles.logo, {marginTop: 4}]} source={require('../images/logoTest.png')}/>
           <View>
             <Text style={styles.largeLink} onPress={this._onPress.bind(this)}>{this.props.name}</Text>
             <Text style={[styles.light14Text, {flexDirection: 'column'}]}>{this.props.type}</Text>
           </View>
         </View>
+        <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {marginBottom: 10}, {marginTop: 10}]}>
+          <AppInfo name={'Crash Rate'} data={numeral(this.state.crashRate).format('0.00')+'%'} />
+          <AppInfo name={'Crash Count'} data={numeral(this.state.crashCount).format('0.0a')} />
+          <AppInfo name={'App Loads'} data={numeral(this.state.appLoads).format('0.0a')} />
+        </View>
+      </View>
+    )
+  }
+}
+
+class AppInfo extends Component {
+  render (){
+    return (
+      <View style={{marginRight: 10}}>
+        <Text style={styles.dark15Text}>{this.props.name}</Text>
+        <Text style={styles.light13Text}>Current 24h</Text>
+        <Text style={styles.bold15Text}>{this.props.data}</Text>
       </View>
     )
   }

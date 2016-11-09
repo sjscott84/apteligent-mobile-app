@@ -32,6 +32,7 @@ getCrashSummaries = function(id, callback){
       crashSummary['crashPercent'] = summary['data']['crashPercentage'];
       //obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
       crashSummary['crashCount'] = summary['data']['periodicData'][0]['crashes'];
+      crashSummary['appLoads'] = summary['data']['periodicData'][0]['appLoads'];
       callback(crashSummary);
     }
   })

@@ -332,5 +332,10 @@ module.exports = StyleSheet.create({
   },
   marginRight: {
     marginRight: 6
+  },
+  crashInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: 6
   }
 })
