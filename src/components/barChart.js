@@ -88,7 +88,7 @@ class BarChart extends Component {
     function getBars(){
       for(var i = 0; i < dataset.length; i++){
         let height = getHeight(highNumberForYAxis, max, dataset[i]);
-        let width = (highNumberForXAxis - lowNumberForXAxis) / dataset.length - barPadding;
+        let width = dataset.length > 2 ? (highNumberForXAxis - lowNumberForXAxis) / dataset.length - barPadding : 70;
         let x = (lowNumberForXAxis + barPadding) + rectangles.length * (highNumberForXAxis - lowNumberForXAxis - 5) / dataset.length;
         let y = highNumberForYAxis - height;
         rectangles.push(<Rect key={rectangles.length} x={x} y={y} width={width} height={height} fill={'rgb(23,153,173)'} />)
@@ -98,13 +98,13 @@ class BarChart extends Component {
     if(dataset.reduce((a,b) => a+b,0) !== 0){
       return(
         <G>
-          <Line x1={lowNumberForXAxis} y1={lowNumberForYAxis} x2={lowNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
-          <Line x1={lowNumberForXAxis} y1={highNumberForYAxis} x2={highNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
           <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={lowNumberForXAxis} y={highNumberForYAxis + 5}>{start}</Text>
           <Text fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} textAnchor="end" x={highNumberForXAxis - 8} y={highNumberForYAxis + 5}>{end}</Text>
           {textArray}
           {tickLines}
           {rectangles}
+          <Line x1={lowNumberForXAxis} y1={lowNumberForYAxis} x2={lowNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
+          <Line x1={lowNumberForXAxis} y1={highNumberForYAxis} x2={highNumberForXAxis} y2={highNumberForYAxis} stroke='black' strokeWidth={1} />
         </G>
       )
     }else{
