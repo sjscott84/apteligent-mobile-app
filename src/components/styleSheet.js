@@ -226,7 +226,9 @@ module.exports = StyleSheet.create({
   },
   appDetailSummaryItem: {
     flex: 1,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    paddingTop: 5,
+    paddingBottom: 8
   },
   border: {
     borderWidth: 1,
@@ -237,7 +239,7 @@ module.exports = StyleSheet.create({
     width: 44,
     borderRadius: 3,
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 14
   },
   svg: {
     marginTop: 10,

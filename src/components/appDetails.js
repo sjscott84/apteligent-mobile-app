@@ -91,14 +91,14 @@ class AppDetails extends Component {
     var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
      (  <View>
           <View style={styles.app}>
-            <View style={[{flexDirection: 'row'}, {borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}]}>
+            <View style={[{flexDirection: 'row'}, {borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}, {paddingBottom: 8}]}>
               <Image style={styles.logo} source={require('../images/logoTest.png')}/>
               <View>
                 <Text style={styles.largeText}>{this.props.name}</Text>
                 <Text style={styles.light14Text}>{this.props.type}</Text>
               </View>
             </View>
-            <View style={[{borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}]}>
+            <View style={[{borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}, {paddingTop: 5}, {paddingBottom: 8}]}>
               <Text style={styles.dark14Text}>Versions: All</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
@@ -114,7 +114,7 @@ class AppDetails extends Component {
           </View>
           <Button style={{margins: 6}} text={'VIEW CRASH SUMMARY'} onPress={this._onPress.bind(this)} />
           <View style={styles.app}>
-            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {alignItems: 'center'}, {borderBottomColor: 'rgb(122,143,147)'}, {borderBottomWidth: 1}]}>
+            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {alignItems: 'center'}, {borderBottomColor: 'rgb(122,143,147)'}, {borderBottomWidth: 1}, {paddingTop: 5}, {paddingBottom: 8}]}>
               <Text style={styles.bold15Text}>LIVE STATS</Text>
             </View>
             <CrashGraphs 
@@ -183,12 +183,12 @@ class CrashGraphs extends Component {
   render(){
     return(
       <View style={[{borderBottomColor: 'rgb(244,246,247)'}, {borderBottomWidth: 1}]}>
-        <View>
+        <View style={[{paddingTop: 5}, {paddingBottom: 8}]}>
           <Text style={styles.dark15Text}>{this.props.graphName}</Text>
           <Text style={styles.light14Text}>Last 5min</Text>
           <Text style={styles.boldText}>{numeral(this.props.liveCount).format('0.0a')}</Text>
         </View>
-        <View>
+        <View style={{paddingBottom: 14}}>
           <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='number' graphName={this.props.graphName} />
         </View>
       </View>
