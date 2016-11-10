@@ -189,7 +189,7 @@ class CrashGraphs extends Component {
           <Text style={styles.boldText}>{numeral(this.props.liveCount).format('0.0a')}</Text>
         </View>
         <View style={{paddingBottom: 14}}>
-          <BarChart data={this.props.data} start={this.props.start} end={this.props.end} numberType='number' graphName={this.props.graphName} />
+          <BarChart data={this.props.data} start={this.props.start} end={this.props.end} graphName={this.props.graphName} />
         </View>
       </View>
     )

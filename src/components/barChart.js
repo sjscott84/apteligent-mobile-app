@@ -69,31 +69,18 @@ class BarChart extends Component {
     //Get the axis labels and lines
     function getTicks(numberofTicks){
       let lineHeight = 14;
-      //Create the axis labels for top and bottom as well as the top axis line (these are done seperatly to ensure they display correctly)
-      if(numberType === 'percent'){
-        textArray.push(<Text key={0} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={highNumberForYAxis - lineHeight}>{'0%'}</Text>);
-        textArray.push(<Text key={max} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={lowNumberForYAxis}>{max+'%'}</Text>);
-      }else{
-        textArray.push(<Text key={0} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={highNumberForYAxis - lineHeight}>{0}</Text>);
-        textArray.push(<Text key={max} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={lowNumberForYAxis}>{max}</Text>);        
-      }
-
+      //Create the axis labels for top and bottom as well as the top axis line (these are done seperatly to ensure they display correctly
+      textArray.push(<Text key={0} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={highNumberForYAxis - lineHeight}>{0}</Text>);
+      textArray.push(<Text key={max} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} x={1} y={lowNumberForYAxis}>{numeral(max).format('0,0')}</Text>);
       tickLines.push(<Line key={max} x1={lowNumberForXAxis} y1={lowNumberForYAxis + 1} x2={highNumberForXAxis} y2={lowNumberForYAxis + 1} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
 
       //Create the axis labels and lines for everthing in between 0 and max, numbers displayed to 2 decimal places
       for(var i = 1; i < numberofTicks; i++){
-        if(numberType === 'percent'){
-          //let tickText = Math.round(((max / numberofTicks) * [i]) * 100) / 100;
-          let tickText = numeral(max / numberofTicks * [i]).format('0.00');
-          let tickY = getHeight(highNumberForYAxis, max, tickText);
-          textArray.push(<Text key={tickText} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText+'%'}</Text>);
-          tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
-        }else{
-          let tickText = numeral(((max / numberofTicks) * [i])).format('0.00');
-          let tickY = getHeight(highNumberForYAxis, max, tickText);
-          textArray.push(<Text key={tickText} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText}</Text>);
-          tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
-        }
+        let tickTextNumber = (max / numberofTicks) * i;
+        let tickText = (max < 1000) ? numeral(tickTextNumber).format('0.00') : numeral(tickTextNumber).format('0,0');
+        let tickY = getHeight(highNumberForYAxis, max, tickTextNumber);
+        textArray.push(<Text key={tickText} fontSize={10} strokeWidth={0.3} stroke={'rgb(122,143,147)'} lineHeight={lineHeight} x={1} y={highNumberForYAxis - tickY - (lineHeight / 2)}>{tickText}</Text>);
+        tickLines.push(<Line key={tickText} x1={lowNumberForXAxis} y1={highNumberForYAxis - tickY} x2={highNumberForXAxis} y2={highNumberForYAxis - tickY} stroke='rgb(229,234,236)' strokeWidth={0.75} />);
       }
     };
 

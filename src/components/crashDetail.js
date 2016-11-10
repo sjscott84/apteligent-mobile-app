@@ -136,7 +136,7 @@ class CrashDetail extends Component {
             </View>
             <View style={[{borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}]}>
               <Text style={[styles.dark15Text, {marginTop: 10}]}>OCCURRENCES</Text>
-              <BarChart data={this.props.dailyOccurances} start={moment.utc().subtract(30, 'days')} end={moment.utc().format()} numberType='number' /> 
+              <BarChart data={this.props.dailyOccurances} start={moment.utc().subtract(30, 'days')} end={moment.utc().format()} /> 
             </View>
           </View>
           {spinner}
