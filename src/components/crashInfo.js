@@ -181,7 +181,9 @@ class CrashInfo extends Component {
       break;
     }
     combineCrashData(this.props.id, this.state.time, this.state.version, sort, (data) => {
-      this._getCrashInfo(data);
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(data)
+      })
     });
   }
 
@@ -201,7 +203,7 @@ class Symbols extends Component {
   render(){
     return(
       <View>
-        <View style={[styles.crashInfoSymbels, {marginBottom: 10}, {marginTop: 10}]}>
+        <View style={[styles.crashInfoSymbels, {marginBottom: 5}, {marginTop: 8}, {paddingRight: 10}]}>
           <View style={styles.crashInfoSymbels}>
             <Icon name="user" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
             <Text style={styles.light13Text}>{this.props.users}</Text>
@@ -230,7 +232,7 @@ class Crashes extends Component {
   render(){
     return(
       <TouchableHighlight underlayColor={'gray'} onPress={this._onPress.bind(this)}> 
-        <View style={[styles.app, {borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}, {marginTop: 0}, {marginBottom: 0}]}>
+        <View style={[styles.app, {borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}, {marginTop: 0}, {marginBottom: 0}, {paddingRight: 10}]}>
           <Text style={styles.smallLink}>{this.props.crashName}</Text>
           <Text style={styles.dark15Text}>{this.props.reason}</Text>
           <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment.utc(this.props.firstOccured).fromNow()} lastOccured={moment.utc(this.props.lastOccured).format('DD MMM YY h:mm:ss')} />
