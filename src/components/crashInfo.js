@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  ListView
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -23,8 +24,9 @@ import AppHeader from './appHeader';
 class CrashInfo extends Component {
   constructor(){
     super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      crashesArray: [],
+      dataSource: ds.cloneWithRows([]),
       userPressed: true,
       occurancesPressed: false,
       firstSeenPressed: false,
@@ -56,8 +58,10 @@ class CrashInfo extends Component {
           if(data === "Error"){
             this.props.navigator.push({name: 'errorScreen'});
           }else{
-            this._getCrashInfo(data);
-            this.setState({isLoading: false});
+            this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(data),
+              isLoading: false
+            });
           }
         });
       })
@@ -102,9 +106,18 @@ class CrashInfo extends Component {
           </TouchableOpacity>
         </View>
       </View>
-      <View>
-        {this.state.crashesArray}
-      </View>
+      <ListView dataSource={this.state.dataSource} renderRow={(data) => <Crashes navigator={this.props.navigator} 
+        name={this.props.name}
+        id={this.props.id}
+        hash={data['hash']}
+        crashName={data['crashName']}
+        reason={data['crashReason']}
+        users={data['affectedUsers']}
+        occurances={data['totalOccurances']}
+        firstOccured={data['firstOccured']}
+        lastOccured={data['lastOccured']}
+        status={data['status']}
+        dailyOccurances={data['dailyOccurances']} />} />
     </View>)
     return(
       <View style={styles.container}>
@@ -170,30 +183,6 @@ class CrashInfo extends Component {
     combineCrashData(this.props.id, this.state.time, this.state.version, sort, (data) => {
       this._getCrashInfo(data);
     });
-  }
-
-  //Creates a new component for each crash returned by the api
-  _getCrashInfo(data){
-    const thisCrashesArray = [];
-    const crash = data;
-    const nav = this.props.navigator;
-    for(var i = 0; i < crash.length; i ++){
-      thisCrashesArray.push(<Crashes navigator={nav} 
-        key={i}
-        name={this.props.name}
-        id={this.props.id}
-        hash={crash[i]['hash']}
-        crashName={crash[i]['crashName']}
-        reason={crash[i]['crashReason']}
-        users={crash[i]['affectedUsers']}
-        occurances={crash[i]['totalOccurances']}
-        firstOccured={crash[i]['firstOccured']}
-        lastOccured={crash[i]['lastOccured']}
-        status={crash[i]['status']}
-        dailyOccurances={crash[i]['dailyOccurances']} />);
-    }
-    //return crashesArray;
-    this.setState({crashesArray: thisCrashesArray});
   }
 
   //Opens up the crash settings page where user can choose timeframe and version
