@@ -23,8 +23,10 @@ class ErrorScreen extends Component {
   };
 
   _onPress(page, props){
+    let routes = this.props.navigator.getCurrentRoutes();
+    console.log(routes);
     let lastComponent = this.props.navigator.state.routeStack[this.props.navigator.state.routeStack.length - 2];
-    this.props.navigator.push({name: lastComponent['name'], passProps: lastComponent['passProps']});
+    this.props.navigator.replacePreviousAndPop({name: lastComponent['name'], passProps: lastComponent['passProps']});
     console.log(lastComponent);
   }
 };

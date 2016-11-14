@@ -21,6 +21,7 @@ class Load extends Component {
   }
 
   componentWillMount(){
+    //Gets access token from local storage, tests that it works, and either opens up applist or the signin screen
     AsyncStorage.getItem('AccessToken')
       .then((value) =>{
         if(value){
@@ -32,11 +33,11 @@ class Load extends Component {
                 })
               } else {  
                 if(data){
-                  this.props.navigator.push({
+                  this.props.navigator.replace({
                     name: 'appList'
                   })
                 }else{
-                  this.props.navigator.push({
+                  this.props.navigator.replace({
                     name: 'signin'
                   })
                 }
