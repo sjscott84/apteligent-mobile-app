@@ -26,14 +26,20 @@ class Load extends Component {
         if(value){
           provideAccessToken(value, () => {
             getAppsList((data) => {
-              if(data){
+              if(data === "Error"){
                 this.props.navigator.push({
-                  name: 'appList'
+                  name: 'errorScreen'
                 })
-              }else{
-                this.props.navigator.push({
-                  name: 'signin'
-                })
+              } else {  
+                if(data){
+                  this.props.navigator.push({
+                    name: 'appList'
+                  })
+                }else{
+                  this.props.navigator.push({
+                    name: 'signin'
+                  })
+                }
               }
             })
           })
