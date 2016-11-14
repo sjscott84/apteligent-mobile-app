@@ -11,11 +11,13 @@
 
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
+#import <Crittercism/Crittercism.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [Crittercism enableWithAppID:@"ed2fc2b110a448d89925dad91850ce3c00555300"];
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];

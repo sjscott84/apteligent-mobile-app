@@ -22,6 +22,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2FD871D66A27C209F0848123 /* libPods-ApteligentMobileApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CFE35D1B70F356BD514390 /* libPods-ApteligentMobileApp.a */; };
 		4E6B653182E9411786BB7D38 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 876398E63D784BC5964CC238 /* libRNVectorIcons.a */; };
 		5AB61EFE7CE442BBB2DFCC3B /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B933C21EDAE24F23B0132148 /* libRNSVG.a */; };
 		736C25D8D7B84BE9A9F0EF44 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EDB67BAC9144943AF4B35E5 /* Entypo.ttf */; };
@@ -33,6 +34,7 @@
 		C41A97EF88A74BDA81474819 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C7DD46A24474C8C9B7B217C /* EvilIcons.ttf */; };
 		CA8CD0E78D87461B8BD0B8AC /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF788A006D874355B1C8B7D9 /* MaterialIcons.ttf */; };
 		CE5F83CA7EEA40F8B4270DE7 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 297867A5CECF491DA62D4E57 /* Ionicons.ttf */; };
+		D5166A278C873CECA45426DF /* libPods-ApteligentMobileAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95A772D67BB5A91844DA90B0 /* libPods-ApteligentMobileAppTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,16 +155,22 @@
 		155D74F16CA3420D97678DBE /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		1C7DD46A24474C8C9B7B217C /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		1EDB67BAC9144943AF4B35E5 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		26CFE35D1B70F356BD514390 /* libPods-ApteligentMobileApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ApteligentMobileApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297867A5CECF491DA62D4E57 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		5DC74F968F0048E584F9016E /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		70C2D85494032955EBB9F1A0 /* Pods-ApteligentMobileAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApteligentMobileAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ApteligentMobileAppTests/Pods-ApteligentMobileAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		848A78BE0D784B99AB09AF51 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		876398E63D784BC5964CC238 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+		89320072B461B0429684A19B /* Pods-ApteligentMobileApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApteligentMobileApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ApteligentMobileApp/Pods-ApteligentMobileApp.debug.xcconfig"; sourceTree = "<group>"; };
+		95A772D67BB5A91844DA90B0 /* libPods-ApteligentMobileAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ApteligentMobileAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0C4E27D0B81C4294B34211 /* Pods-ApteligentMobileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApteligentMobileApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ApteligentMobileApp/Pods-ApteligentMobileApp.release.xcconfig"; sourceTree = "<group>"; };
 		B1F216BE9881431EAD962BED /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		B933C21EDAE24F23B0132148 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
 		C41C775A5EAA42B8B3A6CAE9 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		CF788A006D874355B1C8B7D9 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		E9CE23A1A5791DCEBBF042D4 /* Pods-ApteligentMobileAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ApteligentMobileAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ApteligentMobileAppTests/Pods-ApteligentMobileAppTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
+				D5166A278C873CECA45426DF /* libPods-ApteligentMobileAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +199,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				5AB61EFE7CE442BBB2DFCC3B /* libRNSVG.a in Frameworks */,
 				4E6B653182E9411786BB7D38 /* libRNVectorIcons.a in Frameworks */,
+				2FD871D66A27C209F0848123 /* libPods-ApteligentMobileApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +360,8 @@
 				00E356EF1AD99517003FC87E /* ApteligentMobileAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				FF60D48548764B089973FEBD /* Resources */,
+				AAC33FE48935E68D3B04375F /* Pods */,
+				C2E9F24E74F19112DB763E31 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -362,6 +374,26 @@
 				00E356EE1AD99517003FC87E /* ApteligentMobileAppTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AAC33FE48935E68D3B04375F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				89320072B461B0429684A19B /* Pods-ApteligentMobileApp.debug.xcconfig */,
+				AA0C4E27D0B81C4294B34211 /* Pods-ApteligentMobileApp.release.xcconfig */,
+				70C2D85494032955EBB9F1A0 /* Pods-ApteligentMobileAppTests.debug.xcconfig */,
+				E9CE23A1A5791DCEBBF042D4 /* Pods-ApteligentMobileAppTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C2E9F24E74F19112DB763E31 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				26CFE35D1B70F356BD514390 /* libPods-ApteligentMobileApp.a */,
+				95A772D67BB5A91844DA90B0 /* libPods-ApteligentMobileAppTests.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FF60D48548764B089973FEBD /* Resources */ = {
@@ -386,9 +418,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ApteligentMobileAppTests" */;
 			buildPhases = (
+				5008859D3992F919473C8B83 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				4CAEC2A95D1EF7283B56325C /* [CP] Embed Pods Frameworks */,
+				FB63F5AB62743F704CCDF542 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -404,10 +439,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ApteligentMobileApp" */;
 			buildPhases = (
+				18628F9CF7FFADF95A171974 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				3446A643C73F0D5E83A64334 /* [CP] Embed Pods Frameworks */,
+				CBF46E5B70C4AD811475A128 /* [CP] Copy Pods Resources */,
+				263501981DDA82FA00CE35C7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -634,6 +673,109 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		18628F9CF7FFADF95A171974 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		263501981DDA82FA00CE35C7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APP_ID=\"ed2fc2b110a448d89925dad91850ce3c00555300\"\nAPI_KEY=\"d1424138e17f8697612749e01bb32384\"\nsource \"${PODS_ROOT}/CrittercismSDK/dsym_upload.sh\"";
+		};
+		3446A643C73F0D5E83A64334 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApteligentMobileApp/Pods-ApteligentMobileApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4CAEC2A95D1EF7283B56325C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApteligentMobileAppTests/Pods-ApteligentMobileAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5008859D3992F919473C8B83 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CBF46E5B70C4AD811475A128 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApteligentMobileApp/Pods-ApteligentMobileApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB63F5AB62743F704CCDF542 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ApteligentMobileAppTests/Pods-ApteligentMobileAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -679,6 +821,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70C2D85494032955EBB9F1A0 /* Pods-ApteligentMobileAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -701,6 +844,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9CE23A1A5791DCEBBF042D4 /* Pods-ApteligentMobileAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -720,6 +864,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89320072B461B0429684A19B /* Pods-ApteligentMobileApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -748,6 +893,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA0C4E27D0B81C4294B34211 /* Pods-ApteligentMobileApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
