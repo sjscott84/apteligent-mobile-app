@@ -51,13 +51,19 @@ class Signin extends Component{
           <TextInput style={styles.input} onChangeText={(text) => this.setState({username: text})} value={this.state.username}/>{/*By default TextInput has no default styling*/}
           <Text style={styles.label}>Password</Text>
           <TextInput secureTextEntry={true} style={styles.input} onChangeText={(text) => this.setState({password: text})} value={this.state.password}/>
-          <Text style={styles.forgotPassword}>Forgot Pasword?</Text>
+          <Text style={styles.forgotPassword} onPress={this._forgotPassword.bind(this)}>Forgot Pasword?</Text>
           <SignInButton text={'LOGIN'} onPress={this._onPress.bind(this)} />
           <Text style={styles.disclaimer}>Possibly disclaimer - tbd</Text>
         </View>
       </ScrollView>
     )
   };
+
+  _forgotPassword(){
+    this.props.navigator.push({
+      name: 'forgotPassword'
+    })
+  }
 
   _onPress(){
     const nav = this.props.navigator;
