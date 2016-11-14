@@ -8,7 +8,7 @@ import {
   ScrollView,
   TextInput,
   TouchableHighlight,
-  AsyncStorage
+  ActivityIndicator,
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -19,7 +19,9 @@ class AvailableApps extends Component {
     super();
     this.state = {
       apps: [],
-      text: 'Select or Type App Name'
+      text: 'Select or Type App Name',
+      animating: true,
+      isLoading: true
     }
   };
 
@@ -31,13 +33,16 @@ class AvailableApps extends Component {
           this.props.navigator.push({name: 'errorScreen'});
         }else{
           this.setState({
-            apps: data
+            apps: data,
+            isLoading: false
           });
         }
       });
   };
 
   render(){
+    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
+      (<ScrollView>{this._getAppsInfo()}</ScrollView>)
     return(
       <View style={styles.container}>
         <View style={[styles.topLinks, {justifyContent: 'flex-start'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(12,143,147)'}]}>
@@ -45,7 +50,7 @@ class AvailableApps extends Component {
           <Icon style={{alignSelf: 'center'}} name="search" size={20} color='rgb(98,129,133)' backgroundColor='white' />
           <TextInput style={styles.appInput} onFocus={() => this.setState({text: ''})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
         </View>
-        <ScrollView>{this._getAppsInfo()}</ScrollView>
+        {spinner}
         <View style={styles.footer}>
           <Icon style={{marginLeft: 15}} name="sign-out" size={15} color='rgb(122,143,147)' backgroundColor='white' onPress={this._onPressLogout.bind(this)} />
           <Text style={styles.light13Text} onPress={this._onPressLogout.bind(this)}>Log Out</Text>
