@@ -108,7 +108,7 @@ class AppDetails extends Component {
           </View>
           <View style={styles.app}>
             <View style={{flexDirection: 'row'}}>
-              <Summary style={[{borderRightWidth: 1}, {borderRightColor: 'rgb(244,246,247)'}]} what='Crash rate' timeFrame='Current 24h' figure={this._returnNumber(this.state.crashPercent)} />
+              <Summary style={[{borderRightWidth: 1}, {borderRightColor: 'rgb(244,246,247)'}]} what='Crash rate' timeFrame='Current 24h' figure={this._returnNumber(this.state.crashPercent, 'percent')} />
               <Summary what='Crash count' timeFrame='Current 24h' figure={this._returnNumber(this.state.crashCountTotal)} />
             </View>
           </View>
@@ -142,10 +142,10 @@ class AppDetails extends Component {
     )
   };
 
-  _returnNumber(figure){
-    if(!figure){
+  _returnNumber(figure, what){
+    if(isNaN(figure)){
       return 'Unavailable';
-    }else if(figure === this.state.crashPercent){
+    }else if(what === 'percent'){
       return numeral(figure).format('0.00a')+'%';
     }else{
       return numeral(figure).format('0.0a');
