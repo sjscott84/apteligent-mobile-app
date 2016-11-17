@@ -36,8 +36,8 @@ class InteractivePieChart extends Component {
     return(
       <View style={styles.container}>
         <AppHeader navigator={this.props.navigator} name={this.props.name}/>
-        <View style={styles.app}>
-          <ScrollView>
+        <ScrollView>
+          <View style={styles.app}>
             <View style={[{marginTop: 6}, {alignItems: 'center'}]}>
               <PieChart data={this.props.data} height={width-24} width={width-24} cx={(width-24)/2} cy={(width-24)/2} r={110} interactive={true} onPress={this._onPress} />
             </View>
@@ -52,9 +52,9 @@ class InteractivePieChart extends Component {
               <Text style={styles.light15Text}>{this.state.value} crashes</Text>
             </View>
               <CrashList data={this.props.data} />
+            </View>
           </ScrollView>
           <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
-        </View>
       </View>
     )
   };
