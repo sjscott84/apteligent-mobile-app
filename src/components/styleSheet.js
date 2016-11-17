@@ -11,7 +11,7 @@ module.exports = StyleSheet.create({
     alignItems: 'center'
   },
   header: {
-    paddingTop: 150,
+    paddingTop: 100,
     paddingBottom: 60,
     fontSize: 24,
     lineHeight: 33,
@@ -62,7 +62,8 @@ module.exports = StyleSheet.create({
     lineHeight: 18,
     marginRight: 10,
     alignSelf: 'flex-end',
-    color: 'rgb(54, 143, 175)'
+    color: 'rgb(54, 143, 175)',
+    marginBottom: 20
   },
   disclaimer: {
     marginLeft: 10,
@@ -146,7 +147,7 @@ module.exports = StyleSheet.create({
   dark15Text: {
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontSize: 15,
-    lineHeight: 24,
+    lineHeight: 20,
     marginLeft: 10,
     color: 'rgb(52,73,76)'
   },

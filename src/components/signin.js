@@ -51,7 +51,6 @@ class Signin extends Component{
           <TextInput style={styles.input} onChangeText={(text) => this.setState({username: text})} value={this.state.username}/>{/*By default TextInput has no default styling*/}
           <Text style={styles.label}>Password</Text>
           <TextInput secureTextEntry={true} style={styles.input} onChangeText={(text) => this.setState({password: text})} value={this.state.password}/>
-          <Text style={styles.forgotPassword} onPress={this._forgotPassword.bind(this)}>Forgot Pasword?</Text>
           <SignInButton text={'LOGIN'} onPress={this._onPress.bind(this)} />
           <Text style={styles.disclaimer}>Possibly disclaimer - tbd</Text>
         </View>
@@ -76,7 +75,10 @@ class Signin extends Component{
     const grantType = 'password';
 
     if(!this.state.username  || !this.state.password){
-      Alert.alert('Error', 'Please enter a valid username and password');
+      Alert.alert('Error', 'Please enter a valid username and password', 
+        [{text: 'OK', onPress: () => console.log('ok')},
+        {text: 'Forgot Password', onPress: () => this.props.navigator.push({name: 'forgotPassword'})}]
+        );
     }else{
       //Call the API to get the access token and render AppList component
        getAccessToken(password, username, clientId, grantType, (data) => {
