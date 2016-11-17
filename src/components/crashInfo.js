@@ -106,7 +106,7 @@ class CrashInfo extends Component {
           </TouchableOpacity>
         </View>
       </View>
-      <ListView dataSource={this.state.dataSource} renderRow={(data) => <Crashes navigator={this.props.navigator} 
+      <ListView enableEmptySections={true} dataSource={this.state.dataSource} renderRow={(data) => <Crashes navigator={this.props.navigator} 
         name={this.props.name}
         id={this.props.id}
         hash={data['hash']}
@@ -180,10 +180,14 @@ class CrashInfo extends Component {
         });
       break;
     }
-    combineCrashData(this.props.id, this.state.time, this.state.version, sort, (data) => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(data)
-      })
+    combineCrashData(this.props.id, this.state.time, this.state.version, sort, (error, data) => {
+      if(error){
+        this.props.navigator.push({name: 'errorScreen'});
+      }else{
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(data)
+        })
+      }
     });
   }
 
