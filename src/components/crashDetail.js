@@ -17,6 +17,7 @@ import Svg,{
 
 import styles from './styleSheet';
 import moment from 'moment';
+import numeral from 'numeral';
 import getData from './getData';
 import BarChart from './barChart';
 import PieChart from './pieChart'
@@ -67,6 +68,11 @@ class CrashDetail extends Component {
   }
 
   render(){
+    var occurrences = (this.props.dailyOccurances.length > 2) ? (<BarChart data={this.props.dailyOccurances} start={this.props.firstOccured} end={this.props.lastOccured} />) :
+    (<View style={[{flexDirection: 'row'}, {alignItems: 'center'}, {marginTop: 8}, {marginBottom: 8}]}>
+      <Summary timeFrame={moment.utc(this.props.firstOccured).format('DD MMM YYYY')} figure={numeral(this.props.dailyOccurances[0]).format('0.0a')} />
+      <Summary timeFrame={moment.utc(this.props.lastOccured).format('DD MMM YYYY')} figure={numeral(this.props.dailyOccurances[1]).format('0.0a')} />
+    </View>)
     var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
     (<View>
       <View style={[styles.app, {marginTop: 0}, {borderTopWidth: 1}, {borderTopColor: 'rgb(122,143,147)'}]}>
@@ -136,7 +142,7 @@ class CrashDetail extends Component {
             </View>
             <View style={[{borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}]}>
               <Text style={[styles.dark15Text, {marginTop: 10}]}>OCCURRENCES</Text>
-              <BarChart data={this.props.dailyOccurances} start={moment.utc().subtract(30, 'days')} end={moment.utc().format()} /> 
+              {occurrences}
             </View>
           </View>
           {spinner}
@@ -306,5 +312,16 @@ class TopCrashInfo extends Component {
     return <Text>{'Value'}</Text>
   }
 }
+
+class Summary extends Component {
+  render(){
+    return(
+      <View style={[styles.appDetailSummaryItem, {alignItems: 'center'}]}>
+        <Text style={styles.boldText}>{this.props.figure}</Text>
+        <Text style={styles.light13Text}>{this.props.timeFrame}</Text>
+      </View>
+    )
+  }
+};
 
 module.exports = CrashDetail;

@@ -42,29 +42,28 @@ class CrashInfo extends Component {
     let time;
     let version;
     AsyncStorage.getItem('crashTime')
-      .then((value) => {
-        time = value;
-        return AsyncStorage.getItem('crashVersion')
-        })
-        .then((value) => {
-          version = value;
-          if(value && version){
-            this.setState({time: time, version: version});
-          }
-        })
-        .then(() => {
-        //combineCrashData function is from getData.js
-        combineCrashData(this.props.id, this.state.time, this.state.version, 'usersAffected', (error, data) => {
-          if(error){
-            this.props.navigator.push({name: 'errorScreen'});
-          }else{
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(data),
-              isLoading: false
-            });
-          }
-        });
-      })
+    .then((value) => {
+      time = value;
+      return AsyncStorage.getItem('crashVersion')
+    })
+    .then((value) => {
+      version = value;
+      if(value && version){
+        this.setState({time: time, version: version});
+      }
+    })
+    .then(() => {
+      combineCrashData(this.props.id, this.state.time, this.state.version, 'usersAffected', (error, data) => {
+        if(error){
+          this.props.navigator.push({name: 'errorScreen'});
+        }else{
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(data),
+            isLoading: false
+          });
+        }
+      });
+    })
   };
 
   render(){
