@@ -25,15 +25,15 @@ class AppList extends Component {
     this.state ={
       dataSource: ds.cloneWithRows([]),
       animating: true,
-      isLoading: true
+      isLoading: true,
     }
   };
 
   //This makes a call to the api and returns all apps
   componentWillMount(){
     //getAvaliableApps() is from getData.js
-      getAvaliableApps((data) => {
-        if(data === "Error"){
+      getAvaliableApps((error, data) => {
+        if(error){
           this.props.navigator.push({name: 'errorScreen'});
         }else{
           this.setState({
@@ -81,8 +81,8 @@ class AppsInfo extends Component {
     }
   }
   componentWillMount(){
-    getCrashSummaries(this.props.id, (data) => {
-      if(data === "Error"){
+    getCrashSummaries(this.props.id, (error, data) => {
+      if(error){
         this.props.navigator.push({name: 'errorScreen'});
       }else{
         this.setState({

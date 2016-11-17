@@ -116,17 +116,17 @@ class BreadcrumbDetails extends Component {
           summary[3]['network']++;
           color = 'rgb(10,61,72)';
           text = <View>
-                  <Text style={styles.smallLink}>{crumbs[i]['payload']['url']}</Text>
-                  <Text style={styles.dark13Text}>{crumbs[i]['deviceOccurredTs']}</Text>
-                  <Text style={styles.dark13Text}>Method: {crumbs[i]['payload']['httpMethod']}</Text>
-                  <View style={[{flexDirection: 'row'}, {flex: 1}]}>
-                    <Text style={[styles.dark13Text, {flex: 0.5}]}>Latency: {crumbs[i]['payload']['latencyMs']}ms</Text>
-                    <Text style={[styles.dark13Text, {flex: 0.5}]}>HTTP Status: {crumbs[i]['payload']['httpStatusCode']}</Text>
-                  </View>
-                  <View style={[{flexDirection: 'row'}, {flex: 1}]}>
-                    <Text style={[styles.dark13Text, {flex: 0.5}]}>Bytes In: {crumbs[i]['payload']['bytesReceived']}</Text>
-                    <Text style={[styles.dark13Text, {flex: 0.5}]}>Bytes Out: {crumbs[i]['payload']['bytesSent']}</Text>
-                  </View>
+                    <Text style={styles.smallLink}>{crumbs[i]['payload']['url']}</Text>
+                    <Text style={styles.dark13Text}>{crumbs[i]['deviceOccurredTs']}</Text>
+                    <Text style={styles.dark13Text}>Method: {crumbs[i]['payload']['httpMethod']}</Text>
+                    <View style={[{flexDirection: 'row'}, {flex: 1}]}>
+                      <Text style={[styles.dark13Text, {flex: 0.5}]}>Latency: {crumbs[i]['payload']['latencyMs']}ms</Text>
+                      <Text style={[styles.dark13Text, {flex: 0.5}]}>HTTP Status: {crumbs[i]['payload']['httpStatusCode']}</Text>
+                    </View>
+                    <View style={[{flexDirection: 'row'}, {flex: 1}]}>
+                      <Text style={[styles.dark13Text, {flex: 0.5}]}>Bytes In: {crumbs[i]['payload']['bytesReceived']}</Text>
+                      <Text style={[styles.dark13Text, {flex: 0.5}]}>Bytes Out: {crumbs[i]['payload']['bytesSent']}</Text>
+                    </View>
                  </View>
           break;
         case 'networkChange':

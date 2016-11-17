@@ -23,8 +23,8 @@ class UserDetail extends Component {
   }
   //Get user information from the api
   componentWillMount(){
-    getUserDetails(this.props.id, this.props.hash, this.props.username, (data) =>{
-      if(data === "Error"){
+    getUserDetails(this.props.id, this.props.hash, this.props.username, (error, data) =>{
+      if(error){
         this.props.navigator.push({name: 'errorScreen'});
       }else{
         this.setState({

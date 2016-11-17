@@ -54,8 +54,8 @@ class CrashInfo extends Component {
         })
         .then(() => {
         //combineCrashData function is from getData.js
-        combineCrashData(this.props.id, this.state.time, this.state.version, 'usersAffected', (data) => {
-          if(data === "Error"){
+        combineCrashData(this.props.id, this.state.time, this.state.version, 'usersAffected', (error, data) => {
+          if(error){
             this.props.navigator.push({name: 'errorScreen'});
           }else{
             this.setState({

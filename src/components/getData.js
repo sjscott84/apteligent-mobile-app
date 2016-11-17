@@ -4,9 +4,9 @@ let crashInfo;
 
 //Get a list of all apps from the api
 getAvaliableApps = function(callback){
-  getAppsList((data) => {
-    if(data === "Error"){
-      callback(data);
+  getAppsList((error, data) => {
+    if(error){
+      callback(error);
     }else{
       console.log(data);
       const appData = [];
@@ -17,23 +17,22 @@ getAvaliableApps = function(callback){
         obj['type'] = data[id]['appType'];
         appData.push(obj);
       })
-      callback(appData);
+      callback(null, appData);
     }
   })
 }
 
 //Get crash rate and crash count for the last 24 hours from api
 getCrashSummaries = function(id, callback){
-  let crashSummary = {}
-  getCrashSummariesApi(id, (summary) => {
-    if(summary === "Error"){
-      callback(summary);
+  getCrashSummariesApi(id, (error, data) => {
+    let crashSummary = {}
+    if(error){
+      callback(error);
     }else{
-      crashSummary['crashPercent'] = summary['data']['crashPercentage'];
-      //obj['appLoads'] = summary.data.periodicData[0]['appLoads'];
-      crashSummary['crashCount'] = summary['data']['periodicData'][0]['crashes'];
-      crashSummary['appLoads'] = summary['data']['periodicData'][0]['appLoads'];
-      callback(crashSummary);
+      crashSummary['crashPercent'] = data['crashPercentage'];
+      crashSummary['crashCount'] = data['periodicData'][0]['crashes'];
+      crashSummary['appLoads'] = data['periodicData'][0]['appLoads'];
+      callback(null, crashSummary);
     }
   })
 }
@@ -41,35 +40,35 @@ getCrashSummaries = function(id, callback){
 //Get data for crash count bar chart from api
 crashCountGraph = function(id, time, callback){
   let crash = {};
-  getLiveStateData(id, time, (data) => {
-    if(data === "Error"){
-      callback(data);
+  getLiveStateData(id, time, (error, data) => {
+    if(error){
+      callback(error);
     }else{
-      crash['start'] = data['data']['periodicData'][0]['start'];
-      crash['end'] = data['data']['periodicData'][data['data']['periodicData'].length-1]['end']
+      crash['start'] = data['periodicData'][0]['start'];
+      crash['end'] = data['periodicData'][data['periodicData'].length-1]['end']
       crash['appLoadTotal'] = 0;
       crash['crashCountTotal'] = 0;
       crash['crashRateArray'] = [];
       crash['appLoadsArray'] = [];
-      for(var i = 0; i < data['data']['periodicData'].length; i++){
-        crash['crashRateArray'].push(data['data']['periodicData'][i]['crashes']);
-        crash['crashCountTotal'] = crash['crashCountTotal'] + data['data']['periodicData'][i]['crashes'];
-        crash['appLoadsArray'].push(data['data']['periodicData'][i]['appLoads']);
-        crash['appLoadTotal'] = crash['appLoadTotal'] + data['data']['periodicData'][i]['appLoads']
+      for(var i = 0; i < data['periodicData'].length; i++){
+        crash['crashRateArray'].push(data['periodicData'][i]['crashes']);
+        crash['crashCountTotal'] = crash['crashCountTotal'] + data['periodicData'][i]['crashes'];
+        crash['appLoadsArray'].push(data['periodicData'][i]['appLoads']);
+        crash['appLoadTotal'] = crash['appLoadTotal'] + data['periodicData'][i]['appLoads']
       }
       //callback(crashRateArray, appLoadsArray, start, end, appLoadTotal, crashCountTotal);
-      callback(crash);
+      callback(null, crash);
     }
   })
 }
 
 //Get a list of all versions of an app from api
 appVersions = function(id, callback){
-  getAppVersions((data) => {
-    console.log(data['data']);
-    Object.keys(data['data']).forEach(function(key){
+  getAppVersions((error, data) => {
+    //console.log(data['data']);
+    Object.keys(data).forEach(function(key){
       if(key === id){
-        callback(data['data'][key]['appVersions']);
+        callback(data[key]['appVersions']);
       }
     })
   })
@@ -78,10 +77,10 @@ appVersions = function(id, callback){
 //Currently this is not in use
 crashRateGraph = function(id, callback){
   const crashRate = {};
-  getCrashRateGraphInfo(id, (data) => {
-    crashRate['start'] = data['data']['start'];
-    crashRate['end'] = data['data']['end'];
-    crashRate['graph'] = data['data']['series'][0]['points'];
+  getCrashRateGraphInfo(id, (error, data) => {
+    crashRate['start'] = data['start'];
+    crashRate['end'] = data['end'];
+    crashRate['graph'] = data['series'][0]['points'];
     callback(crashRate);
   })
 }
@@ -89,11 +88,11 @@ crashRateGraph = function(id, callback){
 //Gets a list of all crash groups for a specific app
 combineCrashData = function(id, time, version, sort, callback){
   const crashSummaryData = [];
-  getCrashInfoGeneral(id, time, version, sort, (data) => {
-    if(data === "Error"){
-      callback(data);
+  getCrashInfoGeneral(id, time, version, sort, (error, data) => {
+    if(error){
+      callback(error);
     }else{
-      let crashArray = data['data']['errors'];
+      let crashArray = data['errors'];
       //console.log(crashArray);
       for(var i = 0; i < crashArray.length; i++){
         let obj = {};
@@ -108,39 +107,39 @@ combineCrashData = function(id, time, version, sort, callback){
         obj['dailyOccurances'] = crashArray[i]['daily_occurrences'][1];
         crashSummaryData.push(obj);
       }
-      callback(crashSummaryData);
+      callback(null, crashSummaryData);
     }
   })
 }
 //Fetches the MAU for the last 24 hours from the api
 getMAU = function(id, callback){
-  getMAUFromApi(id, (data) => {
-    if(data === "Error"){
-      callback(data);
+  getMAUFromApi(id, (error, data) => {
+    if(error){
+      callback(error);
     }else{
-    callback(data['data']['series']['todayValue']);
+    callback(null, data['series']['todayValue']);
   }
   })
 }
 
 //Fetches the MAU for the last 24 hours from the api
 getDAU = function(id, callback){
-  getDAUFromApi(id, (data) => {
-    if(data === "Error"){
-      callback(data);
+  getDAUFromApi(id, (error, data) => {
+    if(error){
+      callback(error);
     }else{
-      callback(data['data']['series']['todayValue']);
+      callback(null, data['series']['todayValue']);
     }
   })
 }
 
 //Returns all data avaliable for a particular crash hash
 getCrashInfo = function(id, hash, callback){
-  getCrashInfoDetail(id, hash, (data) => {
-    if(data === "Error"){
-      callback("Error");
+  getCrashInfoDetail(id, hash, (error, data) => {
+    if(error){
+      callback(error);
     }else{
-      crashInfo = data['data'];
+      crashInfo = data;
       callback();
     }
   })
@@ -192,8 +191,8 @@ getCrashByDevice = function(callback){
 //Gets the crash info (received by getCrashInfo) stacktrace
 getStacktrace = function(id, hash, callback){
   let crashByVersion = [];
-  getCrashInfoDetail(id, hash, (data) => {
-    const version = data['data']['stacktrace'];
+  getCrashInfoDetail(id, hash, (error, data) => {
+    const version = data['stacktrace'];
       for(var i = 0; i < version.length; i++){
       let obj = {};
       obj['lineNumber'] = version[i]['line_number'];
@@ -224,23 +223,23 @@ getBreadcrumbs = function(callback){
 
 //get available data for user
 getUserDetails = function(id, hash, user, callback){
-  getUserDetailsApi(id, hash, (data) => {
-    if(data === "Error"){
-      callback(data);
+  getUserDetailsApi(id, hash, (error, data) => {
+    if(error){
+      callback(error);
     }else{
       let obj = {};
-      for(var i = 0; i < data['data'].length; i++){
-        if(data['data'][i]['username'] === user){
-          obj['appVersion'] = data['data'][i]['app_version'];
-          obj['system'] = data['data'][i]['system'];
-          obj['locale'] = data['data'][i]['locale'];
-          obj['device'] = data['data'][i]['model'];
-          obj['carrier'] = data['data'][i]['carrier'];
-          obj['lastLogIn'] = data['data'][i]['last_login_time_iso'];
-          obj['lastCrash'] = data['data'][i]['crash_last_occurred_iso'];
+      for(var i = 0; i < data.length; i++){
+        if(data[i]['username'] === user){
+          obj['appVersion'] = data[i]['app_version'];
+          obj['system'] = data[i]['system'];
+          obj['locale'] = data[i]['locale'];
+          obj['device'] = data[i]['model'];
+          obj['carrier'] = data[i]['carrier'];
+          obj['lastLogIn'] = data[i]['last_login_time_iso'];
+          obj['lastCrash'] = data[i]['crash_last_occurred_iso'];
         }
       }
-      callback(obj);
+      callback(null, obj);
     }
   })
 }

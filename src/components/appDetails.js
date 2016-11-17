@@ -43,28 +43,28 @@ class AppDetails extends Component {
   //Retrieves all the data needed for this page from the api, using callbacks to ensure all data retrieved
   componentWillMount(){
     let mau, dau, crashPercent, crashCountTotal;;
-    getMAU(this.props.id, (data) => {
-      if(data === 'Error'){
+    getMAU(this.props.id, (error, data) => {
+      if(error){
         mau = false;
       }else{
         mau = data;
       }
-      getDAU(this.props.id, (data) => {
-        if(data === 'Error'){
+      getDAU(this.props.id, (error, data) => {
+        if(error){
           dau = false;
         }else{
           dau = data;
         }
-        getCrashSummaries(this.props.id, (data) => {
-          if(data === 'Error'){
+        getCrashSummaries(this.props.id, (error, data) => {
+          if(error){
             crashPercent = false;
             crashCountTotal = false;
           }else{
             crashPercent = data['crashPercent'];
             crashCountTotal = data['crashCount'];
           }
-          crashCountGraph(this.props.id, this.state.time, (data) => {
-            if(data === "Error"){
+          crashCountGraph(this.props.id, this.state.time, (error, data) => {
+            if(error){
               this.props.navigator.push({name: 'errorScreen'})
             }else{
               this.setState({
