@@ -26,8 +26,8 @@ class Load extends Component {
       .then((value) =>{
         if(value){
           provideAccessToken(value, () => {
-            getAppsList((data) => {
-              if(data === "Error"){
+            getAppsList((error, data) => {
+              if(error){
                 this.props.navigator.push({
                   name: 'errorScreen'
                 })

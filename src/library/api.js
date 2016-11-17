@@ -19,11 +19,16 @@ getAccessToken = function(password, username, clientId, grantType, callback){
 
   fetch(request)
     .then((res) => {
-      return res.json();
+      if(res.ok){
+        return res.json()
+      }
     })
     .then((json) => {
       ACCESS_ID = json.access_token;
-      callback(json.access_token);
+      callback(null, json.access_token);
+    })
+    .catch((err) => {
+      callback(err)
     })
 }
 
@@ -44,7 +49,9 @@ apiCall = function(url, callback){
   })
   fetch(request)
     .then((res) => {
+      if(res.ok){
         return res.json();
+      }
     })
     .then((json) => {
       //console.log(json.data);

@@ -23,8 +23,8 @@ class Signin extends Component{
   constructor(){
     super();
     this.state = {
-      username: 's.j.scott84@gmail.com',
-      password: 'A228kp3jT!'
+      username: '',
+      password: ''
     }
   };
 
@@ -76,16 +76,24 @@ class Signin extends Component{
 
     if(!this.state.username  || !this.state.password){
       Alert.alert('Error', 'Please enter a valid username and password', 
-        [{text: 'OK', onPress: () => console.log('ok')},
+        [{text: 'OK'},
         {text: 'Forgot Password', onPress: () => this.props.navigator.push({name: 'forgotPassword'})}]
         );
     }else{
       //Call the API to get the access token and render AppList component
-       getAccessToken(password, username, clientId, grantType, (data) => {
-        AsyncStorage.setItem('AccessToken', data);
-        nav.push({
-          name: 'appList'
-        });
+       getAccessToken(password, username, clientId, grantType, (error, data) => {
+        if(error){
+          console.log(error);
+          Alert.alert('Error', 'Incorrect email or password entered', 
+            [{text: 'OK'},
+            {text: 'Forgot Password', onPress: () => this.props.navigator.push({name: 'forgotPassword'})}]
+          );
+        }else{
+          AsyncStorage.setItem('AccessToken', data);
+          nav.push({
+            name: 'appList'
+          });
+        }
       });
     }
   };
