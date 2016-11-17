@@ -199,6 +199,8 @@ module.exports = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'rgb(255,255,255)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgb(122,143,147)',
     margin: 0,
     height: 60,
     paddingLeft: 15,

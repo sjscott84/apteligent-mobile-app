@@ -112,9 +112,9 @@ class AppDetails extends Component {
               <Summary what='Crash count' timeFrame='Current 24h' figure={this._returnNumber(this.state.crashCountTotal)} />
             </View>
           </View>
-          <Button style={{margins: 6}} text={'VIEW CRASH SUMMARY'} onPress={this._onPress.bind(this)} />
+          <Button style={[{margins: 6}, {marginTop: 9}, {marginBottom: 9}]} text={'VIEW CRASH SUMMARY'} onPress={this._onPress.bind(this)} />
           <View style={styles.app}>
-            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {alignItems: 'center'}, {borderBottomColor: 'rgb(122,143,147)'}, {borderBottomWidth: 1}, {paddingTop: 5}, {paddingBottom: 8}]}>
+            <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {alignItems: 'center'}, {borderBottomColor: 'rgb(122,143,147)'}, {borderBottomWidth: 1}, {paddingTop: 5}, {paddingBottom: 2}]}>
               <Text style={styles.bold15Text}>LIVE STATS</Text>
             </View>
             <CrashGraphs 
@@ -183,7 +183,7 @@ class CrashGraphs extends Component {
   render(){
     return(
       <View style={[{borderBottomColor: 'rgb(244,246,247)'}, {borderBottomWidth: 1}]}>
-        <View style={[{paddingTop: 5}, {paddingBottom: 8}]}>
+        <View style={[{paddingTop: 8}, {paddingBottom: 8}]}>
           <Text style={styles.dark15Text}>{this.props.graphName}</Text>
           <Text style={styles.light14Text}>Last 5min</Text>
           <Text style={styles.boldText}>{numeral(this.props.liveCount).format('0.0a')}</Text>
