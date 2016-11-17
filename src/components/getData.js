@@ -15,6 +15,7 @@ getAvaliableApps = function(callback){
         obj['id'] = id;
         obj['name'] = data[id]['appName'];
         obj['type'] = data[id]['appType'];
+        obj['icon'] = data[id]['iconURL'];
         appData.push(obj);
       })
       callback(null, appData);

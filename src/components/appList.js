@@ -36,6 +36,7 @@ class AppList extends Component {
         if(error){
           this.props.navigator.push({name: 'errorScreen'});
         }else{
+          console.log(data)
           this.setState({
             dataSource: this.state.dataSource.cloneWithRows(data),
             isLoading: false
@@ -46,7 +47,7 @@ class AppList extends Component {
 
   render (){
     var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
-     (<ListView dataSource={this.state.dataSource} renderRow={(data) => <AppsInfo navigator={this.props.navigator} id={data['id']} name={data['name']} type={data['type']} />} />);
+     (<ListView dataSource={this.state.dataSource} renderRow={(data) => <AppsInfo navigator={this.props.navigator} id={data['id']} name={data['name']} type={data['type']} image={data['icon']} />} />);
     return (
       <View style={styles.container}>
         <TouchableHighlight onPress={this._onPressJumpTo.bind(this)}>
@@ -106,15 +107,17 @@ class AppsInfo extends Component {
 
   render (){
     let maxLimit = 28;
+    let image = (this.props.image != "None") ? (<Image style={[styles.logo, {marginTop: 4}]} source={{uri: this.props.image}} />) :
+    (<Image style={[styles.logo, {marginTop: 4}]} source={require('../images/favicon.png')} />)
     return (
       <View style={[styles.app, {justifyContent: 'center'}]}>
         <View style={[{flexDirection: 'row'}, {marginTop: 10}]}>
-          <Image style={[styles.logo, {marginTop: 4}]} source={require('../images/logoTest.png')}/>
+          {image}
           <View>
             <Text numberOfLines={1} style={styles.largeLink} onPress={this._onPress.bind(this)}>
-            { (this.props.name.length > maxLimit) ? 
-          (((this.props.name).substring(0,maxLimit-3)) + '...') : 
-          this.props.name }</Text>
+              { (this.props.name.length > maxLimit) ? 
+              (((this.props.name).substring(0,maxLimit-3)) + '...') : 
+              this.props.name }</Text>
             <Text style={[styles.light14Text, {flexDirection: 'column'}]}>{this.props.type}</Text>
           </View>
         </View>
