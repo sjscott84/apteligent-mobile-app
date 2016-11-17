@@ -92,7 +92,7 @@ class CrashDetail extends Component {
         <CrashList data={this.state.version} />
       </View>
       <View style={styles.app}>
-        <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(122,143,147)'}]}>
+        <View style={[{flexDirection: 'row'}, {justifyContent: 'space-around'}, {borderBottomWidth: 1}, {borderBottomColor: 'rgb(122,143,147)'}, {paddingTop: 5}]}>
           <TouchableHighlight underlayColor={'gray'} onPress={this._onPressStacktrace.bind(this)}>
             <Text style={this.state.stacktraceText}>STACKTRACE</Text>
           </TouchableHighlight>

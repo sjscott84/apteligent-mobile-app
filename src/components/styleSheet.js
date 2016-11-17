@@ -90,9 +90,8 @@ module.exports = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-Medium',
     marginLeft: 10,
     fontSize: 15,
-    lineHeight: 24,
-    color: 'rgb(80,158,186)',
-    marginTop: 10
+    lineHeight: 20,
+    color: 'rgb(80,158,186)'
   },
   largeText: {
     fontFamily: 'AppleSDGothicNeo-Medium',
@@ -313,8 +312,8 @@ module.exports = StyleSheet.create({
     marginBottom: 0,
     borderWidth: 1,
     borderColor: 'rgb(229,234,236)',
-    //marginTop: 20,
-    //marginBottom: 20,
+    //marginTop: 5,
+    marginBottom: 8,
     alignSelf: 'stretch',
     backgroundColor: 'rgb(255,255,255)'
   },

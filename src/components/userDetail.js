@@ -46,7 +46,7 @@ class UserDetail extends Component {
         <AppHeader navigator={this.props.navigator} name={this.props.name}/>
         <ScrollView>
           <View style={styles.app}>
-            <Text style={styles.dark15Text}>APP USER</Text>
+            <Text style={[styles.dark15Text, {marginTop: 5}, {marginBottom: 5}]}>APP USER</Text>
             <View style={{flexDirection: 'row'}}>
               <Text style={[{flex: 1}, styles.dark15Text]}>Username</Text>
               <Text style={[{flex: 2}, styles.bold15Text]}>{this.props.username}</Text>

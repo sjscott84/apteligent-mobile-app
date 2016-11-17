@@ -53,7 +53,7 @@ class StacktraceSummary extends Component {
 class StackTraceItem extends Component{
   render(){
     return(
-      <View style={[{flexDirection: 'row'}, {justifyContent: 'flex-start'}, {flexWrap:'wrap'}, {backgroundColor: this.props.backgroundColor}]}>
+      <View style={[{flexDirection: 'row'}, {justifyContent: 'flex-start'}, {flexWrap:'wrap'}, {backgroundColor: this.props.backgroundColor}, {paddingTop: 2}]}>
         <Text style={[{flex: 1}, styles.dark15Text]}>{this.props.lineNumber}</Text>
         <Text style={[{flex: 6}, styles.dark15Text]}>{this.props.trace}</Text>
       </View>

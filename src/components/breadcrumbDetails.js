@@ -38,7 +38,7 @@ class BreadcrumbDetails extends Component {
         <AppHeader navigator={this.props.navigator} name={this.props.name}/>
         <ScrollView contentOffset={{ x: 0, y: this.state.currentView }}>
           <View style={styles.app} onLayout={this._getCrumbsHeight.bind(this)} >
-            <Text style={styles.dark15Text}>BREADCRUMBS</Text>
+            <Text style={[styles.dark15Text, {marginTop: 5}]}>BREADCRUMBS</Text>
             <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 10}]}>
               <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
               <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Changing date range does not filter breadcrumbs.</Text>
@@ -69,7 +69,7 @@ class BreadcrumbDetails extends Component {
             </View>
           </View>
           <View style={styles.app}>
-            <Text style={styles.dark15Text}>CRASH STACK</Text>
+            <Text style={[styles.dark15Text, {marginTop: 5}, {marginBottom: 5}]}>CRASH STACK</Text>
             <View style={[{marginLeft: 4}, {marginRight: 4}]}>
               {this._getSquares()}
             </View>
@@ -115,7 +115,7 @@ class BreadcrumbDetails extends Component {
         case 'network':
           summary[3]['network']++;
           color = 'rgb(10,61,72)';
-          text = <View height={130} width={Dimensions.get('window').width-60}>
+          text = <View>
                   <Text style={styles.smallLink}>{crumbs[i]['payload']['url']}</Text>
                   <Text style={styles.dark13Text}>{crumbs[i]['deviceOccurredTs']}</Text>
                   <Text style={styles.dark13Text}>Method: {crumbs[i]['payload']['httpMethod']}</Text>
@@ -234,8 +234,8 @@ class Details extends Component {
   render(){
     return(
       <View onLayout={this.props.onLayout} style={[{flexDirection: 'row'}, {borderLeftColor: this.props.color}, {borderLeftWidth: 4}, {marginRight: 6}, {backgroundColor: this.props.background}]}>
-          <Text style={styles.dark15Text}>{this.props.number}</Text>
-          {this.props.text}
+        <Text style={styles.dark15Text}>{this.props.number}</Text>
+        {this.props.text}
       </View>
     )
   };
