@@ -105,12 +105,16 @@ class AppsInfo extends Component {
   };
 
   render (){
+    let maxLimit = 28;
     return (
       <View style={[styles.app, {justifyContent: 'center'}]}>
         <View style={[{flexDirection: 'row'}, {marginTop: 10}]}>
           <Image style={[styles.logo, {marginTop: 4}]} source={require('../images/logoTest.png')}/>
           <View>
-            <Text style={styles.largeLink} onPress={this._onPress.bind(this)}>{this.props.name}</Text>
+            <Text numberOfLines={1} style={styles.largeLink} onPress={this._onPress.bind(this)}>
+            { (this.props.name.length > maxLimit) ? 
+          (((this.props.name).substring(0,maxLimit-3)) + '...') : 
+          this.props.name }</Text>
             <Text style={[styles.light14Text, {flexDirection: 'column'}]}>{this.props.type}</Text>
           </View>
         </View>
