@@ -31,7 +31,8 @@ class CrashSummary extends Component {
       selectedTime: '1',
       selectedVersion: 'all',
       animating: true,
-      isLoading: true
+      isLoading: true,
+      displayTime: true
     }
   };
 
@@ -48,19 +49,21 @@ class CrashSummary extends Component {
   };
 
   render(){
-    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
-    (<View>
+    var displayTime = (this.state.displayTime || !this.state.text) ? (
       <View style={[styles.app, {paddingBottom: 5}]}>
         <Text style={[styles.dark15Text, {marginTop: 5}]}>DATE SETTINGS</Text>
         <Text style={styles.dark15Text}>Please select a time range</Text>
         <Versions onPress={this._onPressSelect.bind(this, '1')} version={'Last Day'} fill={(this.state.selectedTime === '1') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
         <Versions onPress={this._onPressSelect.bind(this, '7')} version={'Last 7 Days'} fill={(this.state.selectedTime === '7') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
         <Versions onPress={this._onPressSelect.bind(this, '30')} version={'Last 30 Days'} fill={(this.state.selectedTime === '30') ? 'rgb(54,143,175)' : 'rgb(255,255,255)'} />
-      </View>
+      </View>) : (<View></View>)
+    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
+    (<View>
+      {displayTime}
       <View style={styles.app}>
         <Text style={[styles.dark15Text, {marginTop: 5}]}>VERSION SETTINGS</Text>
         <Text style={styles.dark15Text}>Please select version</Text>
-        <TextInput style={[styles.versionInput, styles.light15Text]} onFocus={() => this.setState({text: ''})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
+        <TextInput style={[styles.versionInput, styles.light15Text]} onFocus={() => this.setState({text: '', displayTime: false})} onChangeText={(text) => this.setState({text: text, searching: true})} value={this.state.text}/>{/*By default TextInput has no default styling*/}
         {this._getAppVersions()}
       </View>
     </View>)

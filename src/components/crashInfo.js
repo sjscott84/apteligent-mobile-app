@@ -57,10 +57,12 @@ class CrashInfo extends Component {
         if(error){
           this.props.navigator.push({name: 'errorScreen'});
         }else{
-          this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(data),
-            isLoading: false
-          });
+          setTimeout(() => {
+            this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(data),
+              isLoading: false
+            })
+          }, 500);
         }
       });
     })
