@@ -33,10 +33,12 @@ class AvailableApps extends Component {
         if(error){
           this.props.navigator.push({name: 'errorScreen'});
         }else{
-          this.setState({
-            apps: data,
-            isLoading: false
-          });
+          setTimeout(() => {
+            this.setState({
+              apps: data,
+              isLoading: false
+            })
+          }, 500);
         }
       });
   };
