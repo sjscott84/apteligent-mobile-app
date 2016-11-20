@@ -84,10 +84,10 @@ class AvailableApps extends Component {
     const app = this.state.apps;
     for(var i = 0; i < app.length; i ++){
       if(!this.state.searching || this.state.text === ''){
-        appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
+        appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} image={app[i]['icon']} />);
       }else{
         if (app[i]['name'].indexOf(this.state.text) > -1){
-          appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} />);
+          appView.push(<AvailableAppsInfo navigator={this.props.navigator} key={app[i]['id']} id={app[i]['id']} name={app[i]['name']} type={app[i]['type']} image={app[i]['icon']} />);
         }
       }
     }
@@ -111,7 +111,8 @@ class AvailableAppsInfo extends Component {
       passProps: {
         id: this.props.id,
         name: this.props.name,
-        type: this.props.type
+        type: this.props.type,
+        image: this.props.image
       }
     });
   };
