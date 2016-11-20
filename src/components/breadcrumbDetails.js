@@ -45,7 +45,7 @@ class BreadcrumbDetails extends Component {
             </View>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.dark15Text}>Username</Text>
-              <Text style={[styles.smallLink, {marginTop: 0}]}>{this.props.username}</Text>
+              <Text style={[styles.smallLink, {marginTop: 0}]} onPress={this._onPressUser.bind(this)}>{this.props.username}</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.dark15Text}>App Version</Text>
@@ -78,6 +78,18 @@ class BreadcrumbDetails extends Component {
         <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
     )
+  }
+
+  _onPressUser(){
+    this.props.navigator.push({
+      name: 'userDetail',
+      passProps: {
+        id: this.props.id,
+        name: this.props.name,
+        username: this.props.username,
+        hash: this.props.hash
+      }
+    })
   }
 
   //Create the breadcrumb squares

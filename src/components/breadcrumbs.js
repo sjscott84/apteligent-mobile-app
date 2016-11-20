@@ -96,7 +96,8 @@ class BreadcrumbItem extends Component {
         dateAndTime: this.props.dateAndTime,
         device: this.props.device,
         os: this.props.os,
-        breadcrumbs: this.props.breadcrumbs
+        breadcrumbs: this.props.breadcrumbs,
+        hash: this.props.hash
       }
     })
   };
