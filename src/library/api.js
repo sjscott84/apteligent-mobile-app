@@ -58,6 +58,7 @@ apiCall = function(url, callback){
       callback(null, json.data);
     })
     .catch((err) => {
+      console.log(err);
       callback(err);
     })
 }

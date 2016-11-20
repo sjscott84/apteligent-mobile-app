@@ -6,7 +6,8 @@ import {
   Text,
   View,
   ScrollView,
-  TouchableHighlight
+  TouchableHighlight,
+  ListView
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -17,31 +18,17 @@ import getData from './getData';
 class Breadcrumbs extends Component {
   constructor(){
     super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      breadcrumbs: []
+      dataSource: ds.cloneWithRows([])
     }
   }
   //Get breadcrumbs from the api
   componentWillMount(){
     getBreadcrumbs((data) => {
-      let breadcrumbArray = [];
-      let nav = this.props.navigator;
-      for(var i = 0; i < data.length; i++){
-        breadcrumbArray.push(<BreadcrumbItem 
-          name={this.props.name}
-          navigator={nav}
-          id={this.props.id}
-          hash={this.props.hash}
-          key={[i]} 
-          username={data[i]['username']} 
-          appVersion={data[i]['appVersion']} 
-          dateAndTime={moment.utc(data[i]['dateAndTime']).format('MM/DD/YYYY hh:mm:ss UTC')} 
-          noOfBreadcrumbs={data[i]['noOfBreadcrumbs']}
-          device={data[i]['device']}
-          os={data[i]['os']}
-          breadcrumbs={data[i]['breadcrumbs']} />)
-      }
-      this.setState({breadcrumbs: breadcrumbArray });
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(data)
+      })
     })
   }
 
@@ -52,7 +39,18 @@ class Breadcrumbs extends Component {
           <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
           <Text style={[styles.dark15Text, {flex: 1}, {flexWrap: 'wrap'}]}>Changing date range does not filter breadcrumbs.</Text>
         </View>
-        {this.state.breadcrumbs}
+        <ListView dataSource={this.state.dataSource} renderRow={(data) => <BreadcrumbItem 
+          name={this.props.name}
+          navigator={this.props.navigator}
+          id={this.props.id}
+          hash={this.props.hash}
+          username={data['username']} 
+          appVersion={data['appVersion']} 
+          dateAndTime={moment.utc(data['dateAndTime']).format('MM/DD/YYYY hh:mm:ss UTC')} 
+          noOfBreadcrumbs={data['noOfBreadcrumbs']}
+          device={data['device']}
+          os={data['os']}
+          breadcrumbs={data['breadcrumbs']} />} />
       </View>
     )
   }

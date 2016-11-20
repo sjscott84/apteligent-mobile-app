@@ -82,7 +82,8 @@ class CrashInfo extends Component {
         firstOccured={data['firstOccured']}
         lastOccured={data['lastOccured']}
         status={data['status']}
-        dailyOccurances={data['dailyOccurances']} />} />
+        dailyOccurances={data['dailyOccurances']}
+        version={this.state.version} />} />
     </View>)
     return(
       <View style={styles.container}>
@@ -267,7 +268,8 @@ class Crashes extends Component {
         firstOccured: this.props.firstOccured,
         lastOccured: this.props.lastOccured,
         status: this.props.status,
-        dailyOccurances: this.props.dailyOccurances
+        dailyOccurances: this.props.dailyOccurances,
+        version: this.props.version
       }});
   }
 }

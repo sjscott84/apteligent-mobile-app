@@ -6,6 +6,7 @@ import {
   Text,
   View,
   ScrollView,
+  ListView
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -14,31 +15,27 @@ import getData from './getData';
 class StacktraceSummary extends Component {
   constructor(){
     super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      stacktrace: [],
-      suspectLine: 0
+      dataSource: ds.cloneWithRows([])
     }
   }
 
   //Creates a list of stacktraces from the data passed through as props
   componentWillMount(){
     let stackTraceText = [];
-    let suspect;
     let backgroundColor;
     for(var i = 0; i < this.props.data.length; i++){
-      if(this.props.data[i]['suspect'] != '0'){
-        suspect = this.props.data[i]['suspect'];
-      }
       if(i % 2 === 0){
         backgroundColor = 'rgb(255,255,255)';
       }else{
         backgroundColor = 'rgb(244,246,247)';
       }
-      stackTraceText.push(<StackTraceItem key={[i]} color={this.props.data[i]['suspect']} backgroundColor={backgroundColor} lineNumber={this.props.data[i]['lineNumber']} trace={this.props.data[i]['trace']} />)
+      this.props.data[i]['backgroundColor'] = backgroundColor;
+      stackTraceText.push(this.props.data[i]);
     }
     this.setState({
-      stacktrace: stackTraceText,
-      suspectLine: suspect 
+      dataSource: this.state.dataSource.cloneWithRows(stackTraceText)
     });
   }
 
@@ -49,12 +46,10 @@ class StacktraceSummary extends Component {
         <Text style={styles.dark15Text}>{this.props.crashName}</Text>
         <Text style={styles.bold15Text}>Reason</Text>
         <Text style={styles.dark15Text}>{this.props.reason}</Text>
-        <Text style={styles.bold15Text}>Suspect Line</Text>
-        <Text style={styles.dark15Text}>{this.state.suspectLine}</Text>
         <Text style={styles.bold15Text}>App Version</Text>
         <Text style={styles.dark15Text}>Total</Text>
         <Text style={styles.bold15Text}>Crashed Thread</Text>
-        {this.state.stacktrace}
+        <ListView dataSource={this.state.dataSource} renderRow={(data) => <StackTraceItem backgroundColor={data['backgroundColor']} color={data['suspect']} lineNumber={data['lineNumber']} trace={data['trace']} />} />
       </View>
     )
   }

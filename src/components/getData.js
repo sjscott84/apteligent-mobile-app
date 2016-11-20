@@ -194,16 +194,20 @@ getCrashByDevice = function(callback){
 getStacktrace = function(id, hash, callback){
   let crashByVersion = [];
   getCrashInfoDetail(id, hash, (error, data) => {
-    //console.log(data);
-    const version = data['stacktrace'];
-      for(var i = 0; i < version.length; i++){
-      let obj = {};
-      obj['lineNumber'] = version[i]['line_number'];
-      obj['trace'] = version[i]['trace'];
-      obj['suspect'] = version[i]['suspect'];
-      crashByVersion.push(obj);
+    if(error){
+      callback(error);
+    }else{
+      console.log(data);
+      const version = data['stacktrace'];
+        for(var i = 0; i < version.length; i++){
+        let obj = {};
+        obj['lineNumber'] = version[i]['line_number'];
+        obj['trace'] = version[i]['trace'];
+        obj['suspect'] = version[i]['suspect'];
+        crashByVersion.push(obj);
+      }
+      callback(null, crashByVersion);
     }
-    callback(crashByVersion);
   })
 }
 

@@ -200,7 +200,7 @@ class Crumbs extends Component {
         <View style={[{flexDirection: 'row'}, {flexWrap: 'wrap'}]}>
           {this.props.squareArray}
         </View>
-        <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}]}>
+        <View style={[{flexDirection: 'row'}, {justifyContent: 'flex-start'}]}>
           <Summary color={'rgb(208,2,27)'} what={'Crashes'} number={this.props.crashes} />
           <Summary color={'rgb(205,220,57)'} what={'User Defined'} number={this.props.user} />
          </View> 

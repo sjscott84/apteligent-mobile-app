@@ -56,11 +56,15 @@ class CrashDetail extends Component {
       }else{
         getCrashByAppVersion((data) => {
           this._summariseData(data);
-          getStacktrace(this.props.id, this.props.hash, (data) => {
-            this.setState({
-              isLoading: false,
-              stacktrace: data
-            })
+          getStacktrace(this.props.id, this.props.hash, (error, data) => {
+            if(error){
+              this.props.navigator.push({name: 'errorScreen'});
+            }else{
+              this.setState({
+                isLoading: false,
+                stacktrace: data
+              })
+            }
           })
         })
       }
