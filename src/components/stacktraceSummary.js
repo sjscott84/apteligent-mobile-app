@@ -5,8 +5,7 @@ import {
   AppRegistry,
   Text,
   View,
-  ScrollView,
-  ListView
+  ScrollView
 } from 'react-native';
 
 import styles from './styleSheet';
@@ -15,9 +14,8 @@ import getData from './getData';
 class StacktraceSummary extends Component {
   constructor(){
     super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows([])
+      stacktrace: []
     }
   }
 
@@ -31,11 +29,10 @@ class StacktraceSummary extends Component {
       }else{
         backgroundColor = 'rgb(244,246,247)';
       }
-      this.props.data[i]['backgroundColor'] = backgroundColor;
-      stackTraceText.push(this.props.data[i]);
+      stackTraceText.push(<StackTraceItem key={[i]} color={this.props.data[i]['suspect']} backgroundColor={backgroundColor} lineNumber={this.props.data[i]['lineNumber']} trace={this.props.data[i]['trace']} />)
     }
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(stackTraceText)
+      stacktrace: stackTraceText
     });
   }
 
@@ -49,7 +46,7 @@ class StacktraceSummary extends Component {
         <Text style={styles.bold15Text}>App Version</Text>
         <Text style={styles.dark15Text}>Total</Text>
         <Text style={styles.bold15Text}>Crashed Thread</Text>
-        <ListView dataSource={this.state.dataSource} renderRow={(data) => <StackTraceItem backgroundColor={data['backgroundColor']} color={data['suspect']} lineNumber={data['lineNumber']} trace={data['trace']} />} />
+        {this.state.stacktrace}
       </View>
     )
   }

@@ -19,7 +19,7 @@ class AppHeader extends Component {
       <View style={styles.topLinks}>
         <Icon.Button name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         <Text style={styles.dark18Text}>{this.props.name}</Text>
-        <Icon.Button name="chevron-down" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressApps.bind(this)} />
+        <Icon style={{marginRight: 20}} name="search" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressApps.bind(this)} />
       </View>
     )
   };
