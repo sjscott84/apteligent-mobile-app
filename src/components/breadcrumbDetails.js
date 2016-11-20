@@ -7,6 +7,7 @@ import {
   View,
   ScrollView,
   Dimensions,
+  ActivityIndicator
 } from 'react-native';
 import Svg,{
     Rect
@@ -28,16 +29,23 @@ class BreadcrumbDetails extends Component {
       text: '',
       placement: [],
       currentView: 0,
-      crumbsHeight: 65
+      crumbsHeight: 65,
+      isLoading: true
     }
   }
 
+  componentDidMount(){
+    setTimeout(() => {
+      this.setState({
+        isLoading: false
+      })
+    }, 700);
+  }
+
   render(){
-    return(
-      <View style={styles.container}>
-        <AppHeader navigator={this.props.navigator} name={this.props.name}/>
-        <ScrollView contentOffset={{ x: 0, y: this.state.currentView }}>
-          <View style={styles.app} onLayout={this._getCrumbsHeight.bind(this)} >
+    var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
+    (<View>
+                <View style={styles.app} onLayout={this._getCrumbsHeight.bind(this)} >
             <Text style={[styles.dark15Text, {marginTop: 5}]}>BREADCRUMBS</Text>
             <View style={[{flexDirection: 'row'}, {borderColor: 'rgb(253,231,206)'}, {borderWidth: 1}, {margin: 10}]}>
               <Icon name="exclamation" size={18} color='rgb(245,133,56)' backgroundColor='white' style={[{marginLeft: 6}, {marginTop: 2}]} />
@@ -74,6 +82,12 @@ class BreadcrumbDetails extends Component {
               {this._getSquares()}
             </View>
           </View>
+      </View>)
+    return(
+      <View style={styles.container}>
+        <AppHeader navigator={this.props.navigator} name={this.props.name}/>
+        <ScrollView contentOffset={{ x: 0, y: this.state.currentView }}>
+          {spinner}
         </ScrollView>
         <AppFooter navigator={this.props.navigator} id={this.props.id} name={this.props.name} type={this.props.type} />
       </View>
