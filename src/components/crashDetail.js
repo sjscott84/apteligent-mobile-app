@@ -55,6 +55,7 @@ class CrashDetail extends Component {
         this.props.navigator.push({name: 'errorScreen'});
       }else{
         getCrashByAppVersion((data) => {
+          console.log(this.props.dailyOccurances)
           this._summariseData(data);
           getStacktrace(this.props.id, this.props.hash, (data) => {
             this.setState({

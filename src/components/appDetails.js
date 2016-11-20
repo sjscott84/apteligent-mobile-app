@@ -88,11 +88,13 @@ class AppDetails extends Component {
   };
 
   render(){
+    let image = (this.props.image != "None") ? (<Image style={styles.logo} source={{uri: this.props.image}} />) :
+    (<Image style={styles.logo} source={require('../images/favicon.png')} />)
     var spinner = this.state.isLoading ? (<ActivityIndicator animating={this.state.animating} style={[{height: 80}]} size='large'/>) :
      (  <View>
           <View style={styles.app}>
             <View style={[{flexDirection: 'row'}, {borderBottomColor: 'rgb(229,234,236)'}, {borderBottomWidth: 1}, {paddingBottom: 8}]}>
-              <Image style={styles.logo} source={require('../images/logoTest.png')}/>
+              {image}
               <View>
                 <Text style={styles.largeText}>{this.props.name}</Text>
                 <Text style={styles.light14Text}>{this.props.type}</Text>

@@ -53,7 +53,7 @@ class AppList extends Component {
         <TouchableHighlight onPress={this._onPressJumpTo.bind(this)}>
           <View style={styles.topLinks}>
             <Text style={styles.dark18Text}>Jump to...</Text>
-            <Icon style={{marginRight: 10}} name="chevron-down" size={20} color='rgb(23,153,173)' backgroundColor='white' />
+            <Icon style={{marginRight: 20}} name="search" size={20} color='rgb(98,129,133)' backgroundColor='white' />
           </View>
         </TouchableHighlight>
         {spinner}
@@ -101,7 +101,8 @@ class AppsInfo extends Component {
       passProps: {
         id: this.props.id,
         name: this.props.name,
-        type: this.props.type
+        type: this.props.type,
+        image: this.props.image
       }});
   };
 

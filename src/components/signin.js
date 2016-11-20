@@ -75,7 +75,7 @@ class Signin extends Component{
     const grantType = 'password';
 
     if(!this.state.username  || !this.state.password){
-      Alert.alert('Error', 'Please enter a valid username and password', 
+      Alert.alert('Incorrect Details', 'Please enter a valid email and password', 
         [{text: 'OK'},
         {text: 'Forgot Password', onPress: () => this.props.navigator.push({name: 'forgotPassword'})}]
         );
@@ -84,7 +84,7 @@ class Signin extends Component{
        getAccessToken(password, username, clientId, grantType, (error, data) => {
         if(error){
           console.log(error);
-          Alert.alert('Error', 'Incorrect email or password entered', 
+          Alert.alert('Incorrect Details', 'Incorrect email or password entered', 
             [{text: 'OK'},
             {text: 'Forgot Password', onPress: () => this.props.navigator.push({name: 'forgotPassword'})}]
           );

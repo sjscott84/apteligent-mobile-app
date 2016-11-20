@@ -93,6 +93,7 @@ combineCrashData = function(id, time, version, sort, callback){
     if(error){
       callback(error);
     }else{
+      console.log(data)
       let crashArray = data['errors'];
       //console.log(crashArray);
       for(var i = 0; i < crashArray.length; i++){
@@ -193,6 +194,7 @@ getCrashByDevice = function(callback){
 getStacktrace = function(id, hash, callback){
   let crashByVersion = [];
   getCrashInfoDetail(id, hash, (error, data) => {
+    console.log(data);
     const version = data['stacktrace'];
       for(var i = 0; i < version.length; i++){
       let obj = {};

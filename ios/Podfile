@@ -6,11 +6,11 @@ target 'ApteligentMobileApp' do
   # use_frameworks!
 
   # Pods for ApteligentMobileApp
+	pod 'CrittercismSDK'
 
-  target 'ApteligentMobileAppTests' do
+  target 'ApteligentMobileAppTests’ do
     inherit! :search_paths
     # Pods for testing
-    pod 'CrittercismSDK'
   end
 
 end
