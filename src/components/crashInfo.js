@@ -206,7 +206,9 @@ class CrashInfo extends Component {
       name: 'crashSettings',
       passProps: {
         name: this.props.name,
-        id: this.props.id
+        id: this.props.id,
+        time: this.state.time,
+        version: this.state.version
       }
     });
   }

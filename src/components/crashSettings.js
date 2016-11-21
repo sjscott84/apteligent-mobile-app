@@ -43,7 +43,9 @@ class CrashSummary extends Component {
       allVersions.unshift('all');
       this.setState({
         appVersions: allVersions,
-        isLoading: false
+        isLoading: false,
+        selectedTime: this.props.time,
+        selectedVersion: this.props.version
       })
     })
   };
