@@ -54,7 +54,8 @@ apiCall = function(url, callback){
       }
     })
     .then((json) => {
-      //console.log(json.data);
+      console.log(request);
+      console.log(json.data);
       callback(null, json.data);
     })
     .catch((err) => {
