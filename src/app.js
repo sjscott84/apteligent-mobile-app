@@ -1,5 +1,6 @@
 'use strict'
 console.disableYellowBox = true;
+global.___DEV___ = false;
 
 import React, { Component } from 'react';
 import {

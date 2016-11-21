@@ -17,7 +17,7 @@ class AppHeader extends Component {
   render (){
     return (
       <View style={styles.topLinks}>
-        <Icon.Button style={{height: 50}, {width: 60}} name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
+        <Icon.Button style={{height: 50}, {width: 100}, {paddingLeft: 20}} name="chevron-left" size={20} color='rgb(23,153,173)' backgroundColor='white' onPress={this._onPressBack.bind(this)} />
         <Text style={styles.dark18Text}>{this.props.name}</Text>
         <Icon style={{marginRight: 20}} name="search" size={20} color='rgb(98,129,133)' backgroundColor='white' onPress={this._onPressApps.bind(this)} />
       </View>

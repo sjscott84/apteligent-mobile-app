@@ -202,7 +202,7 @@ module.exports = StyleSheet.create({
     borderBottomColor: 'rgb(122,143,147)',
     margin: 0,
     height: 60,
-    paddingLeft: 15,
+    //paddingLeft: 15,
     paddingTop: 15
   },
   footer: {
