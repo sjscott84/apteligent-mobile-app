@@ -8,7 +8,8 @@ import {
   TextInput,
   Alert,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  findNodeHandle
 } from 'react-native';
 
 import getData from './getData';
@@ -44,13 +45,13 @@ class Signin extends Component{
 
   render(){
     return (
-      <ScrollView>
+      <ScrollView ref='scrollView'>
         <View style={styles.loginContainer}>
           <Text style={styles.header}>Login to Apteligent account</Text>
           <Text style={styles.label}>Email</Text>
-          <TextInput style={styles.input} onChangeText={(text) => this.setState({username: text})} value={this.state.username}/>{/*By default TextInput has no default styling*/}
+          <TextInput ref='username' onFocus={this._inputFocused.bind(this, 'username')} style={styles.input} onChangeText={(text) => this.setState({username: text})} value={this.state.username}/>{/*By default TextInput has no default styling*/}
           <Text style={styles.label}>Password</Text>
-          <TextInput secureTextEntry={true} style={styles.input} onChangeText={(text) => this.setState({password: text})} value={this.state.password}/>
+          <TextInput ref='password' onFocus={this._inputFocused.bind(this, 'password')}secureTextEntry={true} style={styles.input} onChangeText={(text) => this.setState({password: text})} value={this.state.password}/>
           <SignInButton text={'LOGIN'} onPress={this._onPress.bind(this)} />
           <Text style={styles.disclaimer}>Possibly disclaimer - tbd</Text>
         </View>
@@ -62,6 +63,17 @@ class Signin extends Component{
     this.props.navigator.push({
       name: 'forgotPassword'
     })
+  }
+
+  _inputFocused(refName) {
+    setTimeout(() => {
+      let scrollResponder = this.refs.scrollView.getScrollResponder();
+      scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
+        findNodeHandle(this.refs[refName]),
+        110, //additionalOffset
+        true
+      );
+    }, 100);
   }
 
   _onPress(){
