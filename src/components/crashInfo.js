@@ -81,28 +81,24 @@ class CrashInfo extends Component {
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={this._sortData.bind(this, 'usersAffected')}>
             <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 50)/2}, this.state.userPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
-              <Icon name={'user'} size={19} color={this.state.userPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
-              <Text style={[styles.light13Text, this.state.userPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Users Affected</Text>
+              <Text style={[styles.light13Text, {marginLeft: 0}, this.state.userPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Users Affected</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this._sortData.bind(this, 'timesOccurred')}>
             <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 50)/2}, this.state.occurancesPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
-              <Icon name={'bar-chart'} size={19} color={this.state.occurancesPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
-              <Text style={[styles.light13Text, this.state.occurancesPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Total Occurances</Text>
+              <Text style={[styles.light13Text, {marginLeft: 0}, this.state.occurancesPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Total Occurances</Text>
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{flexDirection:'row'}}>
+        <View style={[{flexDirection:'row'}, {marginBottom: 7}]}>
           <TouchableOpacity onPress={this._sortData.bind(this, 'firstOccurred')}>
             <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 50)/2}, this.state.firstSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
-              <Icon name={'calendar-o'} size={19} color={this.state.firstSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
-              <Text style={[styles.light13Text, this.state.firstSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>First Occurred</Text>
+              <Text style={[styles.light13Text, {marginLeft: 0}, this.state.firstSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>First Occurred</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this._sortData.bind(this, 'lastOccurred')}>
             <View style={[styles.iconButton, {width: (Dimensions.get('window').width - 50)/2}, this.state.lastSeenPressed ? {backgroundColor: 'rgb(122,143,147)'} : {backgroundColor: 'rgb(255,255,255)'}]}>
-              <Icon name={'clock-o'} size={19} color={this.state.lastSeenPressed ? 'rgb(255,255,255)' : 'rgb(122,143,147)'} />
-              <Text style={[styles.light13Text, this.state.lastSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Last Seen</Text>
+              <Text style={[styles.light13Text, {marginLeft: 0}, this.state.lastSeenPressed ? {color: 'rgb(255,255,255)'} : {color: 'rgb(122,143,147)'}]}>Last Seen</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -214,45 +210,35 @@ class CrashInfo extends Component {
   }
 };
 
-class Symbols extends Component {
-  render(){
-    return(
-      <View>
-        <View style={[styles.crashInfoSymbels, {marginBottom: 5}, {marginTop: 8}, {paddingRight: 10}]}>
-          <View style={styles.crashInfoSymbels}>
-            <Icon name="user" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
-            <Text style={styles.light13Text}>{this.props.users}</Text>
-          </View>
-          <View style={styles.crashInfoSymbels}>
-            <Icon name="bar-chart" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
-            <Text style={styles.light13Text}>{this.props.occurances}</Text>
-          </View>
-        </View>
-        <View style={[styles.crashInfoSymbels, {marginBottom: 10}]}>
-          <View style={styles.crashInfoSymbels}>
-            <Icon name="calendar-o" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
-            <Text style={styles.light13Text}>{this.props.firstOccured}</Text>
-          </View>
-          <View style={styles.crashInfoSymbels}>
-            <Icon name="clock-o" size={19} color='rgb(122,143,147)' backgroundColor='white' padding={7} />
-            <Text style={styles.light13Text}>{this.props.lastOccured}</Text>
-          </View>
-        </View>
-      </View>
-    )
-  }
-}
-
 class Crashes extends Component {
   render(){
     return(
-      <TouchableHighlight underlayColor={'gray'} onPress={this._onPress.bind(this)}> 
-        <View style={[styles.app, {borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}, {marginTop: 0}, {marginBottom: 0}, {paddingRight: 10}]}>
-          <Text style={[styles.smallLink, {marginTop: 10}]}>{this.props.crashName}</Text>
-          <Text style={styles.dark15Text}>{this.props.reason}</Text>
-          <Symbols users={this.props.users} occurances={this.props.occurances} firstOccured={moment.utc(this.props.firstOccured).fromNow()} lastOccured={moment.utc(this.props.lastOccured).format('DD MMM YY h:mm:ss')} />
-        </View>
-      </TouchableHighlight>
+      <View>
+      <Text style={[styles.crashNameText, {marginTop: 7}, {marginBottom: 7}]}>{this.props.crashName}</Text>
+        <TouchableHighlight underlayColor={'gray'} onPress={this._onPress.bind(this)}> 
+          <View style={[styles.app, {borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}, {marginTop: 0}, {marginBottom: 0}, {paddingRight: 10}]}>
+            <Text style={[styles.dark15Text, {marginTop: 7}, {marginBottom: 7}]}>{this.props.reason}</Text>
+            <View style={[{borderTopWidth: 1}, {borderTopColor: 'rgb(229,234,236)'}, {marginRight: -10}]}>
+              <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {marginTop: 7}, {marginRight: 10}]}>
+                <Text style={styles.light15Text}>Users Affected</Text>
+                <Text style={styles.dark15Text}>{this.props.users}</Text>
+              </View>
+              <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {marginRight: 10}]}>
+                <Text style={styles.light15Text}># Occurances</Text>
+                <Text style={styles.dark15Text}>{this.props.occurances}</Text>
+              </View>
+              <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {marginRight: 10}]}>
+                <Text style={styles.light15Text}>First Occured</Text>
+                <Text style={styles.dark15Text}>{moment.utc(this.props.firstOccured).fromNow()}</Text>
+              </View>
+              <View style={[{flexDirection: 'row'}, {justifyContent: 'space-between'}, {marginRight: 10}]}>
+                <Text style={styles.light15Text}>Last Occured</Text>
+                <Text style={styles.dark15Text}>{moment.utc(this.props.lastOccured).format('DD MMM YY h:mm:ss')}</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableHighlight>
+      </View>
     )
   }
 

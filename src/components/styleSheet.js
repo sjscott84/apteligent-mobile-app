@@ -193,6 +193,13 @@ module.exports = StyleSheet.create({
     marginLeft: 10,
     color: 'rgb(122,143,147)'
   },
+  crashNameText: {
+    fontFamily: 'AppleSDGothicNeo-Bold',
+    fontSize: 17,
+    lineHeight: 30,
+    color: 'rgb(54,143,175)',
+    marginLeft: 16
+  },
   topLinks:{
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -281,8 +288,11 @@ module.exports = StyleSheet.create({
   },
   iconButton: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    margin: 10,
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 5,
+    marginBottom: 5,
     padding: 6,
     borderColor: 'rgb(122,143,147)',
     borderWidth: 1,
