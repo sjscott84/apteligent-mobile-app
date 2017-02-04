@@ -11,7 +11,7 @@ module.exports = StyleSheet.create({
     alignItems: 'center'
   },
   header: {
-    paddingTop: 100,
+    paddingTop: 50,
     paddingBottom: 60,
     fontSize: 24,
     lineHeight: 33,

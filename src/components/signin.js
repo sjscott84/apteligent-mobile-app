@@ -25,7 +25,8 @@ class Signin extends Component{
     super();
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      clientId: ''
     }
   };
 
@@ -52,8 +53,9 @@ class Signin extends Component{
           <TextInput ref='username' onFocus={this._inputFocused.bind(this, 'username')} style={styles.input} onChangeText={(text) => this.setState({username: text})} value={this.state.username}/>{/*By default TextInput has no default styling*/}
           <Text style={styles.label}>Password</Text>
           <TextInput ref='password' onFocus={this._inputFocused.bind(this, 'password')}secureTextEntry={true} style={styles.input} onChangeText={(text) => this.setState({password: text})} value={this.state.password}/>
+          <Text style={styles.label}>Client ID</Text>
+          <TextInput ref='clientId' onFocus={this._inputFocused.bind(this, 'clientId')}secureTextEntry={true} style={styles.input} onChangeText={(text) => this.setState({clientId: text})} value={this.state.clientId}/>
           <SignInButton text={'LOGIN'} onPress={this._onPress.bind(this)} />
-          <Text style={styles.disclaimer}>Possibly disclaimer - tbd</Text>
         </View>
       </ScrollView>
     )
@@ -82,7 +84,7 @@ class Signin extends Component{
     const password =  this.state.password;
     //Client ID must be Base64 encoded, cURL does this automatically but http requests need to be done manually
     //Client ID is found at apteligent app user settings
-    const clientId = base64.encode('HpS0dzMRx9oKPwBlE7TJXzvbfHuODsrO');
+    const clientId = base64.encode(this.state.clientId);
     //Apteligent APi currently only accepts grant_type 'password'
     const grantType = 'password';
 
